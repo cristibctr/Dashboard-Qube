@@ -1,0 +1,115 @@
+<form clrForm clrLayout="vertical" [formGroup]="registerDataForm" class="form-component" autocomplete="off" (submit)="submitOnEnter()">
+  <div class="clr-col-sm-11 clr-col-lg-5">
+    <div class="clr-row">
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="firstName">
+            First name*
+          </label>
+          <input clrInput type="text" required id="firstName"
+                formControlName="firstName"/>
+          <clr-control-error *clrIfError="'required'">
+            First name field is mandatory
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="email">
+            Email*
+          </label>
+          <input clrInput type="text" required id="email"
+                formControlName="email"/>
+          <clr-control-error *clrIfError="'required'">
+            Email field is mandatory
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+      
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="lastName">
+            Last name*
+          </label>
+          <input clrInput type="text" required id="lastName"
+                formControlName="lastName"/>
+          <clr-control-error *clrIfError="'required'">
+            Last name field is mandatory
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="password">
+            Password*
+          </label>
+          <input clrInput type="text" required id="password"
+                formControlName="password"/>
+          <clr-control-error *clrIfError="'required'">
+            Password field is mandatory
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-date-container>
+          <label for="dateOfBirth">
+            Date of birth*
+          </label>
+          <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
+          formControlName="dateOfBirth">
+          <clr-control-error>Invalid date pattern</clr-control-error>
+        </clr-date-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="passConfirm">
+            Confirm password*
+          </label>
+          <input clrInput type="text" required id="passConfirm"
+                formControlName="passConfirm"/>
+          <clr-control-error *clrIfError="'required'">
+            Password confirmation field is mandatory
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="phoneNumber">
+            Phone number
+          </label>
+          <input clrInput type="text" id="phoneNumber"
+                formControlName="phoneNumber"/>
+        </clr-input-container>
+      </div>
+
+      
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="city">
+            City
+          </label>
+          <input clrInput type="text" id="city"
+          formControlName="city"/>
+        </clr-input-container>
+      </div>
+      
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="country">
+            Country
+          </label>
+          <input clrInput type="text" id="country"
+          formControlName="country"/>
+        </clr-input-container>
+      </div>
+      
+    <button class="btn btn-primary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px">Register</button>
+
+    </div>
+  </div>
+</form>
