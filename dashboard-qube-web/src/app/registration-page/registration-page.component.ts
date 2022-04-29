@@ -38,7 +38,14 @@ export class RegistrationPageComponent implements OnInit {
       //copy into a new object so we can delete the password confirmation before sending it to the server
       var userForm = Object.assign({}, this.registerDataForm.value);
       delete userForm.passConfirm;
-      this.registration.registerUser({...userForm, dateOfBirth: Date.parse(userForm.dateOfBirth)});
+      this.registration.registerUser({...userForm, dateOfBirth: Date.parse(userForm.dateOfBirth)}).subscribe(
+        (response) => {
+          console.log(response.status);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
   MatchPassword(control : AbstractControl) {

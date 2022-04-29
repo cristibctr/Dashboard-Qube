@@ -11,13 +11,6 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   registerUser(registrationUser: User) {
-    this.http.post(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`, registrationUser).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    return this.http.post(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`, registrationUser, {observe: 'response'});
   }
 }
