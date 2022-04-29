@@ -1,5 +1,6 @@
 package com.ness.controllers;
 
+import com.ness.dtos.UserDTO;
 import com.ness.entities.User;
 import com.ness.services.UserServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,9 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @PostMapping("/new/user")
-    public void save(@RequestBody User user){
-        User newUser = this.userServiceImpl.save(user);
+    @PostMapping("/api/users")
+    public void save(@RequestBody UserDTO user){
+        this.userServiceImpl.save(user);
     }
 
 

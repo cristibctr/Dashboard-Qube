@@ -1,7 +1,9 @@
 package com.ness.services;
 
 
+import com.ness.dtos.UserDTO;
 import com.ness.entities.User;
+import com.ness.mappers.UserMapper;
 import com.ness.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User save(User user) {
-        return this.userRepository.save(user);
+    public void save(UserDTO userDTO) {
+        UserMapper userMapper = new UserMapper();
+        User user = new User();
+        this.userRepository.save(userMapper.mapUserDTOToUser(userDTO, user));
     }
 
     @Override

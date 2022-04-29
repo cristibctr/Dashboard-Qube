@@ -1,11 +1,12 @@
 package com.ness.services;
 
+import com.ness.dtos.UserDTO;
 import com.ness.entities.User;
 
 import java.util.Set;
 
 public interface UserService {
-    User save(User user);
+    void save(UserDTO user);
 
     Set<User> getUsers();
 
