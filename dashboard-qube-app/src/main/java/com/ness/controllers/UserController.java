@@ -16,6 +16,7 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/api/users")
     public void save(@RequestBody UserDTO user){
         this.userServiceImpl.save(user);
