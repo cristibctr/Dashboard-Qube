@@ -18,13 +18,8 @@ public class UserController {
 
     @PostMapping("/new/user")
     public void save(@RequestBody User user){
-        System.out.println("It enters");
         User newUser = this.userServiceImpl.save(user);
     }
 
-    @GetMapping("/")
-    public String show(){
-        return "It enterss";
-    }
 
 }
