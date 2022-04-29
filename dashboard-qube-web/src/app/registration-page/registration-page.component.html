@@ -11,6 +11,15 @@
           <clr-control-error *clrIfError="'required'">
             First name field is mandatory
           </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            First name must be at least 2 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            First name must be at most 20 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
+            First name must contain only letters and spaces
+          </clr-control-error>
         </clr-input-container>
       </div>
 
@@ -37,6 +46,15 @@
           <clr-control-error *clrIfError="'required'">
             Last name field is mandatory
           </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Last name must be at least 2 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Last name must be at most 20 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
+            Last name must contain only letters
+          </clr-control-error>
         </clr-input-container>
       </div>
 
@@ -45,7 +63,7 @@
           <label for="password">
             Password*
           </label>
-          <input clrInput type="text" required id="password"
+          <input clrInput type="password" required id="password"
                 formControlName="password"/>
           <clr-control-error *clrIfError="'required'">
             Password field is mandatory
@@ -69,7 +87,7 @@
           <label for="passConfirm">
             Confirm password*
           </label>
-          <input clrInput type="text" required id="passConfirm"
+          <input clrInput type="password" required id="passConfirm"
                 formControlName="passConfirm"/>
           <clr-control-error *clrIfError="'required'">
             Password confirmation field is mandatory
@@ -84,6 +102,9 @@
           </label>
           <input clrInput type="text" id="phoneNumber"
                 formControlName="phoneNumber"/>
+          <clr-control-error>
+            Phone number should start with +4 or 0040 and contain only digits
+          </clr-control-error>
         </clr-input-container>
       </div>
 
@@ -95,6 +116,9 @@
           </label>
           <input clrInput type="text" id="city"
           formControlName="city"/>
+          <clr-control-error>
+            City should contain only letters and spaces
+          </clr-control-error>
         </clr-input-container>
       </div>
       
@@ -105,6 +129,9 @@
           </label>
           <input clrInput type="text" id="country"
           formControlName="country"/>
+          <clr-control-error>
+            Country should contain only letters and spaces
+          </clr-control-error>
         </clr-input-container>
       </div>
       

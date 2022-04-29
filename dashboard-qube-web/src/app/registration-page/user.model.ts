@@ -3,7 +3,6 @@ export interface User {
     lastName: string;
     email: string;
     password: string;
-    passConfirm: string;
     dateOfBirth: Date;
     phoneNumber?: string;
     city?: string;

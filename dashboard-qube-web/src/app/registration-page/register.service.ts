@@ -18,6 +18,5 @@ export class RegisterService {
         console.log(error);
       }
     );
-  console.log(registrationUser);
   }
 }
