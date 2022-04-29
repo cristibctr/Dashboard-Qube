@@ -1,9 +1,8 @@
 package com.ness.controllers;
 
 import com.ness.dtos.UserDTO;
-import com.ness.entities.User;
 import com.ness.services.UserServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +16,7 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/api/users")
     public void save(@RequestBody UserDTO user){
         this.userServiceImpl.save(user);

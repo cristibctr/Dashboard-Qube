@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { User } from './user.model';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-registration-page',
@@ -9,7 +12,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class RegistrationPageComponent implements OnInit {
   registerDataForm!: FormGroup;
 
-  constructor() { }
+  constructor(private registration: RegisterService) { }
 
   ngOnInit(): void {
     document.body.classList.add('bg-img');
@@ -32,7 +35,8 @@ export class RegistrationPageComponent implements OnInit {
 
   submitOnEnter()
   {
-
+    if (this.registerDataForm.valid)
+      this.registration.registerUser({...this.registerDataForm.value, dateOfBirth: Date.parse(this.registerDataForm.value.dateOfBirth)});
   }
 
 }
