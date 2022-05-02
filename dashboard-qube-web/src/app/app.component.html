@@ -1,1 +1,4 @@
-<app-registration-page></app-registration-page>
+<router-outlet></router-outlet>
+<clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" class="successful-register" *ngIf="isRegistered">
+User Registration Successful. Please Login
+</clr-alert>

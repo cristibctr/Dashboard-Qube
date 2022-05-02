@@ -83,7 +83,7 @@
             Date of birth*
           </label>
           <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
-          formControlName="dateOfBirth">
+          formControlName="dateOfBirth" max={{dateNow}}>
           <clr-control-error>Invalid date pattern</clr-control-error>
         </clr-date-container>
       </div>
@@ -146,6 +146,9 @@
 
     <button class="btn btn-primary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px">Register</button>
 
+        <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
+          <em>User Registration</em> Failed. {{errorText}}
+        </clr-alert>
+      </div>
     </div>
-  </div>
 </form>
