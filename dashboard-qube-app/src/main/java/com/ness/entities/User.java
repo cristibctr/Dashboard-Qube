@@ -43,7 +43,7 @@ public class User {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
