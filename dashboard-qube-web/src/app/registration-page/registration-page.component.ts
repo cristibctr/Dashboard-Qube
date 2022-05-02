@@ -64,7 +64,6 @@ export class RegistrationPageComponent implements OnInit {
       delete userForm.passConfirm;
       this.registration.registerUser({...userForm, dateOfBirth: Date.parse(userForm.dateOfBirth)}).subscribe(
         (response) => {
-          console.log('It calls it?')
           if(response.status === 201){
             this.registration.isRegistered.emit(true);
             this.router.navigate(['/login']);

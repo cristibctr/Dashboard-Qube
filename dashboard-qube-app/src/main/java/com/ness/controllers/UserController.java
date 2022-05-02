@@ -2,6 +2,7 @@ package com.ness.controllers;
 
 import com.ness.dtos.UserDTO;
 import com.ness.entities.User;
+import com.ness.misc.UserValidator;
 import com.ness.services.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,19 @@ public class UserController {
     public ResponseEntity<String> save(@RequestBody UserDTO user){
         if(user.getEmail() == null || user.getDateOfBirth() == null ||
             user.getPassword() == null || user.getFirstName() == null ||
-            user.getLastName() == null || user.getPhoneNumber() == null)
+            user.getLastName() == null)
         {
             return ResponseEntity.status(400).body("Required field missing");
         }
+
+        if(!UserValidator.validate(user))
+            return ResponseEntity.status(400).body("Invalid request body");
+
         if (!this.userServiceImpl.findByEmail(user.getEmail()).isEmpty())
         {
-            System.out.println("User already exists");
             return ResponseEntity.status(409).body("User already exists");
         }
+
         try{
             this.userServiceImpl.save(user);
             return ResponseEntity.status(201).body("User created");
