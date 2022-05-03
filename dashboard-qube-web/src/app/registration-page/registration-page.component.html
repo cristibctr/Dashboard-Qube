@@ -18,7 +18,7 @@
             First name must not exceed 25 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'pattern'">
-            First name must contain only letters and spaces
+            First Name must contain only letters and one space is allowed between words
           </clr-control-error>
         </clr-input-container>
       </div>
@@ -35,6 +35,9 @@
           </clr-control-error>
           <clr-control-error *clrIfError="'email'">
             Please enter a valid email
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Email must not exceed 30 characters
           </clr-control-error>
         </clr-input-container>
       </div>
@@ -86,8 +89,9 @@
             Date of birth*
           </label>
           <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
-          formControlName="dateOfBirth" max={{dateNow}}>
-          <clr-control-error>Invalid date pattern</clr-control-error>
+          formControlName="dateOfBirth" max={{dateNowMinus18}}>
+          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'minAge'">You must be at least 18 years old to register</clr-control-error>
         </clr-date-container>
       </div>
 
