@@ -2,6 +2,7 @@ package com.ness.misc;
 
 import com.ness.dtos.UserDTO;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,8 +56,7 @@ public class UserValidator {
     }
 
     private static boolean validateDateOfBirth(Date dateOfBirth) {
-        Date today = new Date();
-        return dateOfBirth.before(today);
+        return dateOfBirth.before(Date.from(ZonedDateTime.now().minusYears(18).toInstant()));
     }
 
     static private boolean validateEmail(String email)
