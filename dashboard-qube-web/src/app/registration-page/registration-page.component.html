@@ -15,7 +15,7 @@
             First name must be at least 2 characters long
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
-            First name must be at most 20 characters long
+            First name must not exceed 25 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'pattern'">
             First name must contain only letters and spaces
@@ -53,7 +53,7 @@
             Last name must be at least 2 characters long
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
-            Last name must be at most 20 characters long
+            Last name must not exceed 25 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'pattern'">
             Last name must contain only letters
@@ -70,6 +70,9 @@
                 formControlName="password"/>
           <clr-control-error *clrIfError="'required'">
             Password field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Password length must not exceed 25 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'pattern'">
             The password needs to include at least one lowercase letter, one uppercase letter, one number and one special character
@@ -98,6 +101,9 @@
           <clr-control-error *clrIfError="'required'">
             Password confirmation field is mandatory
           </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Password length must not exceed 25 characters
+          </clr-control-error>
           <clr-control-error *clrIfError="'matchPassword'">
             Passwords don't match
           </clr-control-error>
@@ -125,8 +131,11 @@
           </label>
           <input clrInput type="text" id="city"
           formControlName="city"/>
-          <clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
             City should contain only letters and spaces
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            City name length must not exceed 25 characters
           </clr-control-error>
         </clr-input-container>
       </div>
@@ -138,8 +147,11 @@
           </label>
           <input clrInput type="text" id="country"
           formControlName="country"/>
-          <clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
             Country should contain only letters and spaces
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Country name length must not exceed 25 characters
           </clr-control-error>
         </clr-input-container>
       </div>
