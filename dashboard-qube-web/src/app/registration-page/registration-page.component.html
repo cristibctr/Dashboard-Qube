@@ -143,6 +143,9 @@
           <clr-control-error *clrIfError="'pattern'">
             City should contain only letters and spaces
           </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            City length must be atleast 2 characters
+          </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
             City name length must not exceed 25 characters
           </clr-control-error>
@@ -158,6 +161,9 @@
           formControlName="country"/>
           <clr-control-error *clrIfError="'pattern'">
             Country should contain only letters and spaces
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Country length must be atleast 2 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
             Country name length must not exceed 25 characters
