@@ -1,9 +1,11 @@
 package com.ness.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +34,8 @@ public class User {
     private String lastName;
 
     @Column(name = "date_of_birth", columnDefinition = "DATE")
+    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
     @Column(name = "phone_number")

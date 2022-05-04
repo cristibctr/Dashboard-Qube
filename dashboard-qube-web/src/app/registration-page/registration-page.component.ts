@@ -1,27 +1,31 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, LOCALE_ID, OnInit} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
 import { RegisterService } from './register.service';
+import localeEnGb from '@angular/common/locales/en-gb';
 
-
+registerLocaleData(localeEnGb);
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
-  styleUrls: ['./registration-page.component.scss']
+  styleUrls: ['./registration-page.component.scss'],
+  providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class RegistrationPageComponent implements OnInit {
   registerDataForm!: FormGroup;
   errorMessage: boolean = false;
   errorText: string = "";
   dateNowMinus18!: string;
+  dateNowMinus120!: string;
 
   constructor(private registration: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
     document.body.classList.add('bg-img');
 
-    this.getCurrentDateMinus18();
+    this.getAgeRange();
 
     this.registerDataForm = new FormGroup({
       'firstName': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([a-zA-Z]+\\s)*[a-zA-Z]+$')]),
@@ -30,13 +34,13 @@ export class RegistrationPageComponent implements OnInit {
       'password': new FormControl(null, [Validators.minLength(8), Validators.required, Validators.maxLength(25), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")]),
       'passConfirm': new FormControl(null, [Validators.minLength(8),Validators.required, Validators.maxLength(25), this.MatchPassword]),
       'phoneNumber': new FormControl(null, [Validators.minLength(12), Validators.maxLength(13), Validators.pattern("^(00|\\+)40\\d{9}$")]),
-      'dateOfBirth': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.minAgeValidator(new Date(Date.parse(this.dateNowMinus18))) ]),
+      'dateOfBirth': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.minAgeValidator(new Date(Date.parse(this.dateNowMinus18)), new Date(Date.parse(this.dateNowMinus120))) ]),
       'city': new FormControl(null, [Validators.minLength(2), Validators.maxLength(25), Validators.pattern('[a-zA-Z ]*')]),
       'country': new FormControl(null, [Validators.minLength(2), Validators.maxLength(25), Validators.pattern('[a-zA-Z ]*')]),
     });
   }
 
-  getCurrentDateMinus18(){
+  getAgeRange(){
     let today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1;
@@ -46,6 +50,7 @@ export class RegistrationPageComponent implements OnInit {
     if (mm < 10) newMm = '0' + mm;
 
     this.dateNowMinus18 = (yyyy - 18) + '-' + newMm  + '-' + newDd;
+    this.dateNowMinus120 = (yyyy - 120) + '-' + newMm  + '-' + newDd;
   }
 
   ngOnDestroy(): void {
@@ -61,7 +66,7 @@ export class RegistrationPageComponent implements OnInit {
     {
       var userForm = Object.assign({}, this.registerDataForm.value);
       delete userForm.passConfirm;
-      this.registration.registerUser({...userForm, dateOfBirth: Date.parse(userForm.dateOfBirth)}).subscribe(
+      this.registration.registerUser(userForm).subscribe(
         (response) => {
           if(response.status === 201){
             this.registration.isRegistered.emit(true);
@@ -101,13 +106,21 @@ export class RegistrationPageComponent implements OnInit {
     return null;
   }
 
-  minAgeValidator(maxDate: Date) : ValidatorFn {
+  minAgeValidator(maxDate: Date, minDate: Date) : ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
         const dateOfBirth = control.value;
-        const dob = new Date(Date.parse(dateOfBirth));
+        console.log(dateOfBirth);
+        var parts = dateOfBirth?.split(/\/|-/);
+        if(parts == undefined)
+          return null;
+        var dob = new Date(parseInt(parts[2], 10),
+                          parseInt(parts[1], 10) - 1,
+                          parseInt(parts[0], 10));
         if (dob > maxDate) {
             return { minAge: true };
         }
+        if(dob < minDate)
+          return { maxAge: true };
         return null;
     }
   }
