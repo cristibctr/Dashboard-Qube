@@ -48,11 +48,15 @@ public class UserValidator {
     }
 
     private static boolean validateLastName(String lastName) {
-        return lastName.length() >= 2 && lastName.length() <= 25;
+        Pattern pattern = Pattern.compile("[a-zA-Z]*", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(lastName);
+        return lastName.length() >= 2 && lastName.length() <= 25 && matcher.matches();
     }
 
     private static boolean validateFirstName(String firstName) {
-        return firstName.length() >= 2 && firstName.length() <= 25;
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(firstName);
+        return firstName.length() >= 2 && firstName.length() <= 25 && matcher.matches();
     }
 
     private static boolean validateDateOfBirth(Date dateOfBirth) {
