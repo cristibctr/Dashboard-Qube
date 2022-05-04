@@ -60,7 +60,7 @@ public class UserValidator {
     }
 
     private static boolean validateDateOfBirth(Date dateOfBirth) {
-        return dateOfBirth.before(Date.from(ZonedDateTime.now().minusYears(18).toInstant()));
+        return dateOfBirth.before(Date.from(ZonedDateTime.now().minusYears(18).toInstant())) && dateOfBirth.after(Date.from(ZonedDateTime.now().minusYears(120).toInstant()));
     }
 
     static private boolean validateEmail(String email)
