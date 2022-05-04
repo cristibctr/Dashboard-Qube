@@ -109,7 +109,6 @@ export class RegistrationPageComponent implements OnInit {
   minAgeValidator(maxDate: Date, minDate: Date) : ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
         const dateOfBirth = control.value;
-        console.log(dateOfBirth);
         var parts = dateOfBirth?.split(/\/|-/);
         if(parts == undefined)
           return null;

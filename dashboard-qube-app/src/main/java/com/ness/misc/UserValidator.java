@@ -30,13 +30,17 @@ public class UserValidator {
     private static boolean validateCountry(String country) {
         if(country == null)
             return true;
-        return country.length() >= 2 && country.length() <= 25;
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(country);
+        return country.length() >= 2 && country.length() <= 25 && matcher.matches();
     }
 
     private static boolean validateCity(String city) {
         if(city == null)
             return true;
-        return city.length() >= 2 && city.length() <= 25;
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(city);
+        return city.length() >= 2 && city.length() <= 25 && matcher.matches();
     }
 
     private static boolean validatePhoneNumber(String phoneNumber) {
