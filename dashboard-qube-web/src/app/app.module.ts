@@ -9,13 +9,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { AppConfigService } from './app-config.service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
