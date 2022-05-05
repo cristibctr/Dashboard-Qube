@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { AppConfigService } from './app-config.service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import '../../node_modules/@angular/common/locales/global/en-GB.js';
 
 
 @NgModule({
