@@ -11,8 +11,8 @@ import { LoginService } from './login.service';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   loginDataForm!: FormGroup;
-  loginErrorMessage: boolean = true;
-  usernameErrorMessage: boolean = true;
+  loginErrorMessage: boolean = false;
+  usernameErrorMessage: boolean = false;
 
   constructor(private registration: RegisterService, private loginService: LoginService, private router: Router) { }
 
@@ -45,9 +45,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        if(error.status === 409){
+        if(error.status === 401 && error.message === "User not found"){
           this.loginErrorMessage = true;
-        } else if(error.status === 400){
+        } else if(error.status === 401 && error.message === "Incorrect password"){
           this.usernameErrorMessage = true;
         }
     }

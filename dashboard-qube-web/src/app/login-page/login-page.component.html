@@ -3,7 +3,7 @@
     <h3 id="login-header">Please enter you username and password</h3>
     <div class="clr-col-sm-12 clr-col-lg-12">
       <clr-input-container>
-        <label class="clr-col-sm-3 clr-col-lg-4 required" for="username">
+        <label class="required" for="username">
           Username
         </label>
         <input clrInput type="text" placeholder="email address" class="clr-col-sm-3 clr-col-lg-4" id="username" formControlName="username"/>
@@ -21,10 +21,10 @@
 
     <div class="clr-col-sm-12 clr-col-lg-12">
       <clr-password-container>
-        <label class="clr-col-sm-3 clr-col-lg-4 required" for="password">
+        <label class="required" for="password">
           Password
         </label>
-        <input clrPassword placeholder="Password" name="password"/>
+        <input clrPassword placeholder="Password" name="password" id="password" formControlName="password"/>
         <clr-control-error *clrIfError="'required'">
           Password field is mandatory
         </clr-control-error>

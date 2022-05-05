@@ -2,6 +2,7 @@ package com.ness.services;
 
 
 import com.ness.dtos.UserDTO;
+import com.ness.dtos.UserLoginDTO;
 import com.ness.entities.User;
 import com.ness.mappers.UserMapper;
 import com.ness.repositories.UserRepository;
@@ -49,7 +50,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByEmail(String email) {
+    public User findUserLogin(UserLoginDTO userLoginDTO){
+        return userRepository.findByEmail(userLoginDTO.getEmail());
+    }
+
+    @Override
+    public List<User> findAllByEmail(String email) {
         return userRepository.findAllByEmail(email);
     }
 }
