@@ -1,0 +1,181 @@
+<form clrForm clrLayout="vertical" [formGroup]="registerDataForm" class="form-component" autocomplete="off" (submit)="submitOnEnter()">
+  <div class="clr-col-sm-11 clr-col-lg-5">
+    <div class="clr-row">
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="firstName">
+            First name*
+          </label>
+          <input clrInput type="text" required id="firstName"
+                formControlName="firstName"/>
+          <clr-control-error *clrIfError="'required'">
+            First name field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            First name must be at least 2 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            First name must not exceed 25 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
+            First Name must contain only letters and one space is allowed between words
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="lastName">
+            Last name*
+          </label>
+          <input clrInput type="text" required id="lastName"
+                formControlName="lastName"/>
+          <clr-control-error *clrIfError="'required'">
+            Last name field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Last name must be at least 2 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Last name must not exceed 25 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
+            Last name must contain only letters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+      
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="password">
+            Password*
+          </label>
+          <input clrInput type="password" required id="password"
+                formControlName="password"/>
+          <clr-control-error *clrIfError="'required'">
+            Password field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Password length must not exceed 25 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Password length must be atleast 8 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">
+            The password needs to include at least one lowercase letter, one uppercase letter, one number and one special character
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="passConfirm">
+            Confirm password*
+          </label>
+          <input clrInput type="password" required id="passConfirm"
+                formControlName="passConfirm"/>
+          <clr-control-error *clrIfError="'required'">
+            Password confirmation field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Password length must not exceed 25 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'matchPassword'">
+            Passwords don't match
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="email">
+            Email*
+          </label>
+          <input clrInput type="text" required id="email"
+                formControlName="email"/>
+          <clr-control-error *clrIfError="'required'">
+            Email field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'email'">
+            Please enter a valid email
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Email must not exceed 30 characters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-date-container>
+          <label for="dateOfBirth">
+            Date of birth*
+          </label>
+          <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
+          formControlName="dateOfBirth" max={{dateNowMinus18}}, min="{{dateNowMinus120}}">
+          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+          <clr-control-error *clrIfError="'minAge'">You must be at least 18 years old to register</clr-control-error>
+          <clr-control-error *clrIfError="'maxAge'">Your age looks a bit suspicious</clr-control-error>
+        </clr-date-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="phoneNumber">
+            Phone number
+          </label>
+          <input clrInput type="text" id="phoneNumber"
+                formControlName="phoneNumber"/>
+          <clr-control-error>
+            Phone number should start with +4 or 0040 and contain only digits
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="city">
+            City
+          </label>
+          <input clrInput type="text" id="city"
+          formControlName="city"/>
+          <clr-control-error *clrIfError="'pattern'">
+            City should contain only letters and spaces
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            City length must be atleast 2 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            City name length must not exceed 25 characters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="country">
+            Country
+          </label>
+          <input clrInput type="text" id="country"
+          formControlName="country"/>
+          <clr-control-error *clrIfError="'pattern'">
+            Country should contain only letters and spaces
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Country length must be atleast 2 characters
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Country name length must not exceed 25 characters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+    <button class="btn btn-primary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px">Register</button>
+
+        <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
+          <em>User Registration</em> Failed. {{errorText}}
+        </clr-alert>
+      </div>
+    </div>
+</form>
