@@ -2,8 +2,8 @@ FROM maven:amazoncorretto AS buildApp
 WORKDIR /usr/src/mymaven
 COPY pom.xml .
 COPY dashboard-qube-app/ dashboard-qube-app
-COPY dashboard-qube-api/ dashboard-qube-api
-COPY dashboard-qube-web/ dashboard-qube-web
+COPY dashboard-qube-api/pom.xml dashboard-qube-api/pom.xml
+COPY dashboard-qube-web/pom.xml dashboard-qube-web/pom.xml
 RUN mvn install -Pprod -pl '!dashboard-qube-api,!dashboard-qube-web' -DskipTests
 
 FROM amazoncorretto:11
