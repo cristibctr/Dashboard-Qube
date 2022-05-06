@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
 
     this.loginDataForm = new FormGroup({
-      'username': new FormControl(null, [Validators.email, Validators.maxLength(30), Validators.required]),
+      'username': new FormControl(null, [Validators.email, Validators.maxLength(30), Validators.required, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]),
       'password': new FormControl(null, [Validators.minLength(8), Validators.required, Validators.maxLength(25), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{1,}$")]),
 
     });
