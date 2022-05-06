@@ -1,4 +1,4 @@
 {
-    "apiEndpoint": "www.whatever.com",
-    "apiPort": "443"
+    "apiEndpoint": "localhost",
+    "apiPort": "8080"
 }

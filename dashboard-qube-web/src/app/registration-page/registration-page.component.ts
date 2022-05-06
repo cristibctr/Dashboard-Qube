@@ -1,11 +1,7 @@
 import { Component, LOCALE_ID, OnInit} from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
 import { RegisterService } from './register.service';
-import localeEnGb from '@angular/common/locales/en-gb';
-
-registerLocaleData(localeEnGb);
 
 @Component({
   selector: 'app-registration-page',
