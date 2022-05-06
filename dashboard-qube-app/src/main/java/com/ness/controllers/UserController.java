@@ -61,6 +61,8 @@ public class UserController {
         try {
             String decodedString = new String(Base64.getDecoder().decode(base64Credentials));
             String[] userCredentials = decodedString.split(":", 2);
+            if (userCredentials.length != 2)
+                return ResponseEntity.status(401).body("User not found");
             UserLoginDTO userLoginDTO = new UserLoginDTO(userCredentials[0], userCredentials[1]);
             User dbUser = userServiceImpl.findUserLogin(userLoginDTO);
             if (dbUser == null)
