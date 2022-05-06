@@ -1,6 +1,7 @@
 package com.ness.services;
 
 import com.ness.dtos.UserDTO;
+import com.ness.dtos.UserLoginDTO;
 import com.ness.entities.User;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface UserService {
 
     Set<User> getUsers();
 
+    User findUserLogin(UserLoginDTO userLoginDTO);
     User findById(Integer l);
-    List<User> findByEmail(String email);
+    List<User> findAllByEmail(String email);
 }

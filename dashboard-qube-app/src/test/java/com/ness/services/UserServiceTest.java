@@ -73,7 +73,7 @@ public class UserServiceTest {
 
     @Test
     public void getUsersEmailTest(){
-        userService.findByEmail("myemail@a.com");
+        userService.findAllByEmail("myemail@a.com");
         verify(userRepository, times(1)).findAllByEmail(anyString());
     }
 }

@@ -1,1 +1,53 @@
-<p>login-page works!</p>
+<div class="clr-col-sm-5 clr-col-lg-5 login-container">
+  <form clrForm class="clr-row" [clrLayout]="'horizontal'" [formGroup]="loginDataForm" autocomplete="off" (submit)="submitOnEnter()">
+    <h3 id="login-header">Please enter you username and password</h3>
+    <div class="clr-col-sm-12 clr-col-lg-12">
+      <clr-input-container>
+        <label class="required" for="username">
+          Username
+        </label>
+        <input clrInput type="text" placeholder="email address" class="clr-col-sm-3 clr-col-lg-4" id="username" formControlName="username"/>
+        <clr-control-error *clrIfError="'required'">
+          Email field is mandatory
+        </clr-control-error>
+        <clr-control-error *clrIfError="'email'">
+          Please enter a valid email
+        </clr-control-error>
+        <clr-control-error *clrIfError="'maxlength'">
+          Email must not exceed 30 characters
+        </clr-control-error>
+      </clr-input-container>
+    </div>
+
+    <div class="clr-col-sm-12 clr-col-lg-12">
+      <clr-password-container>
+        <label class="required" for="password">
+          Password
+        </label>
+        <input clrPassword placeholder="Password" name="password" id="password" formControlName="password"/>
+        <clr-control-error *clrIfError="'required'">
+          Password field is mandatory
+        </clr-control-error>
+        <clr-control-error *clrIfError="'maxlength'">
+          Password length must not exceed 25 characters
+        </clr-control-error>
+        <clr-control-error *clrIfError="'minlength'">
+          Password length must be at least 8 characters
+        </clr-control-error>
+        <clr-control-error *clrIfError="'pattern'">
+          The password needs to include at least one lowercase letter, one uppercase letter, one number and one special character
+        </clr-control-error>
+      </clr-password-container>
+    </div>
+    <button class="clr-col-sm-12 clr-col-lg-6 btn btn-primary " style="margin-top:24px">Login</button>
+    <button class="btn btn-secondary clr-col-sm-12 clr-col-lg-6" style="margin-top:24px" (click)="redirectToRegister()">Register now</button>
+  </form>
+  <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="loginErrorMessage">
+    The password is incorrect
+  </clr-alert>
+  <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="usernameErrorMessage">
+    No account found with this email address. If you don’t have an account yet, please click on “Register now”
+  </clr-alert>
+
+</div>
+
