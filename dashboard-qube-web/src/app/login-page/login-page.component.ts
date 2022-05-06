@@ -17,10 +17,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(private registration: RegisterService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem("isLoggedIn") === "true"){
+      this.router.navigate(['/home']);
+    }
     document.body.classList.add('bg-img');
     setTimeout(() => {
       this.registration.isRegistered.emit(false);
     }, 3000);
+
 
     this.loginDataForm = new FormGroup({
       'username': new FormControl(null, [Validators.email, Validators.maxLength(30), Validators.required]),
@@ -37,10 +42,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
    const username = this.loginDataForm.get('username')?.value;
    const password = this.loginDataForm.get('password')?.value;
    const base64body = username + ":" +password;
+   if(this.loginDataForm.valid){
     this.loginService.loginUser(btoa(base64body)).subscribe(
       (response) => {
         if(response.status === 200){
-          localStorage.setItem("isLogedIn", "true");
+          localStorage.setItem("isLoggedIn", "true");
           this.router.navigate(['/home']);
         }
       },
@@ -52,6 +58,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
     }
     );
+   }
+
   }
 
   redirectToRegister(){

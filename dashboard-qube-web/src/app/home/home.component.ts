@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("isLogedIn") !== "true") {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
       this.router.navigate(['/login']);
     }
   }

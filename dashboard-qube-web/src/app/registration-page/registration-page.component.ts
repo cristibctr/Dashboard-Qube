@@ -23,9 +23,15 @@ export class RegistrationPageComponent implements OnInit {
   constructor(private registration: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem("isLoggedIn") === "true"){
+      this.router.navigate(['/home']);
+    }
+
     document.body.classList.add('bg-img');
 
     this.getAgeRange();
+
+
 
     this.registerDataForm = new FormGroup({
       'firstName': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([a-zA-Z]+\\s)*[a-zA-Z]+$')]),
