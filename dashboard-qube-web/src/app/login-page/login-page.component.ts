@@ -17,13 +17,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(private registration: RegisterService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem("isLoggedIn") === "true"){
+      this.router.navigate(['/home']);
+    }
     document.body.classList.add('bg-img');
     setTimeout(() => {
       this.registration.isRegistered.emit(false);
     }, 3000);
 
+
     this.loginDataForm = new FormGroup({
-      'username': new FormControl(null, [Validators.email, Validators.maxLength(30), Validators.required]),
+      'username': new FormControl(null, [Validators.email, Validators.maxLength(30), Validators.required, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]),
       'password': new FormControl(null, [Validators.minLength(8), Validators.required, Validators.maxLength(25), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{1,}$")]),
 
     });
@@ -37,21 +42,31 @@ export class LoginPageComponent implements OnInit, OnDestroy {
    const username = this.loginDataForm.get('username')?.value;
    const password = this.loginDataForm.get('password')?.value;
    const base64body = username + ":" +password;
+   if(this.loginDataForm.valid){
+
+    this.usernameErrorMessage = false;
+    this.loginErrorMessage = false;
+
     this.loginService.loginUser(btoa(base64body)).subscribe(
       (response) => {
         if(response.status === 200){
-          localStorage.setItem("isLogedIn", "true");
+          localStorage.setItem("isLoggedIn", "true");
           this.router.navigate(['/home']);
         }
       },
       (error) => {
-        if(error.status === 401 && error.message === "User not found"){
-          this.loginErrorMessage = true;
-        } else if(error.status === 401 && error.message === "Incorrect password"){
+        if(error.status === 401 && error.error === "User not found"){
+          this.loginErrorMessage = false;
           this.usernameErrorMessage = true;
+
+        } else if(error.status === 401 && error.error === "Incorrect password"){
+          this.usernameErrorMessage = false;
+          this.loginErrorMessage = true;
         }
     }
     );
+   }
+
   }
 
   redirectToRegister(){

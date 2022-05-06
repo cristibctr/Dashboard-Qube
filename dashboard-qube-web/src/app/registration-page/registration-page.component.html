@@ -59,7 +59,7 @@
             Password length must not exceed 25 characters
           </clr-control-error>
           <clr-control-error *clrIfError="'minlength'">
-            Password length must be at least 8 characters
+            Password must be at least 8 characters long
           </clr-control-error>
           <clr-control-error *clrIfError="'pattern'">
             The password needs to include at least one lowercase letter, one uppercase letter, one number and one special character
@@ -96,7 +96,7 @@
           <clr-control-error *clrIfError="'required'">
             Email field is mandatory
           </clr-control-error>
-          <clr-control-error *clrIfError="'email'">
+          <clr-control-error *clrIfError="'pattern'">
             Please enter a valid email
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
@@ -127,7 +127,7 @@
           <input clrInput type="text" id="phoneNumber"
                 formControlName="phoneNumber"/>
           <clr-control-error>
-            Phone number should start with +4 or 0040 and contain only digits
+            Phone number should start with +40 or 0040 and contain only digits
           </clr-control-error>
         </clr-input-container>
       </div>
@@ -144,7 +144,7 @@
             City should contain only letters and spaces
           </clr-control-error>
           <clr-control-error *clrIfError="'minlength'">
-            City length must be at least 2 characters
+            City must be at least 2 characters long
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
             City name length must not exceed 25 characters
@@ -163,7 +163,7 @@
             Country should contain only letters and spaces
           </clr-control-error>
           <clr-control-error *clrIfError="'minlength'">
-            Country length must be at least 2 characters
+            Country must be at least 2 characters long
           </clr-control-error>
           <clr-control-error *clrIfError="'maxlength'">
             Country name length must not exceed 25 characters

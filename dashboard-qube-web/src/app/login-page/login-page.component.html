@@ -10,7 +10,7 @@
         <clr-control-error *clrIfError="'required'">
           Email field is mandatory
         </clr-control-error>
-        <clr-control-error *clrIfError="'email'">
+        <clr-control-error *clrIfError="'pattern'">
           Please enter a valid email
         </clr-control-error>
         <clr-control-error *clrIfError="'maxlength'">
@@ -41,13 +41,15 @@
     </div>
     <button class="clr-col-sm-12 clr-col-lg-6 btn btn-primary " style="margin-top:24px">Login</button>
     <button class="btn btn-secondary clr-col-sm-12 clr-col-lg-6" style="margin-top:24px" (click)="redirectToRegister()">Register now</button>
+
+    <clr-alert  class="clr-col-sm-12 clr-col-lg-6 " clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="loginErrorMessage">
+      The password is incorrect
+    </clr-alert>
+    <clr-alert  class="clr-col-sm-12 clr-col-lg-6 " clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="usernameErrorMessage">
+      No account found with this email address. If you don’t have an account yet, please click on “Register now”
+    </clr-alert>
   </form>
-  <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="loginErrorMessage">
-    The password is incorrect
-  </clr-alert>
-  <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="usernameErrorMessage">
-    No account found with this email address. If you don’t have an account yet, please click on “Register now”
-  </clr-alert>
+
 
 </div>
 
