@@ -43,6 +43,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
    const password = this.loginDataForm.get('password')?.value;
    const base64body = username + ":" +password;
    if(this.loginDataForm.valid){
+
+    this.usernameErrorMessage = false;
+    this.loginErrorMessage = false;
+
     this.loginService.loginUser(btoa(base64body)).subscribe(
       (response) => {
         if(response.status === 200){
@@ -51,10 +55,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        if(error.status === 401 && error.message === "User not found"){
-          this.loginErrorMessage = true;
-        } else if(error.status === 401 && error.message === "Incorrect password"){
+        if(error.status === 401 && error.error === "User not found"){
+          this.loginErrorMessage = false;
           this.usernameErrorMessage = true;
+
+        } else if(error.status === 401 && error.error === "Incorrect password"){
+          this.usernameErrorMessage = false;
+          this.loginErrorMessage = true;
         }
     }
     );
