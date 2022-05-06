@@ -1,4 +1,4 @@
-<div class="clr-col-sm-4 clr-col-lg-4 login-container">
+<div class="clr-col-sm-5 clr-col-lg-5 login-container">
   <form clrForm class="clr-row" [clrLayout]="'horizontal'" [formGroup]="loginDataForm" autocomplete="off" (submit)="submitOnEnter()">
     <h3 id="login-header">Please enter you username and password</h3>
     <div class="clr-col-sm-12 clr-col-lg-12">
@@ -48,7 +48,6 @@
   <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="usernameErrorMessage">
     No account found with this email address. If you don’t have an account yet, please click on “Register now”
   </clr-alert>
-  <div class="clr-col-sm-4 clr-col-lg-4"></div>
 
 </div>
 
