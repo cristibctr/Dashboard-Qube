@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/internal/operators/take';
 import { RegisterService } from '../registration-page/register.service';
 import { LoginService } from './login.service';
 
@@ -47,7 +48,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.usernameErrorMessage = false;
     this.loginErrorMessage = false;
 
-    this.loginService.loginUser(btoa(base64body)).subscribe(
+    this.loginService.loginUser(btoa(base64body)).pipe(take(1)).subscribe(
       (response) => {
         if(response.status === 200){
           localStorage.setItem("isLoggedIn", "true");
