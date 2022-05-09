@@ -28,7 +28,7 @@ public class UserValidator {
     }
 
     private static boolean validateCountry(String country) {
-        if(country == null)
+        if(country == null || country.length() == 0)
             return true;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(country);
@@ -36,7 +36,7 @@ public class UserValidator {
     }
 
     private static boolean validateCity(String city) {
-        if(city == null)
+        if(city == null || city.length() == 0)
             return true;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(city);
@@ -44,7 +44,7 @@ public class UserValidator {
     }
 
     private static boolean validatePhoneNumber(String phoneNumber) {
-        if(phoneNumber == null)
+        if(phoneNumber == null || phoneNumber.length() == 0)
             return true;
         Pattern pattern = Pattern.compile("^(00|\\+)40\\d{9}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(phoneNumber);
