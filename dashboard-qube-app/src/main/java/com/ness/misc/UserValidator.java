@@ -30,7 +30,7 @@ public class UserValidator {
     private static boolean validateCountry(String country) {
         if(country == null || country.length() == 0)
             return true;
-        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(country);
         return country.length() >= 2 && country.length() <= 25 && matcher.matches();
     }
@@ -38,7 +38,7 @@ public class UserValidator {
     private static boolean validateCity(String city) {
         if(city == null || city.length() == 0)
             return true;
-        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(city);
         return city.length() >= 2 && city.length() <= 25 && matcher.matches();
     }
@@ -52,13 +52,13 @@ public class UserValidator {
     }
 
     private static boolean validateLastName(String lastName) {
-        Pattern pattern = Pattern.compile("[a-zA-Z]*", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(lastName);
         return lastName.length() >= 2 && lastName.length() <= 25 && matcher.matches();
     }
 
     private static boolean validateFirstName(String firstName) {
-        Pattern pattern = Pattern.compile("^([a-zA-Z]+\\s)*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(firstName);
         return firstName.length() >= 2 && firstName.length() <= 25 && matcher.matches();
     }
