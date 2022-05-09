@@ -1,6 +1,7 @@
 import { Component, LOCALE_ID, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -68,7 +69,7 @@ export class RegistrationPageComponent implements OnInit {
     {
       var userForm = Object.assign({}, this.registerDataForm.value);
       delete userForm.passConfirm;
-      this.registration.registerUser(userForm).subscribe(
+      this.registration.registerUser(userForm).pipe(take(1)).subscribe(
         (response) => {
           if(response.status === 201){
             this.registration.isRegistered.emit(true);
