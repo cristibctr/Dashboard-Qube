@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy{
+  interval: any;
 
   constructor(private router: Router) { }
 
@@ -14,6 +15,15 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem("isLoggedIn") !== "true") {
       this.router.navigate(['/login']);
     }
+    this.interval = setInterval(() => {
+      if(localStorage.getItem("isLoggedIn") !== "true"){
+        this.router.navigate(["/login"]);   
+      }
+    }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
   }
 
 }

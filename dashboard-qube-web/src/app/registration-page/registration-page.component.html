@@ -141,7 +141,7 @@
           <input clrInput type="text" id="city"
           formControlName="city"/>
           <clr-control-error *clrIfError="'pattern'">
-            City should contain only letters and spaces
+            City must contain only letters and one space is allowed between words
           </clr-control-error>
           <clr-control-error *clrIfError="'minlength'">
             City must be at least 2 characters long
@@ -160,7 +160,7 @@
           <input clrInput type="text" id="country"
           formControlName="country"/>
           <clr-control-error *clrIfError="'pattern'">
-            Country should contain only letters and spaces
+            Country must contain only letters and one space is allowed between words
           </clr-control-error>
           <clr-control-error *clrIfError="'minlength'">
             Country must be at least 2 characters long
