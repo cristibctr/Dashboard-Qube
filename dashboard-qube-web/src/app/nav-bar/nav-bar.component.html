@@ -1,0 +1,38 @@
+<clr-header class="header header-6">
+    <div class="branding">
+        <a routerLink="/">
+            <span class="title" style="font-weight: 600; font-size: xx-large;">QUBE</span>
+        </a>
+    </div>
+    <div class="header-nav">
+        <a routerLink="" class="nav-link" (click)="changeSubNav('SalesClients')">
+            <span class="nav-text">Sales/Clients</span>
+        </a>
+        <a routerLink="" class="nav-link" (click)="changeSubNav('AppointmentsAndTasks')">
+            <span class="nav-text">Appointments & Tasks</span>
+        </a>
+        <a routerLink="" class="nav-link" (click)="changeSubNav('Reports')">
+            <span class="nav-text">Reports</span>
+        </a>
+    </div>
+    <div class="header-actions">
+        <clr-dropdown>
+            <button class="nav-icon" clrDropdownTrigger aria-label="toggle user menu">
+                <clr-icon shape="user"></clr-icon>
+                <!-- <clr-icon shape="caret down"></clr-icon> -->
+            </button>
+            <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                <button clrDropdownItem routerLink="/">Logout</button>
+            </clr-dropdown-menu> 
+        </clr-dropdown>
+    </div>
+</clr-header>
+<nav class="subnav">
+    <ul class="nav">
+        <li class="nav-item" *ngFor="let nav of navs">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="nav.link">
+                {{nav.title}}
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if(localStorage.getItem("isLoggedIn") === "true"){
       this.router.navigate(['/home']);
     }
-    document.body.classList.add('bg-img');
+    document.getElementsByTagName("clr-main-container")[0].classList.add('bg-img');
     setTimeout(() => {
       this.registration.isRegistered.emit(false);
     }, 3000);
