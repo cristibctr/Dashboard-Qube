@@ -1,12 +1,12 @@
 <div class="clr-col-sm-5 clr-col-lg-5 login-container">
   <form clrForm class="clr-row" [clrLayout]="'horizontal'" [formGroup]="loginDataForm" autocomplete="off" (submit)="submitOnEnter()">
-    <h3 id="login-header">Please enter you username and password</h3>
+    <h3 id="login-header">Please enter your username and password</h3>
     <div class="clr-col-sm-12 clr-col-lg-12">
       <clr-input-container>
         <label class="required" for="username">
           Username
         </label>
-        <input clrInput type="text" placeholder="email address" class="clr-col-sm-3 clr-col-lg-4" id="username" formControlName="username"/>
+        <input clrInput type="text" placeholder="email address" class="clr-col-sm-3 clr-col-lg-4" id="Username" formControlName="username"/>
         <clr-control-error *clrIfError="'required'">
           Email field is mandatory
         </clr-control-error>

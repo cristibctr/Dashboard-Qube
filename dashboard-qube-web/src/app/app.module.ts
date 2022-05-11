@@ -12,6 +12,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import '../../node_modules/@angular/common/locales/global/en-GB.js';
+import { AppointmentsPageComponent } from './appointments-page/appointments-page.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import '../../node_modules/@angular/common/locales/global/en-GB.js';
     RegistrationPageComponent,
     LoginPageComponent,
     HomeComponent,
-    LogoutComponent
+    LogoutComponent,
+    AppointmentsPageComponent
   ],
   imports: [
     BrowserModule,
