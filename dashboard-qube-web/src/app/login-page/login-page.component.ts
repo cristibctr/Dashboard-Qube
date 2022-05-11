@@ -35,7 +35,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    document.body.classList.remove('bg-img');
+    document.getElementsByTagName("clr-main-container")[0].classList.remove('bg-img');
   }
 
   submitOnEnter() {
@@ -51,6 +51,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.loginService.loginUser(btoa(base64body)).pipe(take(1)).subscribe(
       (response) => {
         if(response.status === 200){
+          this.loginService.emitLoggedIn();
           localStorage.setItem("isLoggedIn", "true");
           this.router.navigate(['/home']);
         }

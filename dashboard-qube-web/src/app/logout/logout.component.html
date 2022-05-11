@@ -1,3 +1,1 @@
-<div class="clr-row clr-justify-content-end">
-  <button (click)="logout()" style=" margin-right: 20px;" class="btn btn-secondary" *ngIf="isLoggedIn()">Log out</button>
-</div>
+<button clrDropdownItem routerLink="/login" (click)="logout()">Logout</button>
