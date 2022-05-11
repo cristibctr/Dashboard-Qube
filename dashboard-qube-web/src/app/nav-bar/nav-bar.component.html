@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="header-nav" *ngIf="loggedIn">
-        <a *ngFor="let item of subNavTypes | keyvalue" class="nav-link user-cursor-pointer" [ngClass]="(activeSubNav == item.key) ? 'active':''" (click)="changeSubNav(item.key)">
+        <a *ngFor="let item of subNavTypes | keyvalue: originalOrder" class="nav-link user-cursor-pointer" [ngClass]="(activeSubNav == item.key) ? 'active':''" (click)="changeSubNav(item.key)">
             <span class="nav-text">{{item.key}}</span>
         </a>
     </div>

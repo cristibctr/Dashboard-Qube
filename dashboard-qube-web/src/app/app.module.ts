@@ -26,7 +26,7 @@ import { TasksComponent } from './tasks/tasks.component';
     LogoutComponent,
     NavBarComponent,
     AppointmentsComponent,
-    TasksComponent
+    TasksComponent,
   ],
   imports: [
     BrowserModule,

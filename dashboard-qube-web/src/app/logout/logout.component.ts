@@ -24,9 +24,11 @@ export class LogoutComponent implements OnInit {
 
  logout() {
    if(this.isLoggedIn())
+   {
     localStorage.removeItem("isLoggedIn");
     this.logoutService.userLoggedOutEvent();
     this.router.navigate(["/login"]);
+   }
   }
 
 }

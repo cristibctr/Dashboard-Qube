@@ -1,8 +1,10 @@
+import { KeyValue } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { angleIcon, ClarityIcons, userIcon } from '@cds/core/icon';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoginService } from '../login-page/login.service';
 import { LogoutService } from '../logout/logout.service';
+import { NavBarItems } from './NavBarItems.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +12,7 @@ import { LogoutService } from '../logout/logout.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
-  subNavTypes : {[key:string]: {link: string, title: string}[] } = {
+  subNavTypes : NavBarItems = {
     "Sales/Clients" : [
       // {link:'/Sales',title:'Sales'},
       // {link:'/Clients',title:'Clients'}
@@ -25,7 +27,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   loggedIn: boolean = false;
   logoutSubscription?: Subscription;
   loginSubscription?: Subscription;
-
+  
   constructor(private logoutService : LogoutService, private loginService : LoginService) { }
   
   ngOnInit(): void {
@@ -38,6 +40,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.loginService.userLoggedIn.subscribe(() => {
       this.loggedIn = true;
     });
+  }
+  
+  originalOrder = (a: KeyValue<string,any>, b: KeyValue<string,any>): number => {
+    return 0;
   }
   
   changeSubNav(subnavType: string)
