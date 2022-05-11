@@ -1,4 +1,7 @@
-<router-outlet></router-outlet>
-<clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" class="successful-register" *ngIf="isRegistered">
-User Registration Successful. Please Login
-</clr-alert>
+<clr-main-container>
+    <app-nav-bar></app-nav-bar>
+    <router-outlet></router-outlet>
+    <clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" class="successful-register" *ngIf="isRegistered">
+        User Registration Successful. Please Login
+    </clr-alert>
+</clr-main-container>

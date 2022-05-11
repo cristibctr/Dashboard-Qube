@@ -24,7 +24,7 @@ export class RegistrationPageComponent implements OnInit {
       this.router.navigate(['/home']);
     }
 
-    document.body.classList.add('bg-img');
+    document.getElementsByTagName("clr-main-container")[0].classList.add('bg-img');
 
     this.getAgeRange();
 
@@ -57,7 +57,7 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    document.body.classList.remove('bg-img');
+    document.getElementsByTagName("clr-main-container")[0].classList.remove('bg-img');
     this.errorMessage = false;
   }
 

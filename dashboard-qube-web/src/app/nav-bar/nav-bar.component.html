@@ -1,0 +1,32 @@
+<clr-header class="header-6">
+    <div class="branding">
+        <a routerLink="/">
+            <span class="title" style="font-weight: 600; font-size: xx-large;">QUBE</span>
+        </a>
+    </div>
+    <div class="header-nav" *ngIf="loggedIn">
+        <a *ngFor="let item of subNavTypes | keyvalue: originalOrder" class="nav-link user-cursor-pointer" [ngClass]="(activeSubNav == item.key) ? 'active':''" (click)="changeSubNav(item.key)">
+            <span class="nav-text">{{item.key}}</span>
+        </a>
+    </div>
+    <div class="header-actions" *ngIf="loggedIn">
+        <clr-dropdown>
+            <button class="nav-icon" clrDropdownTrigger aria-label="toggle user menu">
+                <cds-icon shape="user"></cds-icon>
+                <cds-icon shape="angle" direction="down"></cds-icon>
+            </button>
+            <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                <app-logout></app-logout>
+            </clr-dropdown-menu>
+        </clr-dropdown>
+    </div>
+</clr-header>
+<nav class="subnav" *ngIf="loggedIn">
+    <ul class="nav">
+        <li class="nav-item" *ngFor="let nav of subNavTypes[activeSubNav]">
+            <a class="nav-link fade-in" routerLinkActive="active" [routerLink]="nav.link">
+                {{nav.title}}
+            </a>
+        </li>
+    </ul>
+</nav>

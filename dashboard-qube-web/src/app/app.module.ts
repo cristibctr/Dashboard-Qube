@@ -12,6 +12,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import '../../node_modules/@angular/common/locales/global/en-GB.js';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import '../../node_modules/@angular/common/locales/global/en-GB.js';
     RegistrationPageComponent,
     LoginPageComponent,
     HomeComponent,
-    LogoutComponent
+    LogoutComponent,
+    NavBarComponent,
+    AppointmentsComponent,
+    TasksComponent,
   ],
   imports: [
     BrowserModule,
