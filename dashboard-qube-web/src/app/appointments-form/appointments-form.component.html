@@ -1,0 +1,101 @@
+<div class="clr-col-sm-12 clr-col-lg-12" id="appointments-header">
+<span>Back</span>
+<span id="header-title">New appointment</span>
+</div>
+<form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component" autocomplete="off" (submit)="handleSubmit()">
+  <div class="clr-col-sm-11 clr-col-lg-5">
+    <div class="clr-row">
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="title">
+            Title*
+          </label>
+          <input clrInput type="text" required id="title"
+                formControlName="title"/>
+          <clr-control-error *clrIfError="'required'">
+            Title field is mandatory
+          </clr-control-error>
+          <clr-control-error *clrIfError="'minlength'">
+            Title must be at least 2 characters long
+          </clr-control-error>
+          <clr-control-error *clrIfError="'maxlength'">
+            Title must not exceed 60 characters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-date-container>
+          <label for="startDate">
+            Start Date*
+          </label>
+          <input clrDate cngDateFormatter required type="text" id="startDate"
+          formControlName="startDate" min="{{dateNow}}">
+          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+        </clr-date-container>
+      </div>
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-date-container>
+          <label for="endDate">
+            End Date*
+          </label>
+          <input clrDate cngDateFormatter required type="text" id="endDate"
+          formControlName="endDate" min="{{dateNow}}">
+          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+        </clr-date-container>
+      </div>
+
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="description">
+            Description
+          </label>
+          <input clrInput type="text" id="description"
+          formControlName="description"/>
+          <clr-control-error *clrIfError="'maxlength'">
+            Description length must not exceed 500 characters
+          </clr-control-error>
+        </clr-input-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-combobox-container formControlName="contactType">
+          <label>Contact Type:</label>
+          <clr-combobox required name="contactType">
+            <clr-options>
+              <clr-option clrValue="Online Meeting">Online Meeting</clr-option>
+              <clr-option clrValue="Showroom Meeting">Showroom Meeting</clr-option>
+              <clr-option clrValue="Client's Office Meeting">Client's Office Meeting</clr-option>
+              <clr-option clrValue="Phone">Phone</clr-option>
+              <clr-option clrValue="Email">Email</clr-option>
+              <clr-option clrValue="SMS">SMS</clr-option>
+            </clr-options>
+          </clr-combobox>
+          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+        </clr-combobox-container>
+      </div>
+
+      <div class="clr-col-sm-12 clr-col-lg-6">
+        <clr-input-container>
+          <label for="status">
+            Status:
+          </label>
+          <input clrInput type="text" id="status"
+          formControlName="status" [(ngModel)]="statusValue"/>
+        </clr-input-container>
+      </div>
+
+
+    <button class="btn btn-primary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px">Create</button>
+    <button class="btn btn-secondary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px">Cancel</button>
+
+        <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
+          <em>Creation of appointment</em> Failed. {{errorText}}
+        </clr-alert>
+      </div>
+    </div>
+</form>

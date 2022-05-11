@@ -15,6 +15,7 @@ import '../../node_modules/@angular/common/locales/global/en-GB.js';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { AppointmentsFormComponent } from './appointments-form/appointments-form.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { TasksComponent } from './tasks/tasks.component';
     NavBarComponent,
     AppointmentsComponent,
     TasksComponent,
+    AppointmentsFormComponent
   ],
   imports: [
     BrowserModule,
