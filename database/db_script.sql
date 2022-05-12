@@ -22,10 +22,7 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
---
--- TOC entry 209 (class 1259 OID 16402)
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
---
+-- USERS
 
 CREATE TABLE public.users (
     id integer NOT NULL,
@@ -39,13 +36,7 @@ CREATE TABLE public.users (
     password character varying(255) NOT NULL
 );
 
-
 ALTER TABLE public.users OWNER TO postgres;
-
---
--- TOC entry 210 (class 1259 OID 16417)
--- Name: foo_a_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
 
 CREATE SEQUENCE public.foo_a_seq
     START WITH 1
@@ -54,46 +45,47 @@ CREATE SEQUENCE public.foo_a_seq
     NO MAXVALUE
     CACHE 1;
 
-
 ALTER TABLE public.foo_a_seq OWNER TO postgres;
-
---
--- TOC entry 3313 (class 0 OID 0)
--- Dependencies: 210
--- Name: foo_a_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
 
 ALTER SEQUENCE public.foo_a_seq OWNED BY public.users.id;
 
-
---
--- TOC entry 3164 (class 2604 OID 16418)
--- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.foo_a_seq'::regclass);
 
---
--- TOC entry 3314 (class 0 OID 0)
--- Dependencies: 210
--- Name: foo_a_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
 SELECT pg_catalog.setval('public.foo_a_seq', 42, true);
-
-
---
--- TOC entry 3166 (class 2606 OID 16408)
--- Name: users user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT user_pkey PRIMARY KEY (id);
 
+-- APPOINTMENTS
 
--- Completed on 2022-05-04 18:06:11
+CREATE TABLE public.appointments (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    description character varying(255),
+    contact_type character varying(255) NOT NULL,
+    start_date timestamp without time zone NOT NULL,
+    end_date timestamp without time zone NOT NULL,
+    created_by_user integer NOT NULL,
+    assigned_to_user integer NOT NULL
+);
 
---
--- PostgreSQL database dump complete
---
 
+ALTER TABLE public.appointments OWNER TO postgres;
+
+ALTER TABLE public.appointments ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT assigned_to_fk FOREIGN KEY (assigned_to_user) REFERENCES public.users(id);
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT created_by_fk FOREIGN KEY (created_by_user) REFERENCES public.users(id);
