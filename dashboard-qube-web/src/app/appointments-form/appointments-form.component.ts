@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { angleIcon, ClarityIcons} from '@cds/core/icon';
-
+import '@cds/core/time/register';
 
 @Component({
   selector: 'app-appointments-form',
@@ -22,23 +22,23 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
     ClarityIcons.addIcons(angleIcon);
     document.body.classList.add('bg-img');
 
-    if (localStorage.getItem("isLoggedIn") !== "true") {
+    if (!localStorage.getItem("isLoggedIn")) {
       this.router.navigate(['/login']);
     }
     this.interval = setInterval(() => {
-      if(localStorage.getItem("isLoggedIn") !== "true"){
+      if(!localStorage.getItem("isLoggedIn")){
         this.router.navigate(["/login"]);
       }
     }, 3000);
 
     this.appointmentsDataForm = new FormGroup({
-      'title ': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
+      'title': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
       'startDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4} [0-2][0-9]\:[0-5][0-9]$') ]),
       'endDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4} [0-2][0-9]\:[0-5][0-9]$') ]),
       'description': new FormControl(null, [Validators.maxLength(500)]),
       'contactType': new FormControl(null, [Validators.required]),
       'assignTo': new FormControl(null, [Validators.required]),
-      'createdBy': new FormControl(null),
+      'createdBy': new FormControl(localStorage.getItem("isLoggedIn")),
       'status': new FormControl(null),
     });
   }

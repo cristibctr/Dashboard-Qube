@@ -16,6 +16,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { AppointmentsFormComponent } from './appointments-form/appointments-form.component';
+import { ClrFormsModule } from '@clr/angular';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { AppointmentsFormComponent } from './appointments-form/appointments-form
     AppRoutingModule,
     ClarityModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ClrFormsModule
   ],
   providers: [AppConfigService,
   { provide: APP_INITIALIZER, useFactory: (config: AppConfigService) => () => config.load(), deps: [AppConfigService], multi: true }],

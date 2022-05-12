@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    if(localStorage.getItem("isLoggedIn") === "true"){
+    if(localStorage.getItem("isLoggedIn")){
       this.router.navigate(['/home']);
     }
     document.getElementsByTagName("clr-main-container")[0].classList.add('bg-img');
@@ -52,7 +52,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       (response) => {
         if(response.status === 200){
           this.loginService.emitLoggedIn();
-          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("isLoggedIn", username);
           this.router.navigate(['/home']);
         }
       },

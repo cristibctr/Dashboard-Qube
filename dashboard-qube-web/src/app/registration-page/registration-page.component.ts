@@ -20,7 +20,7 @@ export class RegistrationPageComponent implements OnInit {
   constructor(private registration: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem("isLoggedIn") === "true"){
+    if(localStorage.getItem("isLoggedIn")){
       this.router.navigate(['/home']);
     }
 

@@ -3,7 +3,7 @@
 <span id="header-title">New appointment</span>
 </div>
 
-<form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component" autocomplete="off" (submit)="handleSubmit()">
+<form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component" (submit)="handleSubmit()">
 
   <div class="clr-col-sm-11 clr-col-lg-5">
     <div class="clr-row">
@@ -32,10 +32,15 @@
             Start Date*
           </label>
           <input clrDate cngDateFormatter required type="text" id="startDate"
-          formControlName="startDate" min="{{dateNow}}">
+          formControlName="startDate" min="{{dateNow}}" #startDate>
           <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
           <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
         </clr-date-container>
+        <!-- <cds-time control-width="shrink">
+          <label>time</label>
+          <input type="time" min="09:00" max="18:00" value="11:00" />
+          <cds-control-message>message text</cds-control-message>
+      </cds-time> -->
       </div>
 
       <div class="clr-col-sm-12 clr-col-lg-6">
@@ -44,7 +49,7 @@
             End Date*
           </label>
           <input clrDate cngDateFormatter required type="text" id="endDate"
-          formControlName="endDate" min="{{dateNow}}">
+          formControlName="endDate" min="{{dateNow}}" value={{startDate.value}}>
           <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
           <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
         </clr-date-container>
