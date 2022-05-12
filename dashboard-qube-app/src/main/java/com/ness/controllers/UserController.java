@@ -10,11 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Base64;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -75,5 +78,12 @@ public class UserController {
         {
             return ResponseEntity.status(418).body("Sticks and stones may break my bones but malformed inputs will never hurt me");
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(path="/api/users", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Set<String> getUsers(){
+        Set<User> userSet = userServiceImpl.getUsers();
+        return userSet.stream().map(User::getEmail).collect(Collectors.toSet());
     }
 }
