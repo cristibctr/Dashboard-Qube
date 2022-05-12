@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { angleIcon, ClarityIcons} from '@cds/core/icon';
+
 
 @Component({
   selector: 'app-appointments-form',
@@ -13,10 +15,11 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   dateNow!: string;
   errorText: string = "";
   interval: any;
-  statusValue! : string;
+  statusValue : string = "true";
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    ClarityIcons.addIcons(angleIcon);
     document.body.classList.add('bg-img');
 
     if (localStorage.getItem("isLoggedIn") !== "true") {
