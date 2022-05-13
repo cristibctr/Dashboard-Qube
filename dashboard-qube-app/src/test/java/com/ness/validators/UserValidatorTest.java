@@ -92,7 +92,7 @@ public class UserValidatorTest {
     public void invalidCityTest(){
         UserDTO userDTO = UserDTO.builder()
             .email("myemail@hmm.com")
-            .city("dsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknk")
+            .city("A".repeat(500))
             .firstName("myFirstName")
             .lastName("myLastName")
             .password("aBc123!!@")
@@ -104,7 +104,7 @@ public class UserValidatorTest {
     public void invalidCountryTest(){
         UserDTO userDTO = UserDTO.builder()
             .email("myemail@hmm.com")
-            .country("dsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknkdsafdsgdjgnviunkjvnjknkjnknjnknnjknk")
+            .country("A".repeat(500))
             .firstName("myFirstName")
             .lastName("myLastName")
             .password("aBc123!!@")

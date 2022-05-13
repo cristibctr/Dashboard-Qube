@@ -6,7 +6,7 @@ import com.ness.entities.User;
 import com.ness.misc.UserNotFoundException;
 import com.ness.repositories.UserRepository;
 
-public class AppointmentsMapper {
+public class AppointmentsMapper implements EntityDTOMapper<AppointmentDTO, Appointment>{
 
     UserRepository userRepository;
 
@@ -14,7 +14,8 @@ public class AppointmentsMapper {
         this.userRepository = userRepository;
     }
 
-    public Appointment mapAppointmentsDTOToAppointments(AppointmentDTO appointmentDTO) throws UserNotFoundException {
+    @Override
+    public Appointment mapDTOTo(AppointmentDTO appointmentDTO) throws UserNotFoundException{
         User createdByUser = userRepository.findByEmail(appointmentDTO.getCreatedByUser());
         User assignedToUser = userRepository.findByEmail(appointmentDTO.getAssignedToUser());
         if (createdByUser == null)
@@ -30,5 +31,10 @@ public class AppointmentsMapper {
             .description(appointmentDTO.getDescription())
             .title(appointmentDTO.getTitle())
             .build();
+    }
+
+    @Override
+    public AppointmentDTO mapToDTO(Appointment appointment) {
+        throw new UnsupportedOperationException();
     }
 }

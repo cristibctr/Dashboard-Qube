@@ -16,51 +16,70 @@ public class AppointmentsValidator {
         boolean startEndDateValidation = validateStartEndDate(appointment.getStartDate(), appointment.getEndDate());
         boolean descriptionValidation = validateDescription(appointment.getDescription());
         boolean contactTypesValidation = validateContactType(appointment.getContactType());
+        boolean usersValidation = validateUsers(appointment.getCreatedByUser(), appointment.getAssignedToUser());
 
         return titleValidation &
             startDateValidation &
             endDateValidation &
             startEndDateValidation &
             descriptionValidation &
-            contactTypesValidation
+            contactTypesValidation &
+            usersValidation
             ;
 
     }
 
+    private static boolean validateUsers(String createdByUser, String assignedToUser) {
+        if(createdByUser == null || assignedToUser == null ||
+        createdByUser.length() == 0 || createdByUser.length() == 0)
+            return false;
+        return true;
+    }
+
     private static boolean validateStartEndDate(LocalDateTime startDate, LocalDateTime endDate) {
-            return startDate.isBefore(endDate);
+        if(startDate == null || endDate == null)
+            return false;
+        return startDate.isBefore(endDate);
     }
 
     private static boolean validateTitle(String title)
     {
-        if(title.length() < 2 || title.length() > 60)
-            return false;
         if(title == null)
+            return false;
+        if(title.length() < 2 || title.length() > 60)
             return false;
         return true;
     }
 
     private static boolean validateStartDate(LocalDateTime startDate)
     {
+        if(startDate == null)
+            return false;
         if(startDate.isBefore(LocalDateTime.now()))
             return false;
         return true;
     }
 
-    private static boolean validateEndDate(LocalDateTime startDate)
+    private static boolean validateEndDate(LocalDateTime endDate)
     {
-        if(startDate.isBefore(LocalDateTime.now()))
+        if(endDate == null)
+            return false;
+        if(endDate.isBefore(LocalDateTime.now()))
             return false;
         return true;
     }
 
     private static boolean validateDescription(String description)
     {
+        if (description == null)
+            return true;
         return description.length() < 500;
     }
 
     private static boolean validateContactType(String contactType)
     {
+        if(contactType == null)
+            return false;
         List<String> contactTypeArray = new ArrayList<>(
             Arrays.asList(
             "online meeting",

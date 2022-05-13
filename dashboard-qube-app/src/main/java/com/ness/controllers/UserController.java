@@ -82,7 +82,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(path="/api/users", produces=MediaType.APPLICATION_JSON_VALUE)
-    public Set<String> getUsers(){
+    public Set<String> getUsernames(){
         Set<User> userSet = userServiceImpl.getUsers();
         return userSet.stream().map(User::getEmail).collect(Collectors.toSet());
     }

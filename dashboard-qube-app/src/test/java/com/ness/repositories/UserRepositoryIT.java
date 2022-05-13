@@ -1,27 +1,19 @@
 package com.ness.repositories;
 
-import com.ness.DashboardQubeAppApplication;
 import com.ness.entities.User;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,9 +39,7 @@ class UserRepositoryIT {
             .password("aBc123!!@")
             .dateOfBirth(Date.from(Instant.parse("2000-11-30T18:35:24.00Z")))
             .build();
-        System.out.println(user.getId());
         userRepository.save(user);
-        user = userRepository.findByEmail("my.test.email2794@em6ail.com");
         userId = user.getId();
     }
     @AfterAll
@@ -60,6 +50,12 @@ class UserRepositoryIT {
     @Test
     void findById() throws Exception{
         Optional<User> userOptional = userRepository.findById(userId);
+        assertEquals(userId, userOptional.get().getId());
+    }
+
+    @Test
+    void findByEmail() throws Exception{
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail("my.test.email2794@em6ail.com"));
         assertEquals(userId, userOptional.get().getId());
     }
 }
