@@ -17,7 +17,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { AppointmentsFormComponent } from './appointments-form/appointments-form.component';
 import { ClrFormsModule } from '@clr/angular';
-
+import { CdsModule } from '@cds/angular';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { ClrFormsModule } from '@clr/angular';
     ClarityModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ClrFormsModule
+    ClrFormsModule,
+    CdsModule
   ],
   providers: [AppConfigService,
   { provide: APP_INITIALIZER, useFactory: (config: AppConfigService) => () => config.load(), deps: [AppConfigService], multi: true }],
