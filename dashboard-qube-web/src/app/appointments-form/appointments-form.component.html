@@ -1,5 +1,5 @@
 <div class="clr-col-sm-12 clr-col-lg-12" id="appointments-header">
-  <cds-icon size="md" shape="arrow" direction="left" id="back-icon"></cds-icon>
+  <cds-icon size="md" shape="arrow" direction="left" id="back-icon" (click)="clickOnBack()" id="appointment-form-back"></cds-icon>
 <span id="header-title">New appointment</span>
 </div>
 
@@ -91,12 +91,7 @@
           <label>Assign To:</label>
           <clr-combobox required name="assignTo" required>
             <clr-options>
-              <clr-option clrValue="Online Meeting">Online Meeting</clr-option>
-              <clr-option clrValue="Showroom Meeting">Showroom Meeting</clr-option>
-              <clr-option clrValue="Client's Office Meeting">Client's Office Meeting</clr-option>
-              <clr-option clrValue="Phone">Phone</clr-option>
-              <clr-option clrValue="Email">Email</clr-option>
-              <clr-option clrValue="SMS">SMS</clr-option>
+              <clr-option></clr-option>
             </clr-options>
           </clr-combobox>
           <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>

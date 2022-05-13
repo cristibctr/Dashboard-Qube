@@ -37,7 +37,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
       'endDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4} [0-2][0-9]\:[0-5][0-9]$') ]),
       'description': new FormControl(null, [Validators.maxLength(500)]),
       'contactType': new FormControl(null, [Validators.required]),
-      'assignTo': new FormControl(null, [Validators.required]),
+      'assignTo': new FormControl(localStorage.getItem("isLoggedIn"), [Validators.required]),
       'createdBy': new FormControl(localStorage.getItem("isLoggedIn")),
       'status': new FormControl(null),
     });
@@ -66,5 +66,8 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
 
   handleSubmit(){
 
+  }
+  clickOnBack(){
+    this.router.navigate(["/appointments"]);
   }
 }
