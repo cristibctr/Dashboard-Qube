@@ -15,6 +15,6 @@ export class AppointmentsService {
   }
 
   getSalesPeople(){
-    return this.http.get(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`,  {observe: 'response', responseType: 'text'})
+    return this.http.get<string[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`,  {observe: 'response'})
   }
 }

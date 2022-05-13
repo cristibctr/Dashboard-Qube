@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { angleIcon, ClarityIcons} from '@cds/core/icon';
 import '@cds/core/time/register';
+import { take } from 'rxjs';
+import { AppointmentsService } from './appointments.service';
 
 @Component({
   selector: 'app-appointments-form',
@@ -16,7 +18,9 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   errorText: string = "";
   interval: any;
   statusValue : string = "true";
-  constructor(private router: Router) { }
+  assignTo!: string[] | null;
+
+  constructor(private router: Router, private appointmentsService: AppointmentsService) { }
 
   ngOnInit(): void {
     ClarityIcons.addIcons(angleIcon);
@@ -31,10 +35,23 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
       }
     }, 3000);
 
+    this.appointmentsService.getSalesPeople().pipe(take(1)).subscribe(
+      (response) => {
+        if(response.status === 200){
+          this.assignTo = response.body;
+        }
+      },
+      (error) => {
+
+    }
+    );
+
     this.appointmentsDataForm = new FormGroup({
       'title': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
-      'startDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4} [0-2][0-9]\:[0-5][0-9]$') ]),
-      'endDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4} [0-2][0-9]\:[0-5][0-9]$') ]),
+      'startDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$') ]),
+      'startDateTime': new FormControl("16:00", [Validators.required]),
+      'endDate': new FormControl(null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$') ]),
+      'endDateTime': new FormControl("19:00", [Validators.required]),
       'description': new FormControl(null, [Validators.maxLength(500)]),
       'contactType': new FormControl(null, [Validators.required]),
       'assignTo': new FormControl(localStorage.getItem("isLoggedIn"), [Validators.required]),
@@ -65,9 +82,21 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   }
 
   handleSubmit(){
+    if (this.appointmentsDataForm.valid)
+    {
+      var appointment = Object.assign({}, this.appointmentsDataForm.value);
+      delete appointment.status;
+      this.appointmentsService.addAppointment(appointment).pipe(take(1)).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
 
+        }
+      );
+    }
   }
-  clickOnBack(){
+  returnToAppointmentPage(){
     this.router.navigate(["/appointments"]);
   }
 }
