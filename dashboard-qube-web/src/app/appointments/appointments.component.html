@@ -16,9 +16,9 @@
             <clr-dg-column>Contact type</clr-dg-column>
             <clr-dg-column>Status</clr-dg-column>
 
-            <clr-dg-row *ngFor="let appointment of appointments">
+            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *ngFor="let appointment of appointments">
                 <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
-                <clr-dg-cell>{{getDate(appointment.startDate) | date}}</clr-dg-cell>
+                <clr-dg-cell>{{getDate(appointment.startDate) | date:'dd/MM/yyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
                 <clr-dg-cell>{{getAppointmentStatus(appointment)}}</clr-dg-cell>
             </clr-dg-row>
