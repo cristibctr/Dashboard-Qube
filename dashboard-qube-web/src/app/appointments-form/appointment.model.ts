@@ -4,6 +4,6 @@ export interface Appointment {
   endDate: string;
   description: string;
   contactType: string;
-  assingTo: string;
-  createdBy: string;
+  assignedToUser: string;
+  createdByUser: string;
 }

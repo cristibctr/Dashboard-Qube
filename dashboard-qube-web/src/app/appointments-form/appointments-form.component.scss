@@ -1,5 +1,5 @@
 #appointments-header{
-  border-bottom: 1px black solid;
+  border-bottom: 1px solid;
   padding: 15px;
 }
 #header-title{
@@ -8,7 +8,19 @@
   margin-left: 5px;
 
 }
-#appointment-form-back{
+.back-arrow{
   cursor: pointer;
+}
+.time-control{
+  margin-top: 1.2rem;
+}
+.page-title{
+  font-size: 1.6em;
+  font-weight: normal;
+}
+hr{
+  border: 0px;
+  border-top: 1px solid;
+  margin: 0px;
 }
 
