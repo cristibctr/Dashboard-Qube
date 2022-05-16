@@ -35,6 +35,14 @@ public class AppointmentsMapper implements EntityDTOMapper<AppointmentDTO, Appoi
 
     @Override
     public AppointmentDTO mapToDTO(Appointment appointment) {
-        throw new UnsupportedOperationException();
+        return AppointmentDTO.builder()
+            .createdByUser(appointment.getCreatedByUser().getEmail())
+            .contactType(appointment.getContactType())
+            .startDate(appointment.getStartDate())
+            .endDate(appointment.getEndDate())
+            .assignedToUser(appointment.getAssignedToUser().getEmail())
+            .description(appointment.getDescription())
+            .title(appointment.getTitle())
+            .build();
     }
 }

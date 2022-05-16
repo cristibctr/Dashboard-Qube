@@ -1,1 +1,29 @@
-<p>appointments works!</p>
+<div class="clr-row clr-align-items-center clr-justify-content-between">
+    <div class="clr-col-md-5 clr-col-lg-3 clr-offset-sm-1">
+        <div class="clr-row clr-align-items-center">
+            <cds-icon shape="arrow" direction="left" size="lg" routerLink="/home" class="back-arrow"></cds-icon>
+            <span class="page-title">Appointments</span>
+        </div>
+    </div>
+    <button class="btn btn-secondary clr-align-self-center" routerLink="/appointments/new">New Appointment</button>
+</div>
+<hr>
+<div class="clr-row">
+    <div class="clr-col-md-6 clr-col-lg-6 clr-offset-lg-1">
+        <clr-datagrid>
+            <clr-dg-column>Title</clr-dg-column>
+            <clr-dg-column>Date, Time</clr-dg-column>
+            <clr-dg-column>Contact type</clr-dg-column>
+            <clr-dg-column>Status</clr-dg-column>
+
+            <clr-dg-row *ngFor="let appointment of appointments">
+                <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
+                <clr-dg-cell>{{getDate(appointment.startDate) | date}}</clr-dg-cell>
+                <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
+                <clr-dg-cell>{{getAppointmentStatus(appointment)}}</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>1 - {{getResultsNumber()}} of {{getResultsNumber()}} results</clr-dg-footer>
+        </clr-datagrid>
+    </div>
+</div>

@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,13 +66,13 @@ class AppointmentsRepositoryIT {
 
     @Test
     void findAssignmentByCreatedUserEmail() throws Exception{
-        Optional<Appointment> foundAppointment = Optional.ofNullable(appointmentsRepository.findByCreatedByUser_Email("test@test.com"));
-        assertEquals(foundAppointment.get().getId(), appointment.getId());
+        Optional<List<Appointment>> foundAppointment = Optional.ofNullable(appointmentsRepository.findByCreatedByUser_Email("test@test.com"));
+        assertEquals(foundAppointment.get().get(0).getId(), appointment.getId());
     }
 
     @Test
     void findAssignmentByAssignedUserEmail() throws Exception{
-        Optional<Appointment> foundAppointment = Optional.ofNullable(appointmentsRepository.findByAssignedToUser_Email("test@test.com"));
-        assertEquals(foundAppointment.get().getId(), appointment.getId());
+        Optional<List<Appointment>> foundAppointment = Optional.ofNullable(appointmentsRepository.findByAssignedToUser_Email("test@test.com"));
+        assertEquals(foundAppointment.get().get(0).getId(), appointment.getId());
     }
 }

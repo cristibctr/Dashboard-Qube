@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'tasks', component: TasksComponent},
-  {path: 'appointments-form', component: AppointmentsFormComponent}
+  {path: 'appointments/new', component: AppointmentsFormComponent}
 ];
 
 @NgModule({
