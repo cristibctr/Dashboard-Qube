@@ -20,8 +20,6 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   secondInterval: any;
   statusValue! : string;
   assignToValue!: string[] | null;
-  timeStartErrorMessage : boolean = false;
-  timeEndErrorMessage : boolean = false;
   endDatestartDateNotFilledError: boolean = false;
 
   get endDateTime() {

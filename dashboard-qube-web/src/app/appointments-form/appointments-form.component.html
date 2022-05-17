@@ -81,7 +81,7 @@
           <cds-time layout="vertical" control-width="shrink" class="cds-time">
             <label for="startDateTime">Time*</label>
             <input type="time" formControlName="startDateTime" id="startDateTime"/>
-            <cds-control-message status="error" *ngIf="timeStartErrorMessage">message text</cds-control-message>
+            <cds-control-message status="error" *ngIf="startDateTime.touched && startDateTime.hasError('required')">This field is mandatory</cds-control-message>
           </cds-time>
 
         <clr-date-container >
