@@ -12,16 +12,12 @@ public class AppointmentsValidator {
     public static boolean validate(AppointmentDTO appointment){
         boolean titleValidation = validateTitle(appointment.getTitle());
         boolean startDateValidation = validateStartDate(appointment.getStartDate());
-        boolean endDateValidation = validateEndDate(appointment.getEndDate());
-        boolean startEndDateValidation = validateStartEndDate(appointment.getStartDate(), appointment.getEndDate());
         boolean descriptionValidation = validateDescription(appointment.getDescription());
         boolean contactTypesValidation = validateContactType(appointment.getContactType());
         boolean usersValidation = validateUsers(appointment.getCreatedByUser(), appointment.getAssignedToUser());
 
         return titleValidation &
             startDateValidation &
-            endDateValidation &
-            startEndDateValidation &
             descriptionValidation &
             contactTypesValidation &
             usersValidation
@@ -36,11 +32,7 @@ public class AppointmentsValidator {
         return true;
     }
 
-    private static boolean validateStartEndDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if(startDate == null || endDate == null)
-            return false;
-        return startDate.isBefore(endDate);
-    }
+
 
     private static boolean validateTitle(String title)
     {
@@ -56,15 +48,6 @@ public class AppointmentsValidator {
         if(startDate == null)
             return false;
         if(startDate.isBefore(LocalDateTime.now()))
-            return false;
-        return true;
-    }
-
-    private static boolean validateEndDate(LocalDateTime endDate)
-    {
-        if(endDate == null)
-            return false;
-        if(endDate.isBefore(LocalDateTime.now()))
             return false;
         return true;
     }

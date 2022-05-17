@@ -76,7 +76,10 @@
             <input clrDate cngDateFormatter required type="text" id="startDate"
             formControlName="startDate" min="{{dateNow}}" #startDate>
             <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+            <clr-control-error *clrIfError="'wrongDate'">Please enter a valid date</clr-control-error>
+            <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
             <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+
           </clr-date-container>
           <cds-time layout="vertical" control-width="shrink" class="cds-time">
             <label for="startDateTime">Time*</label>
@@ -89,9 +92,11 @@
             End Date*
           </label>
           <input clrDate cngDateFormatter required type="text" id="endDate"
-          formControlName="endDate" min={{dateNow}} value={{startDate.value}}>
+          formControlName="endDate">
           <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
           <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'wrongDate'">Please enter a valid date</clr-control-error>
+          <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
           <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
         </clr-date-container>
         <cds-time control-width="shrink" layout="vertical" class="cds-time">
@@ -134,6 +139,9 @@
 
   <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
     <em>Creation of appointment</em> Failed. {{errorText}}
+  </clr-alert>
+  <clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="successMessage">
+    <em>A new appointment has been successfully created</em>
   </clr-alert>
 </form>
 
