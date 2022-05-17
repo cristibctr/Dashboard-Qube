@@ -1,0 +1,18 @@
+<clr-radio-container>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="overdue" name="status-filter" [(ngModel)]="value" (change)="onItemChange()" />
+        <label>Overdue</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="upcoming" name="status-filter" [(ngModel)]="value" (change)="onItemChange()" />
+        <label>Upcoming</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="open" name="status-filter" [(ngModel)]="value" (change)="onItemChange()" />
+        <label>Open</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="all" name="status-filter" [(ngModel)]="value" [checked]="true" (change)="onItemChange()"  />
+        <label>All</label>
+    </clr-radio-wrapper>
+</clr-radio-container>

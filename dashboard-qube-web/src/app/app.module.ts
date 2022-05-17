@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ClarityModule} from "@clr/angular";
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { AppConfigService } from './app-config.service';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -18,6 +18,8 @@ import { TasksComponent } from './tasks/tasks.component';
 import { AppointmentsFormComponent } from './appointments-form/appointments-form.component';
 import { ClrFormsModule } from '@clr/angular';
 import { CdsModule } from '@cds/angular';
+import { DateFilterComponent } from './appointments/date-filter/date-filter.component';
+import { StatusFilterComponent } from './appointments/status-filter/status-filter.component';
 
 
 @NgModule({
@@ -30,12 +32,15 @@ import { CdsModule } from '@cds/angular';
     NavBarComponent,
     AppointmentsComponent,
     TasksComponent,
-    AppointmentsFormComponent
+    AppointmentsFormComponent,
+    DateFilterComponent,
+    StatusFilterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ClrFormsModule,

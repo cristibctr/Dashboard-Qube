@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { AppConfigService } from '../app-config.service';
 import { Appointment } from './appointment.model';
 
@@ -22,4 +23,5 @@ export class AppointmentsService {
   getSalesPeople(){
     return this.http.get<string[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`,  {observe: 'response'})
   }
+  
 }
