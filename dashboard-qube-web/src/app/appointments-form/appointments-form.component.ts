@@ -24,6 +24,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   endDatestartDateNotFilledError: boolean = false;
   dateYesterday!: string;
   successMessage: boolean = false;
+  checkEndDateTimeValidityValue: boolean = false;
 
   get endDateTime() {
     return this.appointmentsDataForm.controls['endDateTime'];
@@ -61,8 +62,8 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
       title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
       startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$') ]],
       startDateTime: [null, [Validators.required]],
-      endDate: [null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled]],
-      endDateTime: [null, [Validators.required, this.checkIfStartTimeisFilled]],
+      endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled]],
+      endDateTime: [null, [Validators.required, this.checkIfStartTimeisFilled, this.checkEndDateTimeValidity]],
       description: [null, [Validators.maxLength(500)]],
       contactType: [null, [Validators.required]],
       assignTo: [localStorage.getItem("isLoggedIn"), [Validators.required]],
@@ -134,13 +135,8 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
         }
       );
     } else{
-      const controls = this.appointmentsDataForm.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-            console.log(name);
-        }
+      this.errorMessage = true;
     }
-  }
   }
   returnToAppointmentPage(){
     this.router.navigate(["/appointments"]);
@@ -167,47 +163,129 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   }
   return null;
 }
+
+checkEndDateTimeValidity(control : AbstractControl){
+  const formGroup = control.parent;
+  if (formGroup) {
+    if(formGroup.get("startDateTime")?.value && formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
+      console.log("11")
+      if(formGroup.get("startDate")?.value === formGroup.get("endDate")?.value && formGroup.get("startDateTime")?.value === control.value){
+        console.log("yes")
+        return {checkEndDateTimeValidityValue: true}
+
+      }
+  }
+}
+return null;
+}
+
+parseDates(){
+  const dataSplit1 = this.appointmentsDataForm.get("startDate")?.value.split('/');
+  const timeSplit1 = this.appointmentsDataForm.get("startDateTime")?.value.split(':');
+
+  const day1 = dataSplit1[0];
+  const month1 = dataSplit1[1];
+  const year1 = dataSplit1[2];
+  const hour1 = timeSplit1[0];
+  const minutes1 = timeSplit1[1];
+
+  const dataSplit2 = this.appointmentsDataForm.get("endDate")?.value.split('/');
+  const timeSplit2 = this.appointmentsDataForm.get("endDateTime")?.value.split(':');
+
+  const day2 = dataSplit2[0];
+  const month2 = dataSplit2[1];
+  const year2 = dataSplit2[2];
+  const hour2 = timeSplit2[0];
+  const minutes2 = timeSplit2[1]
+
+
+  var data1 = new Date(year1, month1 - 1, day1, hour1, minutes1);
+  var data2 = new Date(year2, month2 - 1, day2, hour2, minutes2);
+  console.log("Data1 ", data1, " ", "Data2", data2)
+  return {data1, data2};
+}
+
   getStatus(){
     if(this.appointmentsDataForm.get("startDate")?.value &&
      this.appointmentsDataForm.get("endDate")?.value &&
      this.appointmentsDataForm.get("startDateTime")?.value &&
      this.appointmentsDataForm.get("endDateTime")?.value) {
 
-        const dataSplit1 = this.appointmentsDataForm.get("startDate")?.value.split('/');
-        const timeSplit1 = this.appointmentsDataForm.get("startDateTime")?.value.split(':');
+      const dataSplit1 = this.appointmentsDataForm.get("startDate")?.value.split('/');
+      const timeSplit1 = this.appointmentsDataForm.get("startDateTime")?.value.split(':');
 
-        const day1 = dataSplit1[0];
-        const month1 = dataSplit1[1];
-        const year1 = dataSplit1[2];
-        const hour1 = timeSplit1[0];
-        const minutes1 = timeSplit1[1];
+      const day1 = dataSplit1[0];
+      const month1 = dataSplit1[1];
+      const year1 = dataSplit1[2];
+      const hour1 = timeSplit1[0];
+      const minutes1 = timeSplit1[1];
 
-        const dataSplit2 = this.appointmentsDataForm.get("endDate")?.value.split('/');
-        const timeSplit2 = this.appointmentsDataForm.get("endDateTime")?.value.split(':');
+      const dataSplit2 = this.appointmentsDataForm.get("endDate")?.value.split('/');
+      const timeSplit2 = this.appointmentsDataForm.get("endDateTime")?.value.split(':');
 
-        const day2 = dataSplit2[0];
-        const month2 = dataSplit2[1];
-        const year2 = dataSplit2[2];
-        const hour2 = timeSplit2[0];
-        const minutes2 = timeSplit2[1]
+      const day2 = dataSplit2[0];
+      const month2 = dataSplit2[1];
+      const year2 = dataSplit2[2];
+      const hour2 = timeSplit2[0];
+      const minutes2 = timeSplit2[1]
 
 
-        var data1 = new Date(year1, month1 - 1, day1, hour1, minutes1);
-        var data2 = new Date(year2, month2 - 1, day2, hour2, minutes2);
+      var data1 = new Date(year1, month1 - 1, day1, hour1, minutes1);
+      var data2 = new Date(year2, month2 - 1, day2, hour2, minutes2);
 
-        if (data1.getTime() === data2.getTime()) {
+        if(Date.now() >= data1.getTime() && Date.now() < data2.getTime()){
           this.statusValue = "Open";
         }
-        else if (data1.getTime() < data2.getTime()) {
+        if(Date.now() < data1.getTime()){
           this.statusValue = "Upcoming";
         }
-        else {
+        if(Date.now() >= data2.getTime()){
           this.statusValue = "Overdue";
         }
+
+        // if (data1.getTime() === data2.getTime()) {
+        //   this.statusValue = "Open";
+        // }
+        // else if (data1.getTime() < data2.getTime()) {
+        //   this.statusValue = "Upcoming";
+        // }
+        // else {
+        //   this.statusValue = "Overdue";
+        // }
 
      }
   }
 
+  checkIfEndDateisGreater(control : AbstractControl){
+    const formGroup = control.parent;
+    if (formGroup) {
+      if(formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
+
+        const dataSplit1 = formGroup.get("startDate")?.value.split('/');
+
+        const day1 = dataSplit1[0];
+        const month1 = dataSplit1[1];
+        const year1 = dataSplit1[2];
+
+        const dataSplit2 = formGroup.get("endDate")?.value.split('/');
+
+        const day2 = dataSplit2[0];
+        const month2 = dataSplit2[1];
+        const year2 = dataSplit2[2];
+
+
+        var data1 = new Date(year1, month1 - 1, day1);
+        var data2 = new Date(year2, month2 - 1, day2);
+
+
+
+        if(data2.getTime() < data1.getTime()){
+          return {checkIfEndDateisGreater: true}
+        }
+      }
+    }
+    return null;
+}
   getCurrentDate(){
     let today = new Date();
     const yyyy = today.getFullYear();
@@ -285,5 +363,6 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   }
     return null;
 }
+
 
 }
