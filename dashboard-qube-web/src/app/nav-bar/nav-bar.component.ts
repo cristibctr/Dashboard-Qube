@@ -13,9 +13,8 @@ import { NavBarItems } from './NavBarItems.model';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   subNavTypes : NavBarItems = {
-    "Sales/Clients" : [
-      // {link:'/Sales',title:'Sales'},
-      // {link:'/Clients',title:'Clients'}
+    "Sales" : [
+      // {link:'/Sales',title:'Sales'} 
     ],
     "Appointments & Tasks" : [
         {link:'/appointments',title:'Appointments'},

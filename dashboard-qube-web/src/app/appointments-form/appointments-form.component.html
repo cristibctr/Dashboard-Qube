@@ -69,8 +69,6 @@
       </div>
 
       <div class="clr-col-sm-12 clr-col-lg-4">
-
-        <div class=" clr-row clr-align-items-center">
           <clr-date-container>
             <label for="startDate">
               Start Date*
@@ -80,31 +78,27 @@
             <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
             <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
           </clr-date-container>
-          <cds-time layout="vertical" control-width="shrink">
+          <cds-time layout="vertical" control-width="shrink" class="cds-time">
             <label for="startDateTime">Time*</label>
             <input type="time" formControlName="startDateTime" id="startDateTime"/>
             <cds-control-message status="error" *ngIf="timeStartErrorMessage">message text</cds-control-message>
-        </cds-time>
-        </div>
+          </cds-time>
 
-        <div class=" clr-row clr-align-items-center">
-          <clr-date-container >
-            <label for="endDate">
-              End Date*
-            </label>
-            <input clrDate cngDateFormatter required type="text" id="endDate"
-            formControlName="endDate" min={{dateNow}} value={{startDate.value}}>
-            <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
-            <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
-            <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
-
-          </clr-date-container>
-          <cds-time control-width="shrink" layout="vertical">
-            <label for="endDateTime">Time*</label>
-            <input type="time" formControlName="endDateTime" id="endDateTime"/>
-            <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
+        <clr-date-container >
+          <label for="endDate">
+            End Date*
+          </label>
+          <input clrDate cngDateFormatter required type="text" id="endDate"
+          formControlName="endDate" min={{dateNow}} value={{startDate.value}}>
+          <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
+          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+        </clr-date-container>
+        <cds-time control-width="shrink" layout="vertical" class="cds-time">
+          <label for="endDateTime">Time*</label>
+          <input type="time" formControlName="endDateTime" id="endDateTime"/>
+          <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
         </cds-time>
-        </div>
 
         <clr-input-container>
           <label for="status">
