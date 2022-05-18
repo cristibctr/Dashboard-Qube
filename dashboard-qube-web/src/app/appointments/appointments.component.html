@@ -26,7 +26,7 @@
 
             <clr-dg-row *clrDgItems="let appointment of appointments">
                 <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
-                <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
+                <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.status}}</clr-dg-cell>
             </clr-dg-row>
