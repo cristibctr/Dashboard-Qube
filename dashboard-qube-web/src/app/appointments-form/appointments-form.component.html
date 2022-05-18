@@ -76,12 +76,16 @@
             <input clrDate cngDateFormatter required type="text" id="startDate"
             formControlName="startDate" min="{{dateNow}}" #startDate>
             <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+            <!-- <clr-control-error *clrIfError="'wrongDate'">Please enter a valid date</clr-control-error> -->
+            <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
             <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+
           </clr-date-container>
           <cds-time layout="vertical" control-width="shrink" class="cds-time">
             <label for="startDateTime">Time*</label>
             <input type="time" formControlName="startDateTime" id="startDateTime"/>
             <cds-control-message status="error" *ngIf="startDateTime.touched && startDateTime.hasError('required')">This field is mandatory</cds-control-message>
+            <cds-control-message status="error" *ngIf="errorMessage && !startDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
           </cds-time>
 
         <clr-date-container >
@@ -89,15 +93,23 @@
             End Date*
           </label>
           <input clrDate cngDateFormatter required type="text" id="endDate"
-          formControlName="endDate" min={{dateNow}} value={{startDate.value}}>
+          formControlName="endDate" min={{dateNow}}>
           <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
           <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+          <!-- <clr-control-error *clrIfError="'wrongDate'">Please enter a valid date</clr-control-error> -->
+          <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
+          <clr-control-error *clrIfError="'checkIfEndDateisGreater'">Please enter a date greater than Start Date</clr-control-error>
           <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
         </clr-date-container>
         <cds-time control-width="shrink" layout="vertical" class="cds-time">
           <label for="endDateTime">Time*</label>
           <input type="time" formControlName="endDateTime" id="endDateTime"/>
           <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
+          <cds-control-message status="error" *ngIf="errorMessage && !endDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
+          <cds-control-message status="error" *ngIf="checkEndDateTimeValidityValue" class="cds-time-message">Please enter another time</cds-control-message>
+          <cds-control-message status="error" *ngIf="endDateTime.touched && startDateTime.hasError('required')" class="cds-time-message">This field is mandatory</cds-control-message>
+
+
         </cds-time>
 
         <clr-input-container>
@@ -131,9 +143,13 @@
     <button class="btn btn-secondary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px" (click)="returnToAppointmentPage()">Cancel</button>
 
   </div>
-
-  <clr-alert clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
-    <em>Creation of appointment</em> Failed. {{errorText}}
-  </clr-alert>
+  <div class="clr-row">
+    <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
+      <em>Creation of appointment</em> Failed. {{errorText}}
+    </clr-alert>
+    <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="successMessage">
+      <em>A new appointment has been successfully created</em>
+    </clr-alert>
+  </div>
 </form>
 

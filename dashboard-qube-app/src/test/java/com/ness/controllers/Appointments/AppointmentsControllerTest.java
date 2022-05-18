@@ -60,18 +60,7 @@ public class AppointmentsControllerTest {
             "    \"assignedToUser\": \"cristian123@email.com\",\n" +
             "    \"description\": \"A very long description\"\n" +
             "}";
-//        User user = User.builder()
-//            .email("test@test.com")
-//            .build();
-//        Appointment appointment = Appointment.builder()
-//            .createdByUser(user)
-//            .contactType("email")
-//            .startDate(LocalDateTime.from(ZonedDateTime.now().plusDays(2)))
-//            .endDate(LocalDateTime.from(ZonedDateTime.now().plusDays(3)))
-//            .assignedToUser(user)
-//            .description("Test description")
-//            .title("Test title")
-//            .build();
+
         mockMvc.perform(post("/api/appointments")
             .contentType(MediaType.APPLICATION_JSON)
             .content(requestString))
@@ -95,22 +84,6 @@ public class AppointmentsControllerTest {
             .andExpect(status().is(404));
     }
 
-    @Test
-    public void AppointmentEndDateIsInvalid() throws Exception{
-        String requestString = "{\n" +
-            "    \"createdByUser\": \"test@test.com\",\n" +
-            "    \"title\": \"My new appointment\",\n" +
-            "    \"contactType\": \"online meeting\",\n" +
-            "    \"startDate\": \"12/12/2022 16:20\",\n" +
-            "    \"endDate\": \"13/12/2012 16:20\",\n" +
-            "    \"assignedToUser\": \"cristian123@email.com\",\n" +
-            "    \"description\": \"A very long description\"\n" +
-            "}";
-        mockMvc.perform(post("/api/appointments")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestString))
-            .andExpect(status().is(404));
-    }
 
     @Test
     public void AppointmentDescriptionIsTooLong() throws Exception{

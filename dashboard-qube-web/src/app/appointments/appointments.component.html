@@ -24,7 +24,7 @@
                 </clr-dg-filter>
             </clr-dg-column>
 
-            <clr-dg-row *clrDgItems="let appointment of appointments">
+            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments">
                 <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
