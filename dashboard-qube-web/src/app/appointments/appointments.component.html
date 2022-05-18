@@ -12,18 +12,32 @@
     <div class="clr-col-md-6 clr-col-lg-6 clr-offset-lg-1">
         <clr-datagrid>
             <clr-dg-column>Title</clr-dg-column>
-            <clr-dg-column>Date, Time</clr-dg-column>
+            <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Date, Time
+                <clr-dg-filter>
+                    <app-date-filter></app-date-filter>
+                </clr-dg-filter>
+            </clr-dg-column>
             <clr-dg-column>Contact type</clr-dg-column>
-            <clr-dg-column>Status</clr-dg-column>
+            <clr-dg-column [clrDgField]="'status'">Status
+                <clr-dg-filter>
+                    <app-status-filter></app-status-filter>
+                </clr-dg-filter>
+            </clr-dg-column>
 
-            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *ngFor="let appointment of appointments">
+            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments">
                 <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
-                <clr-dg-cell>{{getDate(appointment.startDate) | date:'dd/MM/yyy HH:mm'}}</clr-dg-cell>
+                <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
-                <clr-dg-cell>{{getAppointmentStatus(appointment)}}</clr-dg-cell>
+                <clr-dg-cell>{{appointment.status}}</clr-dg-cell>
             </clr-dg-row>
 
-            <clr-dg-footer>1 - {{getResultsNumber()}} of {{getResultsNumber()}} results</clr-dg-footer>
+            <clr-dg-footer>
+                <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                    <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Appointments per page</clr-dg-page-size>
+                    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                    of {{pagination.totalItems}} Appointments
+                </clr-dg-pagination>
+            </clr-dg-footer>
         </clr-datagrid>
     </div>
 </div>

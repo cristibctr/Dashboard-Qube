@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval, mergeMap, Subscription, take } from 'rxjs';
+import { ClrDatagridSortOrder } from '@clr/angular';
+import { interval, map, mergeMap, Subscription, take } from 'rxjs';
 import { Appointment } from '../appointments-form/appointment.model';
 import { AppointmentsService } from '../appointments-form/appointments.service';
 
@@ -11,10 +12,11 @@ import { AppointmentsService } from '../appointments-form/appointments.service';
 })
 export class AppointmentsComponent implements OnInit, OnDestroy {
 
-  appointments!: Appointment[] | null;
+  appointments!: Appointment[];
   status: string = '';
   loggedInInterval: any;
   AppointmentsSubscription!: Subscription;
+  ascSort = ClrDatagridSortOrder.ASC;
 
   constructor(private router: Router, private appointmentsService: AppointmentsService) { }
 
@@ -28,12 +30,24 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       }
     }, 3000);
     const username: string | null = localStorage.getItem("isLoggedIn");
-    this.appointmentsService.getAppointments(username!).pipe(take(1)).subscribe(appointments => this.appointments = appointments.body);
+    this.appointmentsService.getAppointments(username!).pipe(take(1)).pipe(
+      map(response => {
+            let respRet = {...response};
+            respRet.body = response.body!.map(appointment => ({...appointment, status: this.getAppointmentStatus(appointment), tableDate: this.getDate(appointment.startDate)}));
+            return respRet;
+        })
+    ).subscribe(appointments => this.appointments = appointments.body!);
     this.AppointmentsSubscription = interval(5000)
     .pipe(
-        mergeMap(() => this.appointmentsService.getAppointments(username!))
+        mergeMap(() => this.appointmentsService.getAppointments(username!).pipe(
+          map(response => {
+                let respRet = {...response};
+                respRet.body = response.body!.map(appointment => ({...appointment, status: this.getAppointmentStatus(appointment), tableDate: this.getDate(appointment.startDate)}));
+                return respRet;
+            })
+        ))
       )
-    .subscribe(appointments =>{ this.appointments = appointments.body; console.log('1')});
+    .subscribe(appointments =>{ this.appointments = appointments.body!;});
   }
 
   getDate(date: string): Date {
@@ -51,7 +65,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     } else if (startDate > now) {
       return 'Upcoming';
     } else {
-      return 'Present';
+      return 'Open';
     }
   }
 
