@@ -37,17 +37,17 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
             return respRet;
         })
     ).subscribe(appointments => this.appointments = appointments.body!);
-    this.AppointmentsSubscription = interval(5000)
-    .pipe(
-        mergeMap(() => this.appointmentsService.getAppointments(username!).pipe(
-          map(response => {
-                let respRet = {...response};
-                respRet.body = response.body!.map(appointment => ({...appointment, status: this.getAppointmentStatus(appointment), tableDate: this.getDate(appointment.startDate)}));
-                return respRet;
-            })
-        ))
-      )
-    .subscribe(appointments =>{ this.appointments = appointments.body!;});
+    // this.AppointmentsSubscription = interval(5000)
+    // .pipe(
+    //     mergeMap(() => this.appointmentsService.getAppointments(username!).pipe(
+    //       map(response => {
+    //             let respRet = {...response};
+    //             respRet.body = response.body!.map(appointment => ({...appointment, status: this.getAppointmentStatus(appointment), tableDate: this.getDate(appointment.startDate)}));
+    //             return respRet;
+    //         })
+    //     ))
+    //   )
+    // .subscribe(appointments =>{ this.appointments = appointments.body!;});
   }
 
   getDate(date: string): Date {

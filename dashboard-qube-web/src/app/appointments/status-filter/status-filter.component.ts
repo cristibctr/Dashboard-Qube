@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
+import { StatusFilterService } from './status-filter.service';
 
 @Component({
   selector: 'app-status-filter',
@@ -12,7 +13,7 @@ export class StatusFilterComponent implements ClrDatagridFilterInterface<Appoint
   value: string = "unchecked";
   state: boolean = false;
 
-  constructor(private filterContainer: ClrDatagridFilter) {
+  constructor(private filterContainer: ClrDatagridFilter, private statusFilter: StatusFilterService) {
     filterContainer.setFilter(this);
 }
   isActive(): boolean {
@@ -23,14 +24,19 @@ export class StatusFilterComponent implements ClrDatagridFilterInterface<Appoint
       return true;
     switch (this.value) {
       case 'overdue':
+        this.statusFilter.statusFilterState.emit('overdue');
         return (<any>item).status === 'Overdue';
       case 'all':
+        this.statusFilter.statusFilterState.emit('all');
         return true;
       case 'upcoming':
+        this.statusFilter.statusFilterState.emit('upcoming');
         return (<any>item).status === 'Upcoming';
       case 'open':
+        this.statusFilter.statusFilterState.emit('open');
         return (<any>item).status === 'Open';
     }
+    this.statusFilter.statusFilterState.emit('none');
     return true;
   }
   changes: any = new EventEmitter<any>(false);
