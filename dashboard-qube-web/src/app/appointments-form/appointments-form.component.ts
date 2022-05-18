@@ -60,9 +60,9 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private appointmentsService: AppointmentsService, private formBuilder: FormBuilder) {
     this.appointmentsDataForm = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
-      startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$') ]],
+      startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate ]],
       startDateTime: [null, [Validators.required]],
-      endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled]],
+      endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled, this.checkDate]],
       endDateTime: [null, [Validators.required, this.checkIfStartTimeisFilled, this.checkEndDateTimeValidity]],
       description: [null, [Validators.maxLength(500)]],
       contactType: [null, [Validators.required]],
@@ -244,16 +244,6 @@ parseDates(){
           this.statusValue = "Overdue";
         }
 
-        // if (data1.getTime() === data2.getTime()) {
-        //   this.statusValue = "Open";
-        // }
-        // else if (data1.getTime() < data2.getTime()) {
-        //   this.statusValue = "Upcoming";
-        // }
-        // else {
-        //   this.statusValue = "Overdue";
-        // }
-
      }
   }
 
@@ -361,5 +351,20 @@ parseDates(){
     return null;
 }
 
+checkDate(control: AbstractControl) {
 
+    if(control?.value){
+      const dataSplit1 = control?.value.split('/');
+
+      const day1 = dataSplit1[0];
+      const month1 = dataSplit1[1];
+      const year1 = dataSplit1[2];
+      var data1 = new Date(year1, month1 - 1, day1);
+
+      if(data1.getTime() < Date.now()){
+        return {invalidDate: true}
+      }
+    }
+    return null;
+  }
 }
