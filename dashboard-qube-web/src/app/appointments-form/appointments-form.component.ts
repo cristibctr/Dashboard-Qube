@@ -132,10 +132,9 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error(error);
+          this.errorMessage = true;
         }
       );
-    } else{
-      this.errorMessage = true;
     }
   }
   returnToAppointmentPage(){
