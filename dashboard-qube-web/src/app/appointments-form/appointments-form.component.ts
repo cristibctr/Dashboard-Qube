@@ -110,9 +110,14 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   }
 
   startDateChange(event: string){
-    this.appointmentsDataForm.patchValue({
-      endDate: event
-    });
+    if(!this.appointmentsDataForm.controls['endDate'].touched)
+      this.appointmentsDataForm.patchValue({
+        endDate: event
+      });
+  }
+
+  startDateLostFocus(){
+    this.appointmentsDataForm.controls['endDate'].updateValueAndValidity();
   }
 
   handleSubmit(){

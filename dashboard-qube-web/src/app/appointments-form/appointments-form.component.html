@@ -77,7 +77,7 @@
               Start Date*
             </label>
             <input clrDate cngDateFormatter required type="text" id="startDate"
-            formControlName="startDate" min="{{dateNow}}" (ngModelChange)="startDateChange($event)" #startDate>
+            formControlName="startDate" min="{{dateNow}}" (blur)="startDateLostFocus()" (ngModelChange)="startDateChange($event)" #startDate>
             <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
             <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
             <clr-control-error *clrIfError="'invalidDate'">Please enter a valid date</clr-control-error>
