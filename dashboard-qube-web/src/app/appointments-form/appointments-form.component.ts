@@ -59,7 +59,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private appointmentsService: AppointmentsService, private formBuilder: FormBuilder) {
     this.appointmentsDataForm = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
       startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$') ]],
       startDateTime: [null, [Validators.required]],
       endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled]],
@@ -243,16 +243,6 @@ parseDates(){
         if(Date.now() >= data2.getTime()){
           this.statusValue = "Overdue";
         }
-
-        // if (data1.getTime() === data2.getTime()) {
-        //   this.statusValue = "Open";
-        // }
-        // else if (data1.getTime() < data2.getTime()) {
-        //   this.statusValue = "Upcoming";
-        // }
-        // else {
-        //   this.statusValue = "Overdue";
-        // }
 
      }
   }
