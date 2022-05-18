@@ -20,7 +20,7 @@ export class RegistrationPageComponent implements OnInit {
   constructor(private registration: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem("isLoggedIn") === "true"){
+    if(localStorage.getItem("isLoggedIn")){
       this.router.navigate(['/home']);
     }
 
@@ -49,8 +49,16 @@ export class RegistrationPageComponent implements OnInit {
     let mm = today.getMonth() + 1;
     let dd = today.getDate();
     let newDd, newMm;
-    if (dd < 10) newDd = '0' + dd;
-    if (mm < 10) newMm = '0' + mm;
+    if (dd < 10) {
+      newDd = '0' + dd;
+    } else{
+      newDd = dd;
+    }
+    if (mm < 10){
+      newMm = '0' + mm;
+    } else {
+      newMm = mm;
+    }
 
     this.dateNowMinus18 = (yyyy - 18) + '-' + newMm  + '-' + newDd;
     this.dateNowMinus120 = (yyyy - 120) + '-' + newMm  + '-' + newDd;

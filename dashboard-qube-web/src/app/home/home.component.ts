@@ -12,12 +12,12 @@ export class HomeComponent implements OnInit, OnDestroy{
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("isLoggedIn") !== "true") {
+    if (!localStorage.getItem("isLoggedIn")) {
       this.router.navigate(['/login']);
     }
     this.interval = setInterval(() => {
-      if(localStorage.getItem("isLoggedIn") !== "true"){
-        this.router.navigate(["/login"]);   
+      if(!localStorage.getItem("isLoggedIn")){
+        this.router.navigate(["/login"]);
       }
     }, 3000);
   }

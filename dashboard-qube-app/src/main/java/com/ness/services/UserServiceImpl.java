@@ -1,9 +1,9 @@
 package com.ness.services;
 
-
 import com.ness.dtos.UserDTO;
 import com.ness.dtos.UserLoginDTO;
 import com.ness.entities.User;
+import com.ness.mappers.EntityDTOMapper;
 import com.ness.mappers.UserMapper;
 import com.ness.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final EntityDTOMapper<UserDTO, User> entityDTOMapper;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.entityDTOMapper = new UserMapper();
     }
 
 
     @Override
     public void save(UserDTO userDTO) {
-        UserMapper userMapper = new UserMapper();
-        User user = new User();
-        this.userRepository.save(userMapper.mapUserDTOToUser(userDTO, user));
+        this.userRepository.save(entityDTOMapper.mapDTOTo(userDTO));
     }
 
     @Override
