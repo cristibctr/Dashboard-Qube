@@ -109,6 +109,12 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
     clearInterval(this.secondInterval);
   }
 
+  startDateChange(event: string){
+    this.appointmentsDataForm.patchValue({
+      endDate: event
+    });
+  }
+
   handleSubmit(){
     if (this.appointmentsDataForm.valid)
     {
@@ -121,7 +127,6 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
       assignedToUser: this.appointmentsDataForm.controls["assignTo"].value,
       createdByUser: this.appointmentsDataForm.controls["createdBy"].value,
       };
-      console.log(appointment);
 
       this.appointmentsService.addAppointment(appointment).pipe(take(1)).subscribe(
         (response) => {
@@ -167,9 +172,7 @@ checkEndDateTimeValidity(control : AbstractControl){
   const formGroup = control.parent;
   if (formGroup) {
     if(formGroup.get("startDateTime")?.value && formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
-      console.log("11")
       if(formGroup.get("startDate")?.value === formGroup.get("endDate")?.value && formGroup.get("startDateTime")?.value === control.value){
-        console.log("yes")
         return {checkEndDateTimeValidityValue: true}
 
       }
@@ -200,7 +203,6 @@ parseDates(){
 
   var data1 = new Date(year1, month1 - 1, day1, hour1, minutes1);
   var data2 = new Date(year2, month2 - 1, day2, hour2, minutes2);
-  console.log("Data1 ", data1, " ", "Data2", data2)
   return {data1, data2};
 }
 
@@ -331,17 +333,13 @@ parseDates(){
     const day = dateSplit[0];
     const month = dateSplit[1];
     const year = dateSplit[2];
-    console.log(month === "04")
 
     if(month > 12){
-      console.log(month > "04")
       return {wrongDate: true}
     }
 
     if(month === "01" && month === "03" && month === "05" && month === "07" && month === "08" && month === "10" && month === "12"){
-      console.log('month comparison', month === "01");
       if(day > 31){
-        console.log('day comparison', day > 31);
         return {wrongDate: true}
       }
     } else if(month === "04" && month === "06" && month === "09" && month === "11"){

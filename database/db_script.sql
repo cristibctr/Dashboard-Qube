@@ -1,4 +1,4 @@
---
+    --
 -- PostgreSQL database dump
 --
 
@@ -89,3 +89,11 @@ ALTER TABLE ONLY public.appointments
 
 ALTER TABLE ONLY public.appointments
     ADD CONSTRAINT created_by_fk FOREIGN KEY (created_by_user) REFERENCES public.users(id);
+
+INSERT INTO public.users(
+	first_name, last_name, date_of_birth, phone_number, city, country, email, password)
+	VALUES ('second admin', 'second admin', '2000-11-11', '0040733234344',	'Iasi',	'Romania',	'admin2@admin.com',	'Password1!');
+	
+INSERT INTO public.users(
+	first_name, last_name, date_of_birth, phone_number, city, country, email, password)
+	VALUES ('first admin', 'first admin', '1950-11-11', '0040733234344',	'Bucuresti',	'Romania',	'admin1@admin.com',	'Password1!');
