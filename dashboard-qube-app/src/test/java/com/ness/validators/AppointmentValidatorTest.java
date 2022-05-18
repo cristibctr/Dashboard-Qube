@@ -111,6 +111,20 @@ public class AppointmentValidatorTest {
     }
 
     @Test
+    public void invalidEndDate(){
+        AppointmentDTO appointmentDTO = AppointmentDTO.builder()
+            .assignedToUser("email@email.com")
+            .contactType("sms")
+            .createdByUser("email@email.com")
+            .description("Test Description")
+            .startDate(LocalDateTime.of(2022, 12, 12, 8, 30))
+            .endDate(LocalDateTime.of(2021, 12, 12, 10, 30))
+            .title("Test title")
+            .build();
+        assertEquals(AppointmentsValidator.validate(appointmentDTO), false);
+    }
+
+    @Test
     public void invalidContactType(){
         AppointmentDTO appointmentDTO = AppointmentDTO.builder()
             .assignedToUser("email@email.com")
