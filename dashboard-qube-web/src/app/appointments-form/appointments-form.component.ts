@@ -365,7 +365,7 @@ checkDate(control: AbstractControl) {
       const month1 = dataSplit1[1];
       const year1 = dataSplit1[2];
       var data1 = new Date(year1, month1 - 1, day1);
-      if(data1.getDate() < new Date().getDate()){
+      if(data1 < new Date()){
         return {invalidDate: true}
       }
     }
