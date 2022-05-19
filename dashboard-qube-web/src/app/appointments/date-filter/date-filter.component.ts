@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Observable, Subject } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
-import { StatusFilterService } from '../status-filter/status-filter.service';
 
 @Component({
   selector: 'app-date-filter',
@@ -13,11 +12,9 @@ export class DateFilterComponent implements ClrDatagridFilterInterface<Appointme
 
   value: string = "unchecked";
   changes: any = new EventEmitter<any>(false);
-  statusFilterState!: string;
 
-  constructor(private filterContainer: ClrDatagridFilter, private statusFilter: StatusFilterService) {
+  constructor(private filterContainer: ClrDatagridFilter) {
     filterContainer.setFilter(this);
-    statusFilter.statusFilterState.subscribe(status => this.statusFilterState = status);
   }
   isActive(): boolean {
     return true;
@@ -26,10 +23,6 @@ export class DateFilterComponent implements ClrDatagridFilterInterface<Appointme
     if((<any>item).tableDate == undefined)
       return true;
     var d = new Date();
-    if(this.statusFilterState == 'overdue') {
-      d.setDate(d.getDate() - 30);
-      return (<any>item).tableDate > d;
-    }
     switch(this.value){
       case 't-days':
         d.setDate(d.getDate() + 29);
