@@ -365,10 +365,17 @@ checkDate(control: AbstractControl) {
       const month1 = dataSplit1[1];
       const year1 = dataSplit1[2];
       var data1 = new Date(year1, month1 - 1, day1);
-      if(data1 < new Date()){
+      let date2 = new Date();
+      date2.setHours(0,0,0,0)
+      if(data1 < date2){
         return {invalidDate: true}
       }
     }
     return null;
+  }
+
+  onClose(){
+    this.errorMessage = false;
+    this.successMessage = false;
   }
 }
