@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { angleIcon, ClarityIcons} from '@cds/core/icon';
@@ -23,6 +23,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   assignToValue!: string[] | null;
   endDatestartDateNotFilledError: boolean = false;
   dateYesterday!: string;
+
   successMessage: boolean = false;
   checkEndDateTimeValidityValue: boolean = false;
 
@@ -136,7 +137,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
       this.appointmentsService.addAppointment(appointment).pipe(take(1)).subscribe(
         (response) => {
           if(response.status === 200){
-            this.successMessage = true;
+            this.appointmentsService.appointmentIsCreated = true;
             this.router.navigate(["/appointments"]);
           }
         },
@@ -376,6 +377,5 @@ checkDate(control: AbstractControl) {
 
   onClose(){
     this.errorMessage = false;
-    this.successMessage = false;
   }
 }
