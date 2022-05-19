@@ -15,12 +15,13 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   appointments!: Appointment[];
   status: string = '';
   loggedInInterval: any;
+  createdAppointmentSuccessMessage: boolean = false;
   AppointmentsSubscription!: Subscription;
   ascSort = ClrDatagridSortOrder.ASC;
   showModal: boolean = false;
   modalAppoinyment!: Appointment;
 
-  constructor(private router: Router, private appointmentsService: AppointmentsService) { }
+  constructor(private router: Router, public appointmentsService: AppointmentsService) { }
 
   ngOnInit(): void {
     if (!localStorage.getItem("isLoggedIn")) {
@@ -50,6 +51,14 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
         ))
       )
     .subscribe(appointments =>{ this.appointments = appointments.body!;});
+
+    if(this.appointmentsService.appointmentIsCreated === true){
+      this.createdAppointmentSuccessMessage = true;
+      setTimeout(() => {
+        this.createdAppointmentSuccessMessage = false;
+        this.appointmentsService.appointmentIsCreated = false;
+      }, 2000)
+    }
   }
 
   getDate(date: string): Date {
@@ -63,7 +72,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     const startDate = this.getDate(appointment.startDate);
     const now = new Date();
     if (endDate < now) {
-      return 'Overdue'; 
+      return 'Overdue';
     } else if (startDate > now) {
       return 'Upcoming';
     } else {

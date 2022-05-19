@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { AppConfigService } from '../app-config.service';
 import { Appointment } from './appointment.model';
@@ -8,6 +8,8 @@ import { Appointment } from './appointment.model';
   providedIn: 'root'
 })
 export class AppointmentsService {
+
+  appointmentIsCreated: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +25,5 @@ export class AppointmentsService {
   getSalesPeople(){
     return this.http.get<string[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`,  {observe: 'response'})
   }
-  
+
 }

@@ -148,11 +148,8 @@
 
   </div>
   <div class="clr-row">
-    <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage">
-      <em>Creation of appointment</em> Failed. {{errorText}}
-    </clr-alert>
-    <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="successMessage">
-      <em>A new appointment has been successfully created</em>
+    <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage" (clrAlertClosedChange)="onClose()">
+      <em>Creation of appointment Failed.</em> {{errorText}}
     </clr-alert>
   </div>
 </form>

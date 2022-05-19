@@ -53,9 +53,6 @@ public class AppointmentsValidator {
         if(!matcher.matches()){
             return false;
         }
-
-
-
         return true;
     }
 

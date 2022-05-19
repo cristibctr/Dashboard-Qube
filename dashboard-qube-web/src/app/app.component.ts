@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AppointmentsService } from './appointments-form/appointments.service';
 import { RegisterService } from './registration-page/register.service';
 
 
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'dashboard-qube';
   isRegistered: boolean = false;
 
-  constructor(private registration: RegisterService){
+  constructor(private registration: RegisterService, private appointmentsService: AppointmentsService){
 
   }
 
