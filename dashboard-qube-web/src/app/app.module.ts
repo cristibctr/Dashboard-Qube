@@ -20,6 +20,8 @@ import { ClrFormsModule } from '@clr/angular';
 import { CdsModule } from '@cds/angular';
 import { DateFilterComponent } from './appointments/date-filter/date-filter.component';
 import { StatusFilterComponent } from './appointments/status-filter/status-filter.component';
+import { AppointmentModifyComponent } from './appointments/appointment-modify/appointment-modify.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { StatusFilterComponent } from './appointments/status-filter/status-filte
     TasksComponent,
     AppointmentsFormComponent,
     DateFilterComponent,
-    StatusFilterComponent
+    StatusFilterComponent,
+    AppointmentModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { StatusFilterComponent } from './appointments/status-filter/status-filte
     ReactiveFormsModule,
     HttpClientModule,
     ClrFormsModule,
-    CdsModule
+    CdsModule,
+    BrowserAnimationsModule
   ],
   providers: [AppConfigService,
   { provide: APP_INITIALIZER, useFactory: (config: AppConfigService) => () => config.load(), deps: [AppConfigService], multi: true }],
