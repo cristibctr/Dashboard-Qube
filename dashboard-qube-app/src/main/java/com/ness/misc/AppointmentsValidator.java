@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AppointmentsValidator {
     public static boolean validate(AppointmentDTO appointment){
@@ -33,6 +35,7 @@ public class AppointmentsValidator {
         if(createdByUser == null || assignedToUser == null ||
         createdByUser.length() == 0 || createdByUser.length() == 0)
             return false;
+
         return true;
     }
 
@@ -44,6 +47,15 @@ public class AppointmentsValidator {
             return false;
         if(title.length() < 2 || title.length() > 60)
             return false;
+
+        Pattern pattern = Pattern.compile("^([\\S]+[\\s-])*[\\S)]+$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(title);
+        if(!matcher.matches()){
+            return false;
+        }
+
+
+
         return true;
     }
 

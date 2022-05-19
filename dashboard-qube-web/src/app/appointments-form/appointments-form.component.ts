@@ -59,7 +59,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private appointmentsService: AppointmentsService, private formBuilder: FormBuilder) {
     this.appointmentsDataForm = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
+      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate ]],
       startDateTime: [null, [Validators.required]],
       endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled, this.checkDate]],
