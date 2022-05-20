@@ -19,7 +19,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   AppointmentsSubscription!: Subscription;
   ascSort = ClrDatagridSortOrder.ASC;
   showModal: boolean = false;
-  modalAppoinyment!: Appointment;
+  modalAppointment!: Appointment;
 
   constructor(private router: Router, public appointmentsService: AppointmentsService) { }
 
@@ -88,6 +88,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   }
 
   onClickAppointment(appointment: Appointment): void {
+    this.modalAppointment = appointment;
     this.showModal = true;
   }
 
