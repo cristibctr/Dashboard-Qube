@@ -4,13 +4,14 @@ import com.ness.dtos.AppointmentDTO;
 import com.ness.dtos.UserDTO;
 import com.ness.entities.Appointment;
 import com.ness.misc.UserNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 
 public interface AppointmentsService {
     void save(AppointmentDTO appointmentDTO) throws UserNotFoundException;
     List<AppointmentDTO> getAppointmentsForUser(String email);
-    void delete(AppointmentDTO appointmentDTO) throws UserNotFoundException;
+    void delete(int id) throws EmptyResultDataAccessException;
     void edit(AppointmentDTO appointmentDTO) throws UserNotFoundException;
 
     Appointment getAppointmentById(Integer id);

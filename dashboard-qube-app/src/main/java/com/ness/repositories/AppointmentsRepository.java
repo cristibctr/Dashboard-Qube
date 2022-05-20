@@ -11,4 +11,5 @@ import java.util.List;
 public interface AppointmentsRepository extends CrudRepository<Appointment, Integer> {
     List<Appointment> findByCreatedByUser_Email(String email);
     List<Appointment> findByAssignedToUser_Email(String email);
+    void deleteById(int id);
 }
