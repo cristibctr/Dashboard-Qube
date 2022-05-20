@@ -24,7 +24,7 @@
                 </clr-dg-filter>
             </clr-dg-column>
 
-            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments">
+            <clr-dg-row [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments" (click)="onClickAppointment(appointment)">
                 <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
@@ -41,6 +41,7 @@
         </clr-datagrid>
     </div>
 </div>
+<app-appointment-modify [(modalIsOpen)]="showModal" [appointment]="modalAppoinyment"></app-appointment-modify>
 <clr-alert class="successful-register appointment-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="createdAppointmentSuccessMessage">
-  A new appointment has been successfully created
+    A new appointment has been successfully created
 </clr-alert>

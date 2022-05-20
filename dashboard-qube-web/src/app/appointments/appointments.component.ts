@@ -18,6 +18,8 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   createdAppointmentSuccessMessage: boolean = false;
   AppointmentsSubscription!: Subscription;
   ascSort = ClrDatagridSortOrder.ASC;
+  showModal: boolean = false;
+  modalAppoinyment!: Appointment;
 
   constructor(private router: Router, public appointmentsService: AppointmentsService) { }
 
@@ -83,6 +85,10 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       return this.appointments.length;
     }
     return 0;
+  }
+
+  onClickAppointment(appointment: Appointment): void {
+    this.showModal = true;
   }
 
   ngOnDestroy(): void {
