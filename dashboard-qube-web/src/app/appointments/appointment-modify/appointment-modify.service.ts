@@ -11,6 +11,10 @@ export class AppointmentModifyService {
   constructor(private http: HttpClient) { }
 
   updateAppointment(appointment: Appointment){
-    
+    return this.http.patch(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/appointment`, appointment, {observe: 'response', responseType: 'text'});
+  }
+
+  deleteAppointment(appointment: Appointment){
+    return this.http.delete(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/appointments/${appointment.id}`, {observe: 'response', responseType: 'text'});
   }
 }

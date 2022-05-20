@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, LOCALE_ID, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
 import { AppointmentsService } from 'src/app/appointments-form/appointments.service';
 import { pencilIcon, ClarityIcons } from '@cds/core/icon';
+import { AppointmentModifyService } from './appointment-modify.service';
 
 @Component({
   selector: 'app-appointment-modify',
   templateUrl: './appointment-modify.component.html',
-  styleUrls: ['./appointment-modify.component.scss']
+  styleUrls: ['./appointment-modify.component.scss'],
+  providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class AppointmentModifyComponent implements OnInit, OnChanges {
   @Input() modalIsOpen!: boolean;
@@ -62,7 +64,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
     return this.appointmentsDataForm.controls['status'];
   }
 
-  constructor(private formBuilder: FormBuilder, private appointmentsService: AppointmentsService) { 
+  constructor(private formBuilder: FormBuilder, private appointmentsService: AppointmentsService, private appointmentModifyService: AppointmentModifyService) { 
     this.appointmentsDataForm = this.formBuilder.group({
       title: [{value: this.appointment.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       startDate: [{value: this.getDateAndTimeFromString(this.appointment.startDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
@@ -72,12 +74,13 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       description: [{value: this.appointment.description, disabled: !this.editable}, [Validators.maxLength(500)]],
       contactType: [{value: this.appointment.contactType, disabled: !this.editable}, [Validators.required]],
       assignTo: [{value: localStorage.getItem("isLoggedIn"), disabled: !this.editable}, [Validators.required]],
-      createdBy: [localStorage.getItem("isLoggedIn")],
+      createdBy: [this.appointment.createdByUser],
       status: [{value: null, disabled: !this.editable}],
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
     if(!changes['modalIsOpen'].firstChange && changes['modalIsOpen'].currentValue === true){
+      this.appointmentsDataForm.disable();
       this.appointmentsDataForm.setValue({
         title: this.appointment.title,
         startDate: this.getDateAndTimeFromString(this.appointment.startDate).date,
@@ -87,7 +90,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
         description: this.appointment.description,
         contactType: this.appointment.contactType,
         assignTo: localStorage.getItem("isLoggedIn"),
-        createdBy: localStorage.getItem("isLoggedIn"),
+        createdBy: this.appointment.createdByUser,
         status: (<{status: string} & Appointment>this.appointment).status
       });
     }
@@ -132,13 +135,39 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
   }
 
   onClickDelete(): void {
-    this.modalIsOpen = false;
-    this.modalIsOpenChange.emit(this.modalIsOpen);
+    if(this.appointment.id){
+      this.appointmentModifyService.deleteAppointment(this.appointment).pipe(take(1)).subscribe(
+        (response) => {
+            if(response.status === 200){
+            this.modalIsOpen = false;
+            this.modalIsOpenChange.emit(this.modalIsOpen);
+          }
+        }
+      );
+    }
   }
   
   onClickSave(): void {
-    this.modalIsOpen = false;
-    this.modalIsOpenChange.emit(this.modalIsOpen);
+    var changedAppointment = {
+        id: this.appointment.id,
+        title: this.appointmentsDataForm.controls["title"].value,
+        startDate: this.appointmentsDataForm.controls["startDate"].value + " " + this.appointmentsDataForm.controls["startDateTime"].value,
+        endDate: this.appointmentsDataForm.controls["endDate"].value + " " + this.appointmentsDataForm.controls["endDateTime"].value,
+        description: this.appointmentsDataForm.controls["description"].value,
+        contactType: this.appointmentsDataForm.controls["contactType"].value,
+        assignedToUser: this.appointmentsDataForm.controls["assignTo"].value,
+        createdByUser: this.appointmentsDataForm.controls["createdBy"].value,
+      };
+    if(this.appointment.id){
+      this.appointmentModifyService.updateAppointment(changedAppointment).pipe(take(1)).subscribe(
+        (response) => {
+            if(response.status === 200){
+            this.modalIsOpen = false;
+            this.modalIsOpenChange.emit(this.modalIsOpen);
+          }
+        }
+      );
+    }
   }
 
   onClickOk(): void {

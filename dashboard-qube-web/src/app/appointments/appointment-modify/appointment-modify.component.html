@@ -10,7 +10,7 @@
                 </cds-icon-button>
             </div>
         </div>
-    <form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component" (submit)="handleSubmit()">
+    <form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component">
         <div class="clr-row">
             <div class="clr-col-sm-12 clr-col-lg-4">
               <clr-input-container>
@@ -144,6 +144,6 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline" (click)="onClickCancel()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="onClickDelete()" *ngIf="!editable">Delete</button>
-        <button type="button" class="btn btn-primary" (click)="onClickSave()" *ngIf="editable">Save</button>
+        <button type="button" class="btn btn-primary" (click)="onClickSave()" *ngIf="editable" [disabled]="!appointmentsDataForm.valid">Save</button>
     </div>
 </clr-modal>
