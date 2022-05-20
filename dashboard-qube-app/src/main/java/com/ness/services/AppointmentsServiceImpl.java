@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentsServiceImpl implements AppointmentsService {
@@ -39,5 +40,27 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             appointmentDTOS.add(entityDTOMapper.mapToDTO(appointment));
         }
         return appointmentDTOS;
+    }
+
+    @Override
+    public void delete(AppointmentDTO appointmentDTO) throws UserNotFoundException {
+        Appointment newAppointment = entityDTOMapper.mapDTOTo(appointmentDTO);
+        appointmentsRepository.delete(newAppointment);
+    }
+
+    @Override
+    public void edit(AppointmentDTO appointmentDTO) throws UserNotFoundException {
+        Appointment newAppointment = entityDTOMapper.mapDTOTo(appointmentDTO);
+
+    }
+
+    @Override
+    public Appointment getAppointmentById(Integer id) {
+        Optional<Appointment> appointment = appointmentsRepository.findById(id);
+
+        if(appointment.isPresent()){
+            return appointment.get();
+        }
+        return null;
     }
 }
