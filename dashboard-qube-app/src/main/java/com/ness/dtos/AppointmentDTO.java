@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 public class AppointmentDTO {
+    private Integer id;
     private String createdByUser;
     private String title;
     private String contactType;
