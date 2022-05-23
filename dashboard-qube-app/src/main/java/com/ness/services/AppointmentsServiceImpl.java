@@ -48,11 +48,6 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         appointmentsRepository.deleteById(id);
     }
 
-    @Override
-    public void edit(AppointmentDTO appointmentDTO) throws UserNotFoundException {
-        Appointment newAppointment = entityDTOMapper.mapDTOTo(appointmentDTO);
-
-    }
 
     @Override
     public Appointment getAppointmentById(Integer id) {

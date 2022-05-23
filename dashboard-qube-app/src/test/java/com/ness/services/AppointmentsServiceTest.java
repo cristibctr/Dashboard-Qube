@@ -41,6 +41,7 @@ public class AppointmentsServiceTest {
     @Test
     public void saveTest(){
         AppointmentDTO appointmentDTO = AppointmentDTO.builder()
+            .id(31)
             .assignedToUser("email@email.com")
             .contactType("sms")
             .createdByUser("email@email.com")

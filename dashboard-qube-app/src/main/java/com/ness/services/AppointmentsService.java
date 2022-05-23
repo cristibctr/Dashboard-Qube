@@ -12,7 +12,5 @@ public interface AppointmentsService {
     void save(AppointmentDTO appointmentDTO) throws UserNotFoundException;
     List<AppointmentDTO> getAppointmentsForUser(String email);
     void delete(int id) throws EmptyResultDataAccessException;
-    void edit(AppointmentDTO appointmentDTO) throws UserNotFoundException;
-
     Appointment getAppointmentById(Integer id);
 }
