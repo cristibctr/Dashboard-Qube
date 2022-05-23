@@ -39,7 +39,7 @@ class AppointmentsRepositoryIT {
     @BeforeAll
     void setUp() {
         user = User.builder()
-            .email("test@test.com")
+            .email("test0@test.com")
             .firstName("myFirstName")
             .lastName("myLastName")
             .password("Password1@3")
@@ -47,6 +47,7 @@ class AppointmentsRepositoryIT {
             .build();
         userRepository.save(user);
         appointment = Appointment.builder()
+            .id(31)
             .createdByUser(user)
             .contactType("email")
             .startDate(LocalDateTime.from(ZonedDateTime.now().plusDays(2)))
@@ -66,13 +67,24 @@ class AppointmentsRepositoryIT {
 
     @Test
     void findAssignmentByCreatedUserEmail() throws Exception{
-        Optional<List<Appointment>> foundAppointment = Optional.ofNullable(appointmentsRepository.findByCreatedByUser_Email("test@test.com"));
+        Optional<List<Appointment>> foundAppointment =
+            Optional.ofNullable(appointmentsRepository.findByCreatedByUser_Email("test0@test.com"));
         assertEquals(foundAppointment.get().get(0).getId(), appointment.getId());
     }
 
     @Test
     void findAssignmentByAssignedUserEmail() throws Exception{
-        Optional<List<Appointment>> foundAppointment = Optional.ofNullable(appointmentsRepository.findByAssignedToUser_Email("test@test.com"));
+        Optional<List<Appointment>> foundAppointment =
+            Optional.ofNullable(appointmentsRepository.findByAssignedToUser_Email("test0@test.com"));
         assertEquals(foundAppointment.get().get(0).getId(), appointment.getId());
     }
+
+    @Test
+    void deleteAppointmentById() throws Exception {
+        appointmentsRepository.deleteById(appointment.getId());
+        Optional foundAppointment =
+            Optional.ofNullable(appointmentsRepository.findById(appointment.getId()));
+        assertEquals(foundAppointment.get(), Optional.empty());
+    }
+
 }

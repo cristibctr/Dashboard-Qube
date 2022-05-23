@@ -2,10 +2,6 @@ package com.ness.controllers.Appointments;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ness.controllers.AppointmentsController;
-import com.ness.dtos.AppointmentDTO;
-import com.ness.entities.Appointment;
-import com.ness.entities.User;
-import com.ness.mappers.AppointmentsMapper;
 import com.ness.services.AppointmentsService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
@@ -25,6 +22,8 @@ import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -136,6 +135,30 @@ public class AppointmentsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestString))
             .andExpect(status().is(404));
+    }
+
+    @Test
+    public void AppointmentIsDeleted() throws Exception{
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/appointments/11")).andExpect(status().is(200));
+    }
+    @Test
+    public void AppointmentIsEdited() throws Exception{
+
+        String requestString = "{\n" +
+            "    \"id\": \"51\",\n" +
+            "    \"createdByUser\": \"ee@email.com\",\n" +
+            "    \"title\": \"test Title4\",\n" +
+            "    \"contactType\": \"Showroom Meeting\",\n" +
+            "    \"startDate\": \"20/05/2022 13:31\",\n" +
+            "    \"endDate\": \"20/05/2022 15:51\",\n" +
+            "    \"assignedToUser\": \"ee@email.com\",\n" +
+            "    \"description\": \"\"\n" +
+            "}";
+        mockMvc.perform(patch("/api/appointment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestString))
+            .andExpect(status().is(200));
     }
 
     public static String asJsonString(final Object obj) {

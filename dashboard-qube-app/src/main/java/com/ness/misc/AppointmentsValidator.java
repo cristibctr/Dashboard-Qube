@@ -31,6 +31,22 @@ public class AppointmentsValidator {
 
     }
 
+    public static boolean validateOldAppointment(AppointmentDTO appointment){
+        boolean titleValidation = validateTitle(appointment.getTitle());
+        boolean descriptionValidation = validateDescription(appointment.getDescription());
+        boolean contactTypesValidation = validateContactType(appointment.getContactType());
+        boolean usersValidation = validateUsers(appointment.getCreatedByUser(), appointment.getAssignedToUser());
+        boolean startEndDateValidation = validateStartEndDate(appointment.getStartDate(), appointment.getEndDate());
+
+        return titleValidation &
+            startEndDateValidation &
+            descriptionValidation &
+            contactTypesValidation &
+            usersValidation
+            ;
+
+    }
+
     private static boolean validateUsers(String createdByUser, String assignedToUser) {
         if(createdByUser == null || assignedToUser == null ||
         createdByUser.length() == 0 || createdByUser.length() == 0)

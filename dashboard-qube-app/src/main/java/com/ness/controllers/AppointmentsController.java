@@ -1,14 +1,20 @@
 package com.ness.controllers;
 
 import com.ness.dtos.AppointmentDTO;
+import com.ness.entities.Appointment;
 import com.ness.misc.AppointmentsValidator;
 import com.ness.misc.UserNotFoundException;
 import com.ness.services.AppointmentsService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,4 +46,30 @@ public class AppointmentsController {
     public ResponseEntity<List<AppointmentDTO>> getAppointmentsForUser(@RequestParam String email){
         return ResponseEntity.status(200).body(appointmentsService.getAppointmentsForUser(email));
     }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping(path="/api/appointments/{id}", produces= MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> deleteAppointment(@PathVariable int id){
+        try{
+            appointmentsService.delete(id);
+        }catch(EmptyResultDataAccessException e){
+            return ResponseEntity.status(404).body("User not found");
+        }
+        return ResponseEntity.status(200).body("Appointment deleted");
+    }
+    @CrossOrigin(origins = "*")
+    @PatchMapping(path="/api/appointment", produces= MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> editAppointment(@RequestBody AppointmentDTO appointmentDTO){
+
+        if(!AppointmentsValidator.validateOldAppointment(appointmentDTO))
+            {
+                return ResponseEntity.status(404).body("Incorrect request data");
+            }
+
+        appointmentsService.save(appointmentDTO);
+        return ResponseEntity.status(200).body("Appointment edited");
+        }
+
+
+
 }

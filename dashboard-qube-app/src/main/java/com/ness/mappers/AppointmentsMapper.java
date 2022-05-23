@@ -23,6 +23,7 @@ public class AppointmentsMapper implements EntityDTOMapper<AppointmentDTO, Appoi
         if(assignedToUser == null)
             throw new UserNotFoundException("assignedToUser not found");
         return Appointment.builder()
+            .id(appointmentDTO.getId())
             .createdByUser(createdByUser)
             .contactType(appointmentDTO.getContactType())
             .startDate(appointmentDTO.getStartDate())
@@ -36,6 +37,7 @@ public class AppointmentsMapper implements EntityDTOMapper<AppointmentDTO, Appoi
     @Override
     public AppointmentDTO mapToDTO(Appointment appointment) {
         return AppointmentDTO.builder()
+            .id(appointment.getId())
             .createdByUser(appointment.getCreatedByUser().getEmail())
             .contactType(appointment.getContactType())
             .startDate(appointment.getStartDate())

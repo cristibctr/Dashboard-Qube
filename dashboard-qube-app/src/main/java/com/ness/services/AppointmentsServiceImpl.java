@@ -8,10 +8,12 @@ import com.ness.mappers.EntityDTOMapper;
 import com.ness.misc.UserNotFoundException;
 import com.ness.repositories.AppointmentsRepository;
 import com.ness.repositories.UserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentsServiceImpl implements AppointmentsService {
@@ -39,5 +41,21 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             appointmentDTOS.add(entityDTOMapper.mapToDTO(appointment));
         }
         return appointmentDTOS;
+    }
+
+    @Override
+    public void delete(int id) throws EmptyResultDataAccessException {
+        appointmentsRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Appointment getAppointmentById(Integer id) {
+        Optional<Appointment> appointment = appointmentsRepository.findById(id);
+
+        if(appointment.isPresent()){
+            return appointment.get();
+        }
+        return null;
     }
 }
