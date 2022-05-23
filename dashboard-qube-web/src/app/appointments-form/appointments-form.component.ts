@@ -178,7 +178,7 @@ checkEndDateTimeValidity(control : AbstractControl){
   const formGroup = control.parent;
   if (formGroup) {
     if(formGroup.get("startDateTime")?.value && formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
-      if(formGroup.get("startDate")?.value === formGroup.get("endDate")?.value && formGroup.get("startDateTime")?.value === control.value){
+      if(formGroup.get("startDate")?.value === formGroup.get("endDate")?.value && formGroup.get("startDateTime")?.value >= control.value){
         return {checkEndDateTimeValidityValue: true}
 
       }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
 
@@ -7,6 +7,7 @@ import { Appointment } from 'src/app/appointments-form/appointment.model';
   providedIn: 'root'
 })
 export class AppointmentModifyService {
+  successMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private http: HttpClient) { }
 

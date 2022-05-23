@@ -41,7 +41,7 @@
         </clr-datagrid>
     </div>
 </div>
-<app-appointment-modify [(modalIsOpen)]="showModal" [appointment]="modalAppointment"></app-appointment-modify>
-<clr-alert class="successful-register appointment-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="createdAppointmentSuccessMessage">
-    A new appointment has been successfully created
+<app-appointment-modify [(modalIsOpen)]="showModal" [appointment]="modalAppointment" (messageModified)="onMessageModified()"></app-appointment-modify>
+<clr-alert class="successful-register appointment-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="appointmentSuccess">
+    {{appointmentSuccessMessage}}
 </clr-alert>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, LOCALE_ID, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
 import { AppointmentsService } from 'src/app/appointments-form/appointments.service';
@@ -24,6 +24,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
     assignedToUser: '',
     createdByUser: ''
   };
+  @Output() messageModified: EventEmitter<void> = new EventEmitter<void>();
   appointmentsDataForm: FormGroup;
   assignToValue!: string[] | null;
   statusValue: string = "idk";
@@ -69,8 +70,8 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       title: [{value: this.appointment.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       startDate: [{value: this.getDateAndTimeFromString(this.appointment.startDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
       startDateTime: [{value: this.getDateAndTimeFromString(this.appointment.startDate).time, disabled: !this.editable}, [Validators.required]],
-      endDate: [{value: this.getDateAndTimeFromString(this.appointment.endDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
-      endDateTime: [{value: this.getDateAndTimeFromString(this.appointment.endDate).time, disabled: !this.editable}, [Validators.required]],
+      endDate: [{value: this.getDateAndTimeFromString(this.appointment.endDate).date, disabled: !this.editable}, [this.checkIfEndDateisGreater, Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
+      endDateTime: [{value: this.getDateAndTimeFromString(this.appointment.endDate).time, disabled: !this.editable}, [Validators.required, this.checkEndDateTimeValidity]],
       description: [{value: this.appointment.description, disabled: !this.editable}, [Validators.maxLength(500)]],
       contactType: [{value: this.appointment.contactType, disabled: !this.editable}, [Validators.required]],
       assignTo: [{value: localStorage.getItem("isLoggedIn"), disabled: !this.editable}, [Validators.required]],
@@ -139,8 +140,10 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       this.appointmentModifyService.deleteAppointment(this.appointment).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-            this.modalIsOpen = false;
-            this.modalIsOpenChange.emit(this.modalIsOpen);
+              this.appointmentModifyService.successMessage.emit("Appointment deleted successfully");
+              this.modalIsOpen = false;
+              this.messageModified.emit();
+              this.modalIsOpenChange.emit(this.modalIsOpen);
           }
         }
       );
@@ -162,8 +165,10 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       this.appointmentModifyService.updateAppointment(changedAppointment).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-            this.modalIsOpen = false;
-            this.modalIsOpenChange.emit(this.modalIsOpen);
+              this.appointmentModifyService.successMessage.emit("Appointment modified successfully");
+              this.modalIsOpen = false;
+              this.messageModified.emit();
+              this.modalIsOpenChange.emit(this.modalIsOpen);
           }
         }
       );
@@ -217,7 +222,47 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
   startDateLostFocus(){
     this.appointmentsDataForm.controls['endDate'].updateValueAndValidity();
   }
-  handleSubmit(){
-    
+
+  checkIfEndDateisGreater(control : AbstractControl){
+    const formGroup = control.parent;
+    if (formGroup) {
+      if(formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
+
+        const dataSplit1 = formGroup.get("startDate")?.value.split('/');
+
+        const day1 = dataSplit1[0];
+        const month1 = dataSplit1[1];
+        const year1 = dataSplit1[2];
+
+        const dataSplit2 = formGroup.get("endDate")?.value.split('/');
+
+        const day2 = dataSplit2[0];
+        const month2 = dataSplit2[1];
+        const year2 = dataSplit2[2];
+
+
+        var data1 = new Date(year1, month1 - 1, day1);
+        var data2 = new Date(year2, month2 - 1, day2);
+
+
+
+        if(data2.getTime() < data1.getTime()){
+          return {checkIfEndDateisGreater: true}
+        }
+      }
+    }
+    return null;
+  }
+
+  checkEndDateTimeValidity(control : AbstractControl){
+    const formGroup = control.parent;
+    if (formGroup) {
+      if(formGroup.get("startDateTime")?.value && formGroup.get("startDate")?.value && formGroup.get("endDate")?.value){
+        if(formGroup.get("startDate")?.value === formGroup.get("endDate")?.value && formGroup.get("startDateTime")?.value >= control.value){
+          return {checkEndDateTimeValidityValue: true}
+        }
+      }
+    }
+    return null;
   }
 }

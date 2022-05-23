@@ -113,7 +113,7 @@
                 <input type="time" formControlName="endDateTime" id="endDateTime"/>
                 <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
                 <cds-control-message status="error" *ngIf="errorMessage && !endDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
-                <cds-control-message status="error" *ngIf="checkEndDateTimeValidityValue" class="cds-time-message">Please enter another time</cds-control-message>
+                <cds-control-message status="error" *ngIf="endDateTime.errors?.['checkEndDateTimeValidityValue']" class="cds-time-message">Please enter another time</cds-control-message>
                 <cds-control-message status="error" *ngIf="endDateTime.touched && startDateTime.hasError('required')" class="cds-time-message">This field is mandatory</cds-control-message>
               </cds-time>
 
