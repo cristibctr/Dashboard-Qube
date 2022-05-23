@@ -186,6 +186,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
     this.modalIsOpenChange.emit(this.modalIsOpen);
     this.appointmentsDataForm.disable();
     this.editable = false;
+    this.appointmentsDataForm.controls['endDate'].reset();
   }
 
   getCurrentDate(){
