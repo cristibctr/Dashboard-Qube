@@ -1,18 +1,21 @@
 <clr-modal [clrModalOpen]="modalIsOpen" (clrModalOpenChange)="onClickClose()" [clrModalStaticBackdrop]="false" [clrModalSize]="'xl'" [clrModalClosable]="false">
     <div class="modal-body">
-        <div class="clr-row">
-            <div class="clr-col-lg-1 clr-offset-lg-11">
-                <cds-icon-button action="outline" (click)="onClickEdit()" *ngIf="!editable">
-                    <cds-icon shape="pencil"></cds-icon>
-                </cds-icon-button>
-                <cds-icon-button (click)="onClickEdit()" *ngIf="editable">
-                    <cds-icon shape="pencil"></cds-icon>
-                </cds-icon-button>
-            </div>
+        <div class="clr-row clr-align-items-center">
+          <div class="clr-col-10 clr-col-sm-10 clr-col-lg-11">
+            <h3 class="modal-title" *ngIf="appointment">Appointment: {{appointment.title}}</h3>
+          </div>
+          <div class="clr-col-2 clr-col-sm-1 clr-row">
+              <cds-icon-button class="clr-align-self-center" action="outline" (click)="onClickEdit()" *ngIf="!editable">
+                  <cds-icon shape="pencil"></cds-icon>
+              </cds-icon-button>
+              <cds-icon-button class="clr-align-self-center" (click)="onClickEdit()" *ngIf="editable">
+                  <cds-icon shape="pencil"></cds-icon>
+              </cds-icon-button>
+          </div>
         </div>
     <form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component">
         <div class="clr-row">
-            <div class="clr-col-sm-12 clr-col-lg-4">
+            <div class="clr-col-sm-6 clr-col-lg-4">
               <clr-input-container>
                 <label for="title">
                   Title*
@@ -73,7 +76,7 @@
       
             </div>
       
-            <div class="clr-col-sm-12 clr-col-lg-4">
+            <div class="clr-col-sm-6 clr-col-lg-4">
                 <clr-date-container>
                   <label for="startDate">
                     Start Date*

@@ -1,15 +1,15 @@
 <div class="clr-row clr-align-items-center clr-justify-content-between">
-    <div class="clr-col-md-5 clr-col-lg-3 clr-offset-sm-1">
+    <div class="clr-col-7 clr-col-md-5 clr-col-lg-3 clr-col-sm-5 clr-offset-xl-1">
         <div class="clr-row clr-align-items-center">
             <cds-icon shape="arrow" direction="left" size="lg" routerLink="/home" class="back-arrow"></cds-icon>
             <span class="page-title">Appointments</span>
         </div>
     </div>
-    <button class="btn btn-secondary clr-align-self-center" routerLink="/appointments/new">New Appointment</button>
+    <button class="clr-col-4 clr-col-sm-4 clr-col-lg-3 clr-col-xl-auto btn btn-secondary clr-align-self-center" routerLink="/appointments/new">New Appointment</button>
 </div>
 <hr>
 <div class="clr-row">
-    <div class="clr-col-md-6 clr-col-lg-6 clr-offset-lg-1">
+    <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
         <clr-datagrid>
             <clr-dg-column>Title</clr-dg-column>
             <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Date, Time

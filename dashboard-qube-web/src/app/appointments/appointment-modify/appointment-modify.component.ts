@@ -140,7 +140,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       this.appointmentModifyService.deleteAppointment(this.appointment).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-              this.appointmentModifyService.successMessage.emit("Appointment deleted successfully");
+              this.appointmentModifyService.successMessage.emit("The appointment has been successfully deleted.");
               this.modalIsOpen = false;
               this.messageModified.emit();
               this.modalIsOpenChange.emit(this.modalIsOpen);
@@ -165,7 +165,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       this.appointmentModifyService.updateAppointment(changedAppointment).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-              this.appointmentModifyService.successMessage.emit("Appointment modified successfully");
+              this.appointmentModifyService.successMessage.emit("The appointment has been successfully updated.");
               this.modalIsOpen = false;
               this.messageModified.emit();
               this.modalIsOpenChange.emit(this.modalIsOpen);
