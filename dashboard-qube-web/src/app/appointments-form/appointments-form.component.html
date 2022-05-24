@@ -10,29 +10,30 @@
 
 <form clrForm clrLayout="vertical" [formGroup]="appointmentsDataForm" class="form-component" (submit)="handleSubmit()">
   <div class="clr-row">
-      <div class="clr-col-sm-12 clr-col-lg-4">
-        <clr-input-container>
-          <label for="title">
-            Title*
-          </label>
-          <input clrInput type="text" required id="title"
-                formControlName="title"/>
-          <clr-control-error *clrIfError="'required'">
-            Title field is mandatory
-          </clr-control-error>
-          <clr-control-error *clrIfError="'pattern'">
-            Please enter a valid title
-          </clr-control-error>
-          <clr-control-error *clrIfError="'minlength'">
-            Title must be at least 2 characters long
-          </clr-control-error>
-          <clr-control-error *clrIfError="'maxlength'">
-            Title must not exceed 60 characters
-          </clr-control-error>
-        </clr-input-container>
-
-
-          <clr-combobox-container >
+      <div class="clr-col-sm-12 clr-col-lg-4 clr-offset-lg-1">
+        <div class="clr-row">
+          <clr-input-container>
+            <label for="title">
+              Title*
+            </label>
+            <input clrInput type="text" required id="title"
+                  formControlName="title"/>
+            <clr-control-error *clrIfError="'required'">
+              Title field is mandatory
+            </clr-control-error>
+            <clr-control-error *clrIfError="'pattern'">
+              Please enter a valid title
+            </clr-control-error>
+            <clr-control-error *clrIfError="'minlength'">
+              Title must be at least 2 characters long
+            </clr-control-error>
+            <clr-control-error *clrIfError="'maxlength'">
+              Title must not exceed 60 characters
+            </clr-control-error>
+          </clr-input-container>
+        </div>
+        <div class="clr-row">
+          <clr-combobox-container>
             <label>Contact Type:</label>
             <clr-combobox required name="contactType" required formControlName="contactType">
               <clr-options>
@@ -46,9 +47,8 @@
             </clr-combobox>
             <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
           </clr-combobox-container>
-
-
-
+        </div>
+        <div class="clr-row">
           <clr-combobox-container >
             <label>Assign To:</label>
             <clr-combobox required name="assignTo" required formControlName="assignTo">
@@ -58,7 +58,8 @@
             </clr-combobox>
             <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
           </clr-combobox-container>
-
+        </div>
+        <div class="clr-row">
           <clr-input-container>
             <label for="createdBy">
               Created By:
@@ -66,13 +67,12 @@
             <input clrInput readonly type="text" id="createdBy"
             formControlName="createdBy" readonly>
           </clr-input-container>
-
-
-
+        </div>
       </div>
 
       <div class="clr-col-sm-12 clr-col-lg-4">
-          <clr-date-container>
+        <div class="clr-row">
+          <clr-date-container class="dont-show-validation-icon">
             <label for="startDate">
               Start Date*
             </label>
@@ -86,66 +86,63 @@
 
           </clr-date-container>
           <cds-time layout="vertical" control-width="shrink" class="cds-time">
-            <label for="startDateTime">Time*</label>
+            <label for="startDateTime"></label>
             <input type="time" formControlName="startDateTime" id="startDateTime"/>
             <cds-control-message status="error" *ngIf="startDateTime.touched && startDateTime.hasError('required')">This field is mandatory</cds-control-message>
             <cds-control-message status="error" *ngIf="errorMessage && !startDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
           </cds-time>
-
-        <clr-date-container >
-          <label for="endDate">
-            End Date*
-          </label>
-          <input clrDate cngDateFormatter required type="text" id="endDate"
-          formControlName="endDate" min={{dateNow}}>
-          <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
-          <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
-          <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
-          <clr-control-error *clrIfError="'invalidDate'">Please enter a valid date</clr-control-error>
-          <clr-control-error *clrIfError="'checkIfEndDateisGreater'">Please enter a date greater than Start Date</clr-control-error>
-          <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
-        </clr-date-container>
-        <cds-time control-width="shrink" layout="vertical" class="cds-time">
-          <label for="endDateTime">Time*</label>
-          <input type="time" formControlName="endDateTime" id="endDateTime"/>
-          <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
-          <cds-control-message status="error" *ngIf="errorMessage && !endDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
-          <cds-control-message status="error" *ngIf="endDateTime.errors?.['checkEndDateTimeValidityValue']" class="cds-time-message">Please enter another time</cds-control-message>
-          <cds-control-message status="error" *ngIf="endDateTime.touched && startDateTime.hasError('required')" class="cds-time-message">This field is mandatory</cds-control-message>
-
-
-        </cds-time>
-
-        <clr-input-container>
-          <label for="status">
-            Status:
-          </label>
-          <input clrInput readonly type="text" id="status"
-          formControlName="status" [(ngModel)]="statusValue">
-        </clr-input-container>
-
-        <clr-textarea-container>
-          <label for="description">
-            Description
-          </label>
-          <textarea clrTextarea id="description"
-          formControlName="description">
-          </textarea>
-          <clr-control-error *clrIfError="'maxlength'">
-            Description length must not exceed 500 characters
-          </clr-control-error>
-        </clr-textarea-container>
-
-
-
+        </div>
+        <div class="clr-row">
+          <clr-date-container class="dont-show-validation-icon dont-scale-on-error" >
+            <label for="endDate">
+              End Date*
+            </label>
+            <input clrDate cngDateFormatter required type="text" id="endDate"
+            formControlName="endDate" min={{dateNow}}>
+            <clr-control-error *clrIfError="'checkIfStartDateisFilled'">Please fill the Start Date field first</clr-control-error>
+            <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+            <clr-control-error *clrIfError="'dateValidatorError'">Invalid date pattern</clr-control-error>
+            <clr-control-error *clrIfError="'invalidDate'">Please enter a valid date</clr-control-error>
+            <clr-control-error *clrIfError="'checkIfEndDateisGreater'">Please enter a date greater than Start Date</clr-control-error>
+            <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+          </clr-date-container>
+          <cds-time control-width="shrink" layout="vertical" class="cds-time">
+            <label for="endDateTime"></label>
+            <input type="time" formControlName="endDateTime" id="endDateTime"/>
+            <cds-control-message status="error" *ngIf="endDateTime.touched && !startDateTime.value">Please fill the Start Time field first</cds-control-message>
+            <cds-control-message status="error" *ngIf="errorMessage && !endDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
+            <cds-control-message status="error" *ngIf="endDateTime.errors?.['checkEndDateTimeValidityValue']" class="cds-time-message">Please enter another time</cds-control-message>
+            <cds-control-message status="error" *ngIf="endDateTime.touched && startDateTime.hasError('required')" class="cds-time-message">This field is mandatory</cds-control-message>
+          </cds-time>
+        </div>
+        <div class="clr-row">
+          <clr-input-container>
+            <label for="status">
+              Status:
+            </label>
+            <input clrInput readonly type="text" id="status"
+            formControlName="status" [(ngModel)]="statusValue">
+          </clr-input-container>
+        </div>
+        <div class="clr-row">
+          <clr-textarea-container>
+            <label for="description">
+              Description
+            </label>
+            <textarea clrTextarea id="description"
+            formControlName="description">
+            </textarea>
+            <clr-control-error *clrIfError="'maxlength'">
+              Description length must not exceed 500 characters
+            </clr-control-error>
+          </clr-textarea-container>
+        </div>
       </div>
-
   </div>
 
-  <div class="clr-row">
+  <div class="clr-row clr-offset-lg-1">
     <button class="btn btn-primary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px" type="submit">Create</button>
     <button class="btn btn-secondary clr-col-sm-12 clr-col-lg-4" style="margin-top:24px" (click)="returnToAppointmentPage()">Cancel</button>
-
   </div>
   <div class="clr-row">
     <clr-alert class="clr-col-sm-12 clr-col-lg-4" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage" (clrAlertClosedChange)="onClose()">

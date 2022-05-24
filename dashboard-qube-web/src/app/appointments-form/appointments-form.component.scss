@@ -26,8 +26,15 @@ hr{
 
 .cds-time{
   margin-top: 1.2rem;
+  padding-top: 11px !important;
 }
 
 .cds-time-message{
   margin-top: 10px;
+}
+::ng-deep .dont-show-validation-icon cds-icon.clr-validate-icon{
+  display: none !important;
+}
+.dont-scale-on-error{
+  max-width: 209px;
 }
