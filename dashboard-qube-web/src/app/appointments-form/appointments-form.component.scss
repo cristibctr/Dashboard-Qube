@@ -32,7 +32,7 @@ hr{
 .cds-time-message{
   margin-top: 10px;
 }
-::ng-deep .dont-show-validation-icon cds-icon.clr-validate-icon{
+:host ::ng-deep .dont-show-validation-icon cds-icon.clr-validate-icon{
   display: none !important;
 }
 .dont-scale-on-error{
