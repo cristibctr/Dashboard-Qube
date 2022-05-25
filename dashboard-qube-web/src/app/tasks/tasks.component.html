@@ -24,7 +24,7 @@
                 </clr-dg-filter> -->
             </clr-dg-column>
 
-            <clr-dg-row class="task-row" [ngClass]="task.status == 'Overdue' ? 'red-color' : ''" *clrDgItems="let task of tasks" (click)="onClickTask(task)">
+            <clr-dg-row class="task-row" [ngClass]="task.status == 'overdue' ? 'red-color' : ''" *clrDgItems="let task of tasks" (click)="onClickTask(task)">
                 <clr-dg-cell>{{task.title}}</clr-dg-cell>
                 <clr-dg-cell>{{task.tableDate | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
                 <clr-dg-cell>{{task.priority | titlecase}}</clr-dg-cell>

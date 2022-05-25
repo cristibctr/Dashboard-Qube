@@ -23,7 +23,7 @@ public class TasksMapper implements EntityDTOMapper<TaskDTO, Task> {
             .assignedToUser(task.getAssignedToUser().getEmail())
             .description(task.getDescription())
             .title(task.getTitle())
-            .status(task.getStatus())
+            .done(task.isDone())
             .build();
     }
 
@@ -43,7 +43,7 @@ public class TasksMapper implements EntityDTOMapper<TaskDTO, Task> {
             .assignedToUser(assignedToUser)
             .description(taskDTO.getDescription())
             .title(taskDTO.getTitle())
-            .status(taskDTO.getStatus())
+            .done(taskDTO.isDone())
             .build();
     }
 }
