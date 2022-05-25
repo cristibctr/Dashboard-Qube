@@ -1,0 +1,18 @@
+<clr-radio-container>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="tf-hours" name="date-filter" (change)="onItemChange($event)" />
+        <label>Next 24 hours</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="s-days" name="date-filter" (change)="onItemChange($event)" />
+        <label>Next 7 days</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="t-days" name="date-filter" (change)="onItemChange($event)" />
+        <label>Next 30 days</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="all" name="date-filter" (change)="onItemChange($event)" [checked]="true"/>
+        <label>All</label>
+    </clr-radio-wrapper>
+</clr-radio-container>

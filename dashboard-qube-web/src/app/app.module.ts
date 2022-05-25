@@ -18,10 +18,12 @@ import { TasksComponent } from './tasks/tasks.component';
 import { AppointmentsFormComponent } from './appointments-form/appointments-form.component';
 import { ClrFormsModule } from '@clr/angular';
 import { CdsModule } from '@cds/angular';
-import { DateFilterComponent } from './appointments/date-filter/date-filter.component';
-import { StatusFilterComponent } from './appointments/status-filter/status-filter.component';
+import { AppointmentsDateFilterComponent } from './appointments/date-filter/date-filter.component';
+import { AppointmentStatusFilterComponent } from './appointments/status-filter/status-filter.component';
 import { AppointmentModifyComponent } from './appointments/appointment-modify/appointment-modify.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TasksDateFilterComponent } from './tasks/date-filter/date-filter.component';
+import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.component';
 
 
 @NgModule({
@@ -35,9 +37,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppointmentsComponent,
     TasksComponent,
     AppointmentsFormComponent,
-    DateFilterComponent,
-    StatusFilterComponent,
-    AppointmentModifyComponent
+    AppointmentsDateFilterComponent,
+    AppointmentStatusFilterComponent,
+    AppointmentModifyComponent,
+    TasksDateFilterComponent,
+    TasksStatusFilterComponent
   ],
   imports: [
     BrowserModule,

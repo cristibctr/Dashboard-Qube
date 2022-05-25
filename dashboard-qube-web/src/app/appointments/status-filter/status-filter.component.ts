@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
 
 @Component({
-  selector: 'app-status-filter',
+  selector: 'app-appointments-status-filter',
   templateUrl: './status-filter.component.html',
   styleUrls: ['./status-filter.component.scss']
 })
-export class StatusFilterComponent implements ClrDatagridFilterInterface<Appointment> {
+export class AppointmentStatusFilterComponent implements ClrDatagridFilterInterface<Appointment> {
   value: string = "unchecked";
   state: boolean = false;
 
