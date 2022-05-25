@@ -90,6 +90,42 @@ ALTER TABLE ONLY public.appointments
 ALTER TABLE ONLY public.appointments
     ADD CONSTRAINT created_by_fk FOREIGN KEY (created_by_user) REFERENCES public.users(id);
 
+-- TASKS
+
+CREATE TABLE public.tasks (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    description character varying(255),
+    priority character varying(255) NOT NULL,
+    status character varying(255) NOT NULL,
+    due_date timestamp without time zone NOT NULL,
+    created_by_user integer NOT NULL,
+    assigned_to_user integer NOT NULL
+);
+
+
+ALTER TABLE public.tasks OWNER TO postgres;
+
+ALTER TABLE public.tasks ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.tasks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT assigned_to_fk FOREIGN KEY (assigned_to_user) REFERENCES public.users(id);
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT created_by_fk FOREIGN KEY (created_by_user) REFERENCES public.users(id);
+
+-- ADD USERS
+
 INSERT INTO public.users(
 	first_name, last_name, date_of_birth, phone_number, city, country, email, password)
 	VALUES ('second admin', 'second admin', '2000-11-11', '0040733234344',	'Iasi',	'Romania',	'admin2@admin.com',	'Password1!');
