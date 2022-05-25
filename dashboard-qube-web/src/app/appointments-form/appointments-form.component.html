@@ -90,6 +90,8 @@
             <input type="time" formControlName="startDateTime" id="startDateTime"/>
             <cds-control-message status="error" *ngIf="startDateTime.touched && startDateTime.hasError('required')">This field is mandatory</cds-control-message>
             <cds-control-message status="error" *ngIf="errorMessage && !startDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
+            <cds-control-message status="error" *ngIf="startDateTime.touched && startDateTime.hasError('invalidStartDate')">Enter a value greater or equal than the current time</cds-control-message>
+
           </cds-time>
         </div>
         <div class="clr-row">

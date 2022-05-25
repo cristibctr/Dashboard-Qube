@@ -62,7 +62,7 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
     this.appointmentsDataForm = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       startDate: [null, [Validators.required, this.dateValidator(new Date(Date.parse(this.dateYesterday))), Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate ]],
-      startDateTime: [null, [Validators.required]],
+      startDateTime: [null, [Validators.required, this.checkValidityOfStartDateTime]],
       endDate: [null, [Validators.required, this.checkIfEndDateisGreater, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkIfStartDateisFilled, this.checkDate]],
       endDateTime: [null, [Validators.required, this.checkIfStartTimeisFilled, this.checkEndDateTimeValidity]],
       description: [null, [Validators.maxLength(500)]],
@@ -377,5 +377,29 @@ checkDate(control: AbstractControl) {
 
   onClose(){
     this.errorMessage = false;
+  }
+  checkValidityOfStartDateTime(control: AbstractControl){
+    const formGroup = control.parent;
+    if(formGroup){
+      let startDateValue = formGroup.get("startDate")?.value;
+
+      if(control?.value && startDateValue){
+        const dataSplit1 = startDateValue.split("/");
+        const day1 = dataSplit1[0];
+        const month1 = dataSplit1[1];
+        const year1 = dataSplit1[2];
+
+
+        var data1 = new Date(year1, month1 - 1, day1);
+        var todayUTC = new Date(Date.UTC(data1.getFullYear(), data1.getMonth(), data1.getDate()));
+
+
+        if(control?.value < new Date().toTimeString().slice(0,5) && todayUTC.toISOString().split("T")[0] === new Date().toISOString().split("T")[0]){
+          return {invalidStartDate: true}
+        }
+      }
+    }
+
+    return null;
   }
 }
