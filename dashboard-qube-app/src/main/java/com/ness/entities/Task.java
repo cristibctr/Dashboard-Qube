@@ -49,4 +49,7 @@ public class Task {
 
     @Column(name="description")
     private String description;
+
+    @Column(name="status")
+    private String status;
 }

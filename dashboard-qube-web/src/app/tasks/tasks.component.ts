@@ -13,7 +13,6 @@ import { TasksService } from './tasks.service';
 export class TasksComponent implements OnInit, OnDestroy {
 
   tasks!: Task[];
-  status: string = '';
   loggedInInterval: any;
   taskSuccess: boolean = false;
   taskSuccessMessage: string = '';

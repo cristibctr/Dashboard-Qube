@@ -15,7 +15,16 @@ public class TasksMapper implements EntityDTOMapper<TaskDTO, Task> {
 
     @Override
     public TaskDTO mapToDTO(Task task) {
-        return null;
+        return TaskDTO.builder()
+            .id(task.getId())
+            .createdByUser(task.getCreatedByUser().getEmail())
+            .priority(task.getPriority())
+            .dueDate(task.getDueDate())
+            .assignedToUser(task.getAssignedToUser().getEmail())
+            .description(task.getDescription())
+            .title(task.getTitle())
+            .status(task.getStatus())
+            .build();
     }
 
     @Override
@@ -34,6 +43,7 @@ public class TasksMapper implements EntityDTOMapper<TaskDTO, Task> {
             .assignedToUser(assignedToUser)
             .description(taskDTO.getDescription())
             .title(taskDTO.getTitle())
+            .status(taskDTO.getStatus())
             .build();
     }
 }

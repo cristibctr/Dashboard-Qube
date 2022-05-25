@@ -13,22 +13,22 @@
         <clr-datagrid>
             <clr-dg-column>Title</clr-dg-column>
             <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Due date
-                <clr-dg-filter>
+                <!-- <clr-dg-filter>
                     <app-date-filter></app-date-filter>
-                </clr-dg-filter>
+                </clr-dg-filter> -->
             </clr-dg-column>
             <clr-dg-column>Priority</clr-dg-column>
             <clr-dg-column [clrDgField]="'status'">Status
-                <clr-dg-filter>
+                <!-- <clr-dg-filter>
                     <app-status-filter></app-status-filter>
-                </clr-dg-filter>
+                </clr-dg-filter> -->
             </clr-dg-column>
 
             <clr-dg-row class="task-row" [ngClass]="task.status == 'Overdue' ? 'red-color' : ''" *clrDgItems="let task of tasks" (click)="onClickTask(task)">
                 <clr-dg-cell>{{task.title}}</clr-dg-cell>
                 <clr-dg-cell>{{task.tableDate | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
-                <clr-dg-cell>{{task.priority}}</clr-dg-cell>
-                <clr-dg-cell>{{task.status}}</clr-dg-cell>
+                <clr-dg-cell>{{task.priority | titlecase}}</clr-dg-cell>
+                <clr-dg-cell>{{task.status | titlecase}}</clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>
