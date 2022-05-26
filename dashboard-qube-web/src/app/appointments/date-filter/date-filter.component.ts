@@ -4,11 +4,11 @@ import { Observable, Subject } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
 
 @Component({
-  selector: 'app-date-filter',
+  selector: 'app-appointments-date-filter',
   templateUrl: './date-filter.component.html',
   styleUrls: ['./date-filter.component.scss']
 })
-export class DateFilterComponent implements ClrDatagridFilterInterface<Appointment> {
+export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterface<Appointment> {
 
   value: string = "unchecked";
   changes: any = new EventEmitter<any>(false);

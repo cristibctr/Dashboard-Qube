@@ -1,0 +1,18 @@
+<clr-radio-container>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="overdue" name="status-filter" (change)="onItemChange($event)" />
+        <label>Overdue</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="open" name="status-filter" checked (change)="onItemChange($event)" />
+        <label>Open</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="done" name="status-filter" (change)="onItemChange($event)" />
+        <label>Done</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+        <input type="radio" clrRadio value="all" name="status-filter" (change)="onItemChange($event)" />
+        <label>All</label>
+    </clr-radio-wrapper>
+</clr-radio-container>

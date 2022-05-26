@@ -12,16 +12,16 @@
     <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
         <clr-datagrid>
             <clr-dg-column>Title</clr-dg-column>
-            <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Due date
-                <!-- <clr-dg-filter>
-                    <app-date-filter></app-date-filter>
-                </clr-dg-filter> -->
+            <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort">Due date
+                <clr-dg-filter>
+                    <app-tasks-date-filter></app-tasks-date-filter>
+                </clr-dg-filter>
             </clr-dg-column>
             <clr-dg-column>Priority</clr-dg-column>
-            <clr-dg-column [clrDgField]="'status'">Status
-                <!-- <clr-dg-filter>
-                    <app-status-filter></app-status-filter>
-                </clr-dg-filter> -->
+            <clr-dg-column>Status
+                <clr-dg-filter>
+                    <app-tasks-status-filter></app-tasks-status-filter>
+                </clr-dg-filter>
             </clr-dg-column>
 
             <clr-dg-row class="task-row" [ngClass]="task.status == 'overdue' ? 'red-color' : ''" *clrDgItems="let task of tasks" (click)="onClickTask(task)">
