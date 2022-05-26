@@ -41,6 +41,8 @@
         </clr-datagrid>
     </div>
 </div>
+
+<app-task-modify [(modalIsOpen)]="showModal" [task]="modalTask" (messageModified)="onMessageModified()"></app-task-modify>
 <clr-alert class="task-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="taskSuccess">
     {{taskSuccessMessage}}
 </clr-alert>
