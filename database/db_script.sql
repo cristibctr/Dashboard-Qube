@@ -97,7 +97,7 @@ CREATE TABLE public.tasks (
     title character varying(255) NOT NULL,
     description character varying(255),
     priority character varying(255) NOT NULL,
-    status character varying(255) NOT NULL,
+    done boolean NOT NULL DEFAULT FALSE,
     due_date timestamp without time zone NOT NULL,
     created_by_user integer NOT NULL,
     assigned_to_user integer NOT NULL
