@@ -27,6 +27,7 @@ import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.
 import { ClientsComponent } from './sales/clients/clients.component';
 import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
+import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { TasksFormComponent } from './tasks-form/tasks-form.component';
     TasksStatusFilterComponent,
     ClientsComponent,
     OffersComponent,
-    TasksFormComponent
+    TasksFormComponent,
+    ClientsFormComponent
   ],
   imports: [
     BrowserModule,
