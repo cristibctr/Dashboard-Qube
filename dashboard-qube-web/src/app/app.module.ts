@@ -22,6 +22,7 @@ import { DateFilterComponent } from './appointments/date-filter/date-filter.comp
 import { StatusFilterComponent } from './appointments/status-filter/status-filter.component';
 import { AppointmentModifyComponent } from './appointments/appointment-modify/appointment-modify.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TasksFormComponent } from './tasks-form/tasks-form.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppointmentsFormComponent,
     DateFilterComponent,
     StatusFilterComponent,
-    AppointmentModifyComponent
+    AppointmentModifyComponent,
+    TasksFormComponent
   ],
   imports: [
     BrowserModule,
