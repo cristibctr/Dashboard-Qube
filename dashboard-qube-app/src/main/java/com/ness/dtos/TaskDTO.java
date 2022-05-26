@@ -22,6 +22,6 @@ public class TaskDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dueDate;
     private String assignedToUser;
-    private boolean done;
+    private Boolean done;
     private String description;
 }

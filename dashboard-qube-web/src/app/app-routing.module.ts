@@ -8,6 +8,7 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 import { TasksComponent } from './tasks/tasks.component';
 import { ClientsComponent } from './sales/clients/clients.component';
 import { OffersComponent } from './sales/offers/offers.component';
+import { TasksFormComponent } from './tasks-form/tasks-form.component';
 
 const routes: Routes = [
   {path: 'register', component: RegistrationPageComponent},
@@ -19,6 +20,8 @@ const routes: Routes = [
   {path: 'appointments/new', component: AppointmentsFormComponent},
   {path: 'clients', component: ClientsComponent},
   {path: 'offers', component: OffersComponent},
+  {path: 'tasks/new', component: TasksFormComponent},
+  {path: 'appointments/new', component: AppointmentsFormComponent}
 ];
 
 @NgModule({

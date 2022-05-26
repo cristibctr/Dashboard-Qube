@@ -16,7 +16,6 @@ export class AppointmentsFormComponent implements OnInit, OnDestroy {
   appointmentsDataForm!: FormGroup;
   errorMessage: boolean = false;
   dateNow!: string;
-  errorText: string = "";
   interval: any;
   secondInterval: any;
   statusValue! : string;

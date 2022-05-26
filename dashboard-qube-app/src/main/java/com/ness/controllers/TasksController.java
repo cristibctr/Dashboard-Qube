@@ -2,11 +2,15 @@ package com.ness.controllers;
 
 import com.ness.dtos.AppointmentDTO;
 import com.ness.dtos.TaskDTO;
+import com.ness.misc.AppointmentsValidator;
+import com.ness.misc.TasksValidator;
 import com.ness.services.TasksService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,4 +29,17 @@ public class TasksController {
     public ResponseEntity<List<TaskDTO>> getTasksForUser(@RequestParam String email){
         return ResponseEntity.status(200).body(tasksService.getTasksForUser(email));
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path="/api/tasks", produces= MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> save(@RequestBody TaskDTO taskDTO){
+        if(!TasksValidator.validate(taskDTO))
+        {
+            return ResponseEntity.status(404).body("Incorrect request data");
+        }
+        tasksService.save(taskDTO);
+        return ResponseEntity.status(200).body("Task created");
+    }
+
+
 }
