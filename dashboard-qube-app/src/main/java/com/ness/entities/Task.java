@@ -51,5 +51,5 @@ public class Task {
     private String description;
 
     @Column(name="done")
-    private boolean done;
+    private Boolean done;
 }

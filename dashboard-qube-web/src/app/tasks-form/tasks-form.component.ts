@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { angleIcon, ClarityIcons} from '@cds/core/icon';
-import { TasksService } from './tasks.service';
+import { TasksService } from '../tasks/tasks.service';
 
 @Component({
   selector: 'app-tasks-form',
@@ -15,7 +15,6 @@ export class TasksFormComponent implements OnInit {
   tasksDataForm!: FormGroup;
   errorMessage: boolean = false;
   dateNow!: string;
-  errorText: string = "";
   interval: any;
   secondInterval: any;
   statusValue! : string;
@@ -111,7 +110,7 @@ export class TasksFormComponent implements OnInit {
       dueDate: this.tasksDataForm.controls["dueDate"].value + " " + this.tasksDataForm.controls["dueDateTime"].value,
       description: this.tasksDataForm.controls["description"].value,
       priority: this.tasksDataForm.controls["priority"].value,
-      status: this.tasksDataForm.controls["status"].value,
+      done: false,
       assignedToUser: this.tasksDataForm.controls["assignTo"].value,
       createdByUser: this.tasksDataForm.controls["createdBy"].value,
 

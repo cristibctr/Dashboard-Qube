@@ -4,7 +4,7 @@ export interface Task {
   dueDate: string;
   description: string;
   priority: string;
-  status: string;
+  done: boolean;
   assignedToUser: string;
   createdByUser: string;
 }
