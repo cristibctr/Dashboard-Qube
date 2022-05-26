@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, LOCALE_ID, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { pencilIcon, ClarityIcons } from '@cds/core/icon';
 import { take } from 'rxjs';
 import { Task } from '../task.model';
@@ -59,18 +59,20 @@ export class TaskModifyComponent implements OnInit {
   get status(){
     return this.taskDataForm.controls['status'];
   }
+  get done(){
+    return this.taskDataForm.controls['done'];
+  }
 
   constructor(private formBuilder: FormBuilder, private taskService: TasksService, private taskModifyService: TaskModifyService) {
     this.taskDataForm = this.formBuilder.group({
       title: [{value: this.task.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
-      dueDate: [{value: this.getDateAndTimeFromString(this.task.dueDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
-      dueDateTime: [{value: this.getDateAndTimeFromString(this.task.dueDate).time, disabled: !this.editable}, [Validators.required]],
-      // endDate: [{value: this.getDateAndTimeFromString(this.task.endDate).date, disabled: !this.editable}, [this.checkIfEndDateisGreater, Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
-      // endDateTime: [{value: this.getDateAndTimeFromString(this.task.endDate).time, disabled: !this.editable}, [Validators.required, this.checkEndDateTimeValidity]],
+      dueDate: [{value: this.getDateAndTimeFromString(this.task.dueDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate]],
+      dueDateTime: [{value: this.getDateAndTimeFromString(this.task.dueDate).time, disabled: !this.editable}, [Validators.required, this.checkValidityOfDueDateTime]],
       description: [{value: this.task.description, disabled: !this.editable}, [Validators.maxLength(500)]],
       priority: [{value: this.task.priority, disabled: !this.editable}, [Validators.required]],
       assignTo: [{value: localStorage.getItem("isLoggedIn"), disabled: !this.editable}, [Validators.required]],
       createdBy: [this.task.createdByUser],
+      done: [{value: null, disabled: !this.editable}],
       status: [{value: null, disabled: !this.editable}],
     });
   }
@@ -85,7 +87,8 @@ export class TaskModifyComponent implements OnInit {
         priority: this.task.priority,
         assignTo: localStorage.getItem("isLoggedIn"),
         createdBy: this.task.createdByUser,
-        status: (<{status: string} & Task>this.task).status
+        status: (<{status: string} & Task>this.task).status,
+        done: this.task.done
       });
     }
   }
@@ -144,7 +147,8 @@ export class TaskModifyComponent implements OnInit {
   }
 
   onClickSave(): void {
-    var changedtask = {
+    if (this.taskDataForm.valid){
+      var changedtask = {
         id: this.task.id,
         title: this.taskDataForm.controls["title"].value,
         dueDate: this.taskDataForm.controls["dueDate"].value + " " + this.taskDataForm.controls["dueDateTime"].value,
@@ -152,7 +156,7 @@ export class TaskModifyComponent implements OnInit {
         priority: this.taskDataForm.controls["priority"].value,
         assignedToUser: this.taskDataForm.controls["assignTo"].value,
         createdByUser: this.taskDataForm.controls["createdBy"].value,
-        done: false
+        done: this.taskDataForm.controls["done"].value,
       };
     if(this.task.id){
       this.taskModifyService.updateTask(changedtask).pipe(take(1)).subscribe(
@@ -165,6 +169,7 @@ export class TaskModifyComponent implements OnInit {
           }
         }
       );
+    }
     }
   }
 
@@ -206,13 +211,48 @@ export class TaskModifyComponent implements OnInit {
 
     this.dateYesterday = yyyy + '-' + newMm  + '-' + yesterdayDD;
   }
-  startDateChange(event: string){
-    if(!this.taskDataForm.controls['dueDate'].touched)
-      this.taskDataForm.patchValue({
-        dueDate: event
-      });
+  checkDate(control: AbstractControl) {
+
+    if(control?.value){
+      const dataSplit1 = control?.value.split('/');
+
+      const day1 = dataSplit1[0];
+      const month1 = dataSplit1[1];
+      const year1 = dataSplit1[2];
+      var data1 = new Date(year1, month1 - 1, day1);
+      let date2 = new Date();
+      date2.setHours(0,0,0,0)
+      console.log(data1 + " " + date2)
+      if(data1 < date2){
+        return {invalidDate: true}
+      }
+    }
+    return null;
   }
-  startDateLostFocus(){
-    this.taskDataForm.controls['dueDate'].updateValueAndValidity();
+
+
+  checkValidityOfDueDateTime(control: AbstractControl){
+    const formGroup = control.parent;
+    if(formGroup){
+      let startDateValue = formGroup.get("dueDate")?.value;
+
+      if(control?.value && startDateValue){
+        const dataSplit1 = startDateValue.split("/");
+        const day1 = dataSplit1[0];
+        const month1 = dataSplit1[1];
+        const year1 = dataSplit1[2];
+
+
+        var data1 = new Date(year1, month1 - 1, day1);
+        var todayUTC = new Date(Date.UTC(data1.getFullYear(), data1.getMonth(), data1.getDate()));
+
+
+        if(control?.value < new Date().toTimeString().slice(0,5) && todayUTC.toISOString().split("T")[0] === new Date().toISOString().split("T")[0]){
+          return {invalidDueDate: true}
+        }
+      }
+    }
+
+    return null;
   }
 }
