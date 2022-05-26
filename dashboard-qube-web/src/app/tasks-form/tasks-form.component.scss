@@ -1,0 +1,40 @@
+#appointments-header{
+  border-bottom: 1px solid;
+  padding: 15px;
+}
+#header-title{
+  font-weight: 600;
+  font-size: 22px;
+  margin-left: 5px;
+
+}
+.back-arrow{
+  cursor: pointer;
+}
+.time-control{
+  margin-top: 1.2rem;
+}
+.page-title{
+  font-size: 1.6em;
+  font-weight: normal;
+}
+hr{
+  border: 0px;
+  border-top: 1px solid;
+  margin: 0px;
+}
+
+.cds-time{
+  margin-top: 1.2rem;
+  padding-top: 11px !important;
+}
+
+.cds-time-message{
+  margin-top: 10px;
+}
+:host ::ng-deep .dont-show-validation-icon cds-icon.clr-validate-icon{
+  display: none !important;
+}
+.dont-scale-on-error{
+  max-width: 209px;
+}

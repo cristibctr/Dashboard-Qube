@@ -1,9 +1,12 @@
 package com.ness.services;
 
+import com.ness.dtos.AppointmentDTO;
 import com.ness.dtos.TaskDTO;
+import com.ness.entities.Appointment;
 import com.ness.entities.Task;
 import com.ness.mappers.EntityDTOMapper;
 import com.ness.mappers.TasksMapper;
+import com.ness.misc.UserNotFoundException;
 import com.ness.repositories.TasksRepository;
 import com.ness.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -30,5 +33,10 @@ public class TasksServiceImpl implements TasksService{
             taskDTOS.add(entityDTOMapper.mapToDTO(task));
         }
         return taskDTOS;
+    }
+    @Override
+    public void save(TaskDTO appointmentDTO) {
+        Task newTask = entityDTOMapper.mapDTOTo(appointmentDTO);
+        tasksRepository.save(newTask);
     }
 }
