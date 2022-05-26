@@ -24,6 +24,8 @@ import { AppointmentModifyComponent } from './appointments/appointment-modify/ap
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksDateFilterComponent } from './tasks/date-filter/date-filter.component';
 import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.component';
+import { ClientsComponent } from './sales/clients/clients.component';
+import { OffersComponent } from './sales/offers/offers.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.
     AppointmentStatusFilterComponent,
     AppointmentModifyComponent,
     TasksDateFilterComponent,
-    TasksStatusFilterComponent
+    TasksStatusFilterComponent,
+    ClientsComponent,
+    OffersComponent
   ],
   imports: [
     BrowserModule,

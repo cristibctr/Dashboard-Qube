@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { ClientsComponent } from './sales/clients/clients.component';
+import { OffersComponent } from './sales/offers/offers.component';
 
 const routes: Routes = [
   {path: 'register', component: RegistrationPageComponent},
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'tasks', component: TasksComponent},
-  {path: 'appointments/new', component: AppointmentsFormComponent}
+  {path: 'appointments/new', component: AppointmentsFormComponent},
+  {path: 'clients', component: ClientsComponent},
+  {path: 'offers', component: OffersComponent},
 ];
 
 @NgModule({
