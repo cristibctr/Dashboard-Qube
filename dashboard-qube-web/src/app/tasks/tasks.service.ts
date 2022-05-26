@@ -9,6 +9,8 @@ import { Task } from './task.model';
 })
 export class TasksService {
 
+  statusFilterState!: string;
+  filterSelectionOrder: string[] = ['',''];
   taskIsCreated: boolean = false;
 
   constructor(private http: HttpClient) { }
