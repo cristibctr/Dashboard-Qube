@@ -37,8 +37,8 @@ public class TasksServiceImpl implements TasksService{
         return taskDTOS;
     }
     @Override
-    public void save(TaskDTO appointmentDTO) throws TaskNotFoundException {
-        Task newTask = entityDTOMapper.mapDTOTo(appointmentDTO);
+    public void save(TaskDTO TaskDTO) throws TaskNotFoundException {
+        Task newTask = entityDTOMapper.mapDTOTo(TaskDTO);
         tasksRepository.save(newTask);
     }
 

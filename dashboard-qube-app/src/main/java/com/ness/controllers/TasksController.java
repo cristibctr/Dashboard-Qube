@@ -58,7 +58,7 @@ public class TasksController {
     @PatchMapping(path="/api/task", produces= MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> editTask(@RequestBody TaskDTO taskDTO){
 
-        if(!TasksValidator.validateOldAppointment(taskDTO))
+        if(!TasksValidator.validateOldTask(taskDTO))
         {
             return ResponseEntity.status(404).body("Incorrect request data");
         }
