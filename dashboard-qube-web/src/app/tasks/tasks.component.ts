@@ -20,6 +20,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   ascSort = ClrDatagridSortOrder.ASC;
   showModal: boolean = false;
   modalTask!: Task;
+  taskModifySub!: Subscription;
 
   constructor(private router: Router, public tasksService: TasksService) { }
 
@@ -61,7 +62,16 @@ export class TasksComponent implements OnInit, OnDestroy {
         this.taskSuccessMessage = '';
       }, 2000)
     }
-  }
+
+    this.taskModifySub = this.tasksService.successMessage.subscribe(value => {
+      this.taskSuccess = true;
+      this.taskSuccessMessage = value;
+      setTimeout(() => {
+        this.taskSuccess = false;
+        this.taskSuccessMessage = '';
+      }, 2000)
+    });
+}
   getStatus(dueDate: Date, done: boolean): any {
     if(done) {
       return 'done';
@@ -95,7 +105,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.tasksService.getTasks(username!).pipe(take(1)).pipe(
       map(response => {
             let respRet = {...response};
-            respRet.body = response.body!.map(task => ({...task, tableDate: this.getDate(task.dueDate)}));
+            respRet.body = response.body!.map(task => ({...task, tableDate: this.getDate(task.dueDate), status: this.getStatus(this.getDate(task.dueDate), task.done)}));
             return respRet;
         })
     ).subscribe(tasks => this.tasks = tasks.body!);

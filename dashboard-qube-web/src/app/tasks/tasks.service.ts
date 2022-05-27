@@ -10,6 +10,7 @@ import { Task } from './task.model';
 export class TasksService {
 
   taskIsCreated: boolean = false;
+  successMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +25,14 @@ export class TasksService {
 
   getSalesPeople(){
     return this.http.get<string[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/users`,  {observe: 'response'})
+  }
+
+  updateTask(task: Task){
+    return this.http.patch(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/task`, task, {observe: 'response', responseType: 'text'});
+  }
+
+  deleteTask(task: Task){
+    return this.http.delete(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/tasks/${task.id}`, {observe: 'response', responseType: 'text'});
   }
 
 }

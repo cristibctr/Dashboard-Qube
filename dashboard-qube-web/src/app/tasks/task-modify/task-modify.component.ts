@@ -4,7 +4,6 @@ import { pencilIcon, ClarityIcons } from '@cds/core/icon';
 import { take } from 'rxjs';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
-import { TaskModifyService } from './task-modify.service';
 
 @Component({
   selector: 'app-task-modify',
@@ -63,7 +62,7 @@ export class TaskModifyComponent implements OnInit {
     return this.taskDataForm.controls['done'];
   }
 
-  constructor(private formBuilder: FormBuilder, private taskService: TasksService, private taskModifyService: TaskModifyService) {
+  constructor(private formBuilder: FormBuilder, private taskService: TasksService) {
     this.taskDataForm = this.formBuilder.group({
       title: [{value: this.task.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       dueDate: [{value: this.getDateAndTimeFromString(this.task.dueDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate]],
@@ -133,10 +132,10 @@ export class TaskModifyComponent implements OnInit {
 
   onClickDelete(): void {
     if(this.task.id){
-      this.taskModifyService.deleteTask(this.task).pipe(take(1)).subscribe(
+      this.taskService.deleteTask(this.task).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-              this.taskModifyService.successMessage.emit("The task has been successfully deleted.");
+              this.taskService.successMessage.emit("The task has been successfully deleted.");
               this.modalIsOpen = false;
               this.messageModified.emit();
               this.modalIsOpenChange.emit(this.modalIsOpen);
@@ -159,10 +158,10 @@ export class TaskModifyComponent implements OnInit {
         done: this.taskDataForm.controls["done"].value,
       };
     if(this.task.id){
-      this.taskModifyService.updateTask(changedtask).pipe(take(1)).subscribe(
+      this.taskService.updateTask(changedtask).pipe(take(1)).subscribe(
         (response) => {
             if(response.status === 200){
-              this.taskModifyService.successMessage.emit("The task has been successfully updated.");
+              this.taskService.successMessage.emit("The task has been successfully updated.");
               this.modalIsOpen = false;
               this.messageModified.emit();
               this.modalIsOpenChange.emit(this.modalIsOpen);
