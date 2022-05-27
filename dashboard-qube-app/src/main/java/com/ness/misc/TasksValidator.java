@@ -29,7 +29,7 @@ public class TasksValidator {
 
     }
 
-    public static boolean validateOldAppointment(TaskDTO task){
+    public static boolean validateOldTask(TaskDTO task){
         boolean titleValidation = validateTitle(task.getTitle());
         boolean descriptionValidation = validateDescription(task.getDescription());
         boolean priorityValidation = validatePriority(task.getPriority());

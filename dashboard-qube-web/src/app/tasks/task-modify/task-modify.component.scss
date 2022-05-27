@@ -38,3 +38,7 @@ hr{
 .dont-scale-on-error{
   max-width: 209px;
 }
+
+:host ::ng-deep #done-label{
+  font-weight: 600 !important;
+}

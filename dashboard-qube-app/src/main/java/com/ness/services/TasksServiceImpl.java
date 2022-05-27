@@ -6,9 +6,11 @@ import com.ness.entities.Appointment;
 import com.ness.entities.Task;
 import com.ness.mappers.EntityDTOMapper;
 import com.ness.mappers.TasksMapper;
+import com.ness.misc.TaskNotFoundException;
 import com.ness.misc.UserNotFoundException;
 import com.ness.repositories.TasksRepository;
 import com.ness.repositories.UserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,8 +37,13 @@ public class TasksServiceImpl implements TasksService{
         return taskDTOS;
     }
     @Override
-    public void save(TaskDTO appointmentDTO) {
-        Task newTask = entityDTOMapper.mapDTOTo(appointmentDTO);
+    public void save(TaskDTO TaskDTO) throws TaskNotFoundException {
+        Task newTask = entityDTOMapper.mapDTOTo(TaskDTO);
         tasksRepository.save(newTask);
+    }
+
+    @Override
+    public void delete(int id) throws EmptyResultDataAccessException {
+        tasksRepository.deleteById(id);
     }
 }
