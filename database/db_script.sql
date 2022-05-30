@@ -167,3 +167,32 @@ INSERT INTO public.users(
 
     ALTER TABLE ONLY public.individual_clients
         ADD CONSTRAINT unique_email UNIQUE (email);
+
+--Countries
+
+
+    CREATE TABLE public.countries (
+                                      id integer NOT NULL,
+                                      num_code integer DEFAULT 0 NOT NULL,
+                                      alpha_2_code character varying(2),
+                                      alpha_3_code character varying(3),
+                                      en_short_name character varying(52),
+                                      nationality character varying(40)
+    );
+    ALTER TABLE public.countries OWNER TO postgres;
+    ALTER TABLE ONLY public.countries
+        ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+--Orasele-Romaniei
+
+
+    CREATE TABLE public.orasele_romaniei (
+                                             id integer NOT NULL,
+                                             name character varying(64) NOT NULL
+    );
+
+
+    ALTER TABLE public.orasele_romaniei OWNER TO postgres;
+
+    ALTER TABLE ONLY public.orasele_romaniei
+        ADD CONSTRAINT orasele_romaniei_pkey PRIMARY KEY (id);
