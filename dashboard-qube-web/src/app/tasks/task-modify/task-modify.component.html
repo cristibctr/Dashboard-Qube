@@ -39,7 +39,7 @@
             </div>
             <div class="clr-row">
               <clr-combobox-container>
-                <label>Priority:</label>
+                <label>Priority*:</label>
                 <clr-combobox required name="priority" required formControlName="priority">
                   <clr-options>
                     <clr-option clrValue="High">High</clr-option>
@@ -81,7 +81,6 @@
                 <input clrDate cngDateFormatter required type="text" id="dueDate"
                 formControlName="dueDate" min={{dateNow}}>
                 <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
-                <clr-control-error *clrIfError="'invalidDate'">Please enter a valid date</clr-control-error>
                 <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
               </clr-date-container>
               <cds-time control-width="shrink" layout="vertical" class="cds-time">
@@ -89,7 +88,6 @@
                 <input type="time" formControlName="dueDateTime" id="dueDateTime"/>
 
                 <cds-control-message status="error" *ngIf="errorMessage && !dueDateTime.touched" class="cds-time-message">This field is mandatory</cds-control-message>
-                <cds-control-message status="error" *ngIf="dueDateTime.hasError('invalidDueDate')">Enter a value greater or equal than the current time</cds-control-message>
                 <cds-control-message status="error" *ngIf="dueDateTime.touched && dueDateTime.hasError('required')" class="cds-time-message">This field is mandatory</cds-control-message>
 
               </cds-time>

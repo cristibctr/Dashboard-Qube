@@ -65,8 +65,8 @@ export class TaskModifyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private taskService: TasksService) {
     this.taskDataForm = this.formBuilder.group({
       title: [{value: this.task.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
-      dueDate: [{value: this.getDateAndTimeFromString(this.task.dueDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate]],
-      dueDateTime: [{value: this.getDateAndTimeFromString(this.task.dueDate).time, disabled: !this.editable}, [Validators.required, this.checkValidityOfDueDateTime]],
+      dueDate: [{value: this.getDateAndTimeFromString(this.task.dueDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
+      dueDateTime: [{value: this.getDateAndTimeFromString(this.task.dueDate).time, disabled: !this.editable}, [Validators.required]],
       description: [{value: this.task.description, disabled: !this.editable}, [Validators.maxLength(500)]],
       priority: [{value: this.task.priority, disabled: !this.editable}, [Validators.required]],
       assignTo: [{value: localStorage.getItem("isLoggedIn"), disabled: !this.editable}, [Validators.required]],
