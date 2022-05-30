@@ -77,17 +77,14 @@ public class IndividualClientsValidator {
     private static boolean validateCountry(String country) {
         if(country == null || country.length() == 0)
             return true;
-        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(country);
-        return country.length() >= 2 && country.length() <= 25 && matcher.matches();
+
+        return country.length() >= 2 && country.length() <= 25;
     }
 
     private static boolean validateCity(String city) {
         if(city == null || city.length() == 0)
             return true;
-        Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(city);
-        return city.length() >= 2 && city.length() <= 25 && matcher.matches();
+        return city.length() >= 2 && city.length() <= 25;
     }
 
     private static boolean validatePhoneNumber(String phoneNumber) {
