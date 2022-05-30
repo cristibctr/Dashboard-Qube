@@ -12,31 +12,39 @@ public class IndividualClientsValidator {
     public static boolean validate(IndividualClientDTO individualClientDTO)
     {
         boolean emailValidation = validateEmail(individualClientDTO.getEmail());
+        boolean emailOrPhoneNumberValidation = validateEmailOrPhoneNumber(individualClientDTO.getEmail(),
+            individualClientDTO.getPhoneNumber());
         boolean dateOfBirthValidation = validateDateOfBirth(individualClientDTO.getDateOfBirth());
         boolean firstNameValidation = validateFirstName(individualClientDTO.getFirstName());
         boolean lastNameValidation = validateLastName(individualClientDTO.getLastName());
         boolean phoneNumberValidation = validatePhoneNumber(individualClientDTO.getPhoneNumber());
         boolean cityValidation = validateCity(individualClientDTO.getCity());
         boolean countryValidation = validateCountry(individualClientDTO.getCountry());
-        boolean nationalityValidation = validateNationality(individualClientDTO.getNationality());
         boolean postalCodeValidation = validatePostalCode(individualClientDTO.getPostalCode());
         boolean addressLine1Validation = validateAddressLine1(individualClientDTO.getStreetName(),
             individualClientDTO.getNumber());
         boolean addressLine2Validation = validateAddressLine2(individualClientDTO.getBuilding(),
             individualClientDTO.getApartment(), individualClientDTO.getFloor());
 
-        return emailValidation &
+        return emailOrPhoneNumberValidation &
+            emailValidation &
             dateOfBirthValidation &
             firstNameValidation &
             lastNameValidation &
             phoneNumberValidation &
             cityValidation &
             countryValidation &
-            nationalityValidation &
             postalCodeValidation &
             addressLine1Validation &
             addressLine2Validation
             ;
+    }
+
+    private static boolean validateEmailOrPhoneNumber(String email, String phoneNumber) {
+        if((email == null || email == "") && (phoneNumber == null || phoneNumber == "")){
+            return false;
+        }
+        return true;
     }
 
     private static boolean validateAddressLine2(String building, String apartment, String floor) {
@@ -47,25 +55,23 @@ public class IndividualClientsValidator {
     }
 
     private static boolean validateAddressLine1(String streetName, String number) {
-        if((number != null && number.length() > 10) || streetName != null && (streetName.length() < 2 || streetName.length() > 30)){
+
+        if((number != null && number.length() > 10) || (streetName != null && (streetName.length() == 1 || streetName.length() > 30))){
             return false;
         }
         return true;
     }
 
     private static boolean validatePostalCode(String postalCode) {
-        if(postalCode != null && (postalCode.length() == 0 || postalCode.length() < 2 || postalCode.length() > 10)){
+        if(postalCode == null || postalCode == ""){
+            return true;
+        }
+        if(postalCode != "" && (postalCode.length() < 2 || postalCode.length() > 10)){
             return false;
         }
         return true;
     }
 
-    private static boolean validateNationality(String nationality) {
-        if(nationality != null && nationality.length() == 0){
-            return false;
-        }
-        return true;
-    }
 
 
     private static boolean validateCountry(String country) {
@@ -110,6 +116,9 @@ public class IndividualClientsValidator {
 
     static private boolean validateEmail(String email)
     {
+        if(email == null || email.length() == 0){
+            return true;
+        }
         Pattern pattern = Pattern.compile("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

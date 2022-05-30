@@ -159,6 +159,15 @@ INSERT INTO public.users(
 
     ALTER TABLE public.individual_clients OWNER TO postgres;
 
+    ALTER TABLE public.individual_clients ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.individual_clients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
     ALTER TABLE ONLY public.individual_clients
         ADD CONSTRAINT individual_clients_pkey PRIMARY KEY (id);
 
@@ -177,6 +186,15 @@ INSERT INTO public.users(
                                       nationality character varying(40)
     );
     ALTER TABLE public.countries OWNER TO postgres;
+
+    ALTER TABLE public.countries ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
     ALTER TABLE ONLY public.countries
         ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
 
@@ -191,5 +209,13 @@ INSERT INTO public.users(
 
     ALTER TABLE public.orasele_romaniei OWNER TO postgres;
 
+    ALTER TABLE public.orasele_romaniei ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.orasele_romaniei_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
     ALTER TABLE ONLY public.orasele_romaniei
         ADD CONSTRAINT orasele_romaniei_pkey PRIMARY KEY (id);
