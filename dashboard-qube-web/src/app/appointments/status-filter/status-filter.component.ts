@@ -11,13 +11,12 @@ import { AppointmentsService } from 'src/app/appointments-form/appointments.serv
 })
 export class AppointmentStatusFilterComponent implements ClrDatagridFilterInterface<Appointment> {
   value: string = "unchecked";
-  state: boolean = false;
 
   constructor(private filterContainer: ClrDatagridFilter, private appointmentService: AppointmentsService) {
     filterContainer.setFilter(this);
 }
   isActive(): boolean {
-    return this.state;
+    return true;
   }
   accepts(item: Appointment): boolean {
     if((<any>item).status == undefined)
@@ -35,18 +34,22 @@ export class AppointmentStatusFilterComponent implements ClrDatagridFilterInterf
       case 'open':
         this.appointmentService.statusFilterState = "open";
         return (<any>item).status === 'Open';
+      default:
+        this.appointmentService.statusFilterState = "upcoming";
+        return (<any>item).status === 'Open' || (<any>item).status === 'Upcoming';
+
     }
     return true;
   }
   changes: any = new EventEmitter<any>(false);
 
-  onItemChange() {
+  onItemChange(event: any) {
     if(this.appointmentService.filterSelectionOrder.indexOf('status') != 1 || this.appointmentService.filterSelectionOrder.indexOf('status') == -1)
     {
       this.appointmentService.filterSelectionOrder.push('status');
       this.appointmentService.filterSelectionOrder.shift();
     }
-    this.state = true;
+    this.value = event.target.value;
     this.changes.emit(true);
   }
 
