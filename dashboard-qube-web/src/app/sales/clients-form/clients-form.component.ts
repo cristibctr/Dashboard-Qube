@@ -131,6 +131,7 @@ export class ClientsFormComponent implements OnInit {
       console.log(client);
       this.clientsService.addClient(client).subscribe({
         next: (data: HttpResponse<any>) => {
+          this.clientsService.clientIsCreated = true;
           this.router.navigate(["/clients"]);
         },
         error: (error: HttpErrorResponse) => {
