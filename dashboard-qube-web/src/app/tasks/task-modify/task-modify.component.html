@@ -79,7 +79,7 @@
                   Due Date*
                 </label>
                 <input clrDate cngDateFormatter required type="text" id="dueDate"
-                formControlName="dueDate" min={{dateNow}}>
+                formControlName="dueDate">
                 <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
                 <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
               </clr-date-container>
