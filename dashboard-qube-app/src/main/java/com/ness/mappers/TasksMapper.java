@@ -5,7 +5,9 @@ import com.ness.entities.Task;
 import com.ness.entities.User;
 import com.ness.misc.UserNotFoundException;
 import com.ness.repositories.UserRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TasksMapper implements EntityDTOMapper<TaskDTO, Task> {
     private UserRepository userRepository;
 

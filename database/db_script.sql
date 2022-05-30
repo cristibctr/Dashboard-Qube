@@ -133,3 +133,89 @@ INSERT INTO public.users(
 INSERT INTO public.users(
 	first_name, last_name, date_of_birth, phone_number, city, country, email, password)
 	VALUES ('first admin', 'first admin', '1950-11-11', '0040733234344',	'Bucuresti',	'Romania',	'admin1@admin.com',	'Password1!');
+
+-- Individual Clients
+
+
+    CREATE TABLE public.individual_clients (
+                                               id integer NOT NULL,
+                                               salutation character varying NOT NULL,
+                                               first_name character varying(25) NOT NULL,
+                                               last_name character varying(25),
+                                               date_of_birth date NOT NULL,
+                                               nationality character varying,
+                                               street_name character varying(30),
+                                               number character varying(11),
+                                               apartment character varying(5),
+                                               building character varying(5),
+                                               floor character varying(4),
+                                               postal_code character varying(10),
+                                               city character varying(25),
+                                               country character varying(25),
+                                               email character varying(30),
+                                               phone_number character varying(13)
+    );
+
+
+    ALTER TABLE public.individual_clients OWNER TO postgres;
+
+    ALTER TABLE public.individual_clients ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.individual_clients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+    ALTER TABLE ONLY public.individual_clients
+        ADD CONSTRAINT individual_clients_pkey PRIMARY KEY (id);
+
+    ALTER TABLE ONLY public.individual_clients
+        ADD CONSTRAINT unique_email UNIQUE (email);
+
+--Countries
+
+
+    CREATE TABLE public.countries (
+                                      id integer NOT NULL,
+                                      num_code integer DEFAULT 0 NOT NULL,
+                                      alpha_2_code character varying(2),
+                                      alpha_3_code character varying(3),
+                                      en_short_name character varying(52),
+                                      nationality character varying(40)
+    );
+    ALTER TABLE public.countries OWNER TO postgres;
+
+    ALTER TABLE public.countries ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+    ALTER TABLE ONLY public.countries
+        ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+--Orasele-Romaniei
+
+
+    CREATE TABLE public.orasele_romaniei (
+                                             id integer NOT NULL,
+                                             name character varying(64) NOT NULL
+    );
+
+
+    ALTER TABLE public.orasele_romaniei OWNER TO postgres;
+
+    ALTER TABLE public.orasele_romaniei ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.orasele_romaniei_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+    ALTER TABLE ONLY public.orasele_romaniei
+        ADD CONSTRAINT orasele_romaniei_pkey PRIMARY KEY (id);

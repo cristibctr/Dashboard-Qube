@@ -1,0 +1,226 @@
+<div class="clr-row clr-align-items-center clr-justify-content-between">
+    <div class="clr-col-md-5 clr-col-lg-3 clr-offset-sm-1">
+        <div class="clr-row clr-align-items-center">
+            <cds-icon shape="arrow" direction="left" size="lg" routerLink="/clients" class="back-arrow"></cds-icon>
+            <span class="page-title">New Client</span>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="clr-row">
+    <form class="clr-col-sm-9 clr-offset-sm-1" clrForm [formGroup]="clientsDataForm" clrLayout="horizontal" (submit)="handleSubmit()">
+        <div class="clr-row">
+            <h3 class="subtitle">Personal data</h3>
+        </div>
+        <clr-combobox-container>
+            <label>Salutation*</label>
+            <clr-combobox name="salutation" required formControlName="salutation">
+                <clr-options>
+                    <clr-option clrValue="Miss">Miss</clr-option>
+                    <clr-option clrValue="Mr">Mr.</clr-option>
+                    <clr-option clrValue="Mrs">Mrs.</clr-option>
+                    <clr-option clrValue="Ms">Ms.</clr-option>
+                </clr-options>
+            </clr-combobox>
+            <clr-control-error *clrIfError="'required'">This field is required</clr-control-error>
+        </clr-combobox-container>
+        <clr-input-container>
+            <label for="firstName">
+              First Name*
+            </label>
+            <input clrInput type="text" required id="firstName"
+                  formControlName="firstName"/>
+            <clr-control-error *clrIfError="'required'">
+            This field is required
+            </clr-control-error>
+            <clr-control-error *clrIfError="'minlength'">
+            First name must be at least 2 characters long
+            </clr-control-error>
+            <clr-control-error *clrIfError="'maxlength'">
+            First name must not exceed 25 characters
+            </clr-control-error>
+            <clr-control-error *clrIfError="'pattern'">
+            First Name must contain only letters and one space or - is allowed between words
+            </clr-control-error>
+        </clr-input-container>
+        <clr-input-container>
+            <label for="lastName">
+              Last Name*
+            </label>
+            <input clrInput type="text" required id="lastName"
+                  formControlName="lastName"/>
+            <clr-control-error *clrIfError="'required'">
+                This field is required
+            </clr-control-error>
+            <clr-control-error *clrIfError="'pattern'">
+                Last Name must contain only letters and one space or - is allowed between words
+            </clr-control-error>
+            <clr-control-error *clrIfError="'minlength'">
+                Last name must be at least 2 characters long
+            </clr-control-error>
+            <clr-control-error *clrIfError="'maxlength'">
+                Last name must not exceed 25 characters
+            </clr-control-error>
+        </clr-input-container>
+        <clr-date-container>
+            <label for="dateOfBirth">
+                Date of birth*
+            </label>
+            <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
+            formControlName="dateOfBirth" max={{dateNowMinus18}}, min="{{dateNowMinus120}}">
+            <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
+            <clr-control-error *clrIfError="'required'">This field is required</clr-control-error>
+            <clr-control-error *clrIfError="'minAge'">You must be at least 18 years old to register</clr-control-error>
+            <clr-control-error *clrIfError="'maxAge'">Your age looks a bit suspicious</clr-control-error>
+        </clr-date-container>
+        <clr-combobox-container>
+            <label>Nationality</label>
+            <clr-combobox name="nationality" formControlName="nationality" (clrOpenChange)="getNationalities()" [clrLoading]="nationalities.length != 0? false : true">
+                <clr-options>
+                    <clr-option [clrValue]="nationality" *clrOptionItems="let nationality of nationalities">{{nationality}}</clr-option>
+                </clr-options>
+            </clr-combobox>
+        </clr-combobox-container>
+        <div class="clr-row">
+            <h3 class="subtitle">Adress</h3>
+        </div>
+        <div class="clr-row">
+            <clr-input-container>
+                <label for="street">
+                  Street
+                </label>
+                <input clrInput type="text" id="street"
+                      formControlName="street"/>
+                <clr-control-error *clrIfError="'minlength'">
+                    Street must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Street must not exceed 30 characters
+                </clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label for="no">
+                  No.
+                </label>
+                <input clrInput type="text" id="no"
+                      formControlName="no"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    No. must not exceed 10 characters
+                </clr-control-error>
+            </clr-input-container>
+        </div>
+        <div class="clr-row">
+            <clr-input-container>
+                <label for="building">
+                  Building
+                </label>
+                <input clrInput type="text" id="building"
+                      formControlName="building"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Building must not exceed 4 characters
+                </clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label for="ap">
+                  Ap.
+                </label>
+                <input clrInput type="text" id="ap"
+                      formControlName="ap"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Ap. must not exceed 4 characters
+                </clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label for="floor">
+                  Floor
+                </label>
+                <input clrInput type="text" id="floor"
+                      formControlName="floor"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Floor must not exceed 3 characters
+                </clr-control-error>
+            </clr-input-container>
+        </div>
+        <div class="clr-row">
+            <clr-input-container>
+                <label for="postalCode"  class="clr-col-md-4">
+                  Postal code
+                </label>
+                <input clrInput type="text" id="postalCode"
+                      formControlName="postalCode" class="clr-col-md-8"/>
+                <clr-control-error *clrIfError="'minlength'">
+                    Postal code must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Postal code must not exceed 10 characters
+                </clr-control-error>
+            </clr-input-container>
+            <clr-combobox-container>
+                <label>City</label>
+                <clr-combobox name="city"  formControlName="city" (clrOpenChange)="getCities($event)" [clrLoading]="cities.length != 0? false : true" >
+                    <clr-options>
+                        <clr-option [clrValue]="city" *clrOptionItems="let city of cities">{{city}}</clr-option>
+                    </clr-options>
+                    <clr-control-error *ngIf="countryFirst">Country needs to be selected first</clr-control-error>
+                </clr-combobox>
+                <clr-control-error *clrIfError="'minlength'">
+                    City must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    City must not exceed 25 characters
+                </clr-control-error>
+            </clr-combobox-container>
+            <clr-combobox-container>
+                <label>Country</label>
+                <clr-combobox name="country" formControlName="country" (clrOpenChange)="getCountries()" (clrInputChange)="onCountryChange()" [clrLoading]="countries.length != 0? false : true"  >
+                    <clr-options>
+                        <clr-option [clrValue]="country" *clrOptionItems="let country of countries">{{country}}</clr-option>
+                    </clr-options>
+                </clr-combobox>
+                <clr-control-error *clrIfError="'minlength'">
+                    Country must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Country must not exceed 25 characters
+                </clr-control-error>
+            </clr-combobox-container>
+        </div>
+        <div class="clr-row">
+            <h3 class="subtitle">Contact</h3>
+        </div>
+        <div class="clr-row">
+            <clr-input-container>
+                <label for="email" class="clr-col-md-4">
+                  Email Address
+                </label>
+                <input clrInput type="text" id="email" (focus)="onPhoneEmailFocus()" (blur)="onPhoneEmailBlur()"
+                      formControlName="email" class="clr-col-md-8"/>
+                <clr-control-error *clrIfError="'pattern'">
+                    Please enter a valid email address.
+                </clr-control-error>
+                <clr-control-error *clrIfError="'emailOrPhone'">
+                    Email or phone number is required
+                </clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label for="phone" class="clr-col-md-4">
+                  Telephone
+                </label>
+                <input clrInput type="text" id="phone" (focus)="onPhoneEmailFocus()" (blur)="onPhoneEmailBlur()"
+                      formControlName="phone" class="clr-col-md-8"/>
+                <clr-control-error *clrIfError="'pattern'">
+                    Phone number is invalid
+                </clr-control-error>
+                <clr-control-error *clrIfError="'emailOrPhone'">
+                    Email or phone number is required
+                </clr-control-error>
+            </clr-input-container>
+        </div>
+        <div class="clr-row" style="margin-top:24px">
+            <button class="btn btn-primary clr-col-sm-1" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+<clr-alert class="alert" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage.length != 0" (clrAlertClosedChange)="onClose()">
+    <em>{{errorMessage}}</em>
+</clr-alert>

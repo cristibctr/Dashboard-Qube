@@ -41,7 +41,6 @@ export class TasksDateFilterComponent implements ClrDatagridFilterInterface<Task
 
   onItemChange(event: any) {
     this.value = event.target.value;
-    console.log(this.value);
     this.changes.emit(true);
   }
 

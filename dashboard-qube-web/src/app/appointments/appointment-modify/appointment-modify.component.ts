@@ -65,7 +65,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
     return this.appointmentsDataForm.controls['status'];
   }
 
-  constructor(private formBuilder: FormBuilder, private appointmentsService: AppointmentsService, private appointmentModifyService: AppointmentModifyService) { 
+  constructor(private formBuilder: FormBuilder, private appointmentsService: AppointmentsService, private appointmentModifyService: AppointmentModifyService) {
     this.appointmentsDataForm = this.formBuilder.group({
       title: [{value: this.appointment.title, disabled: !this.editable}, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       startDate: [{value: this.getDateAndTimeFromString(this.appointment.startDate).date, disabled: !this.editable}, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$')]],
@@ -149,7 +149,7 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
       );
     }
   }
-  
+
   onClickSave(): void {
     var changedAppointment = {
         id: this.appointment.id,
@@ -176,7 +176,6 @@ export class AppointmentModifyComponent implements OnInit, OnChanges {
   }
 
   onClickOk(): void {
-    console.log("OK");
     this.modalIsOpen = false;
     this.modalIsOpenChange.emit(this.modalIsOpen);
   }
