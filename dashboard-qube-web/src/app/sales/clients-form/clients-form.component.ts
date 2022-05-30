@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { Router } from '@angular/router';
 import { map, take } from 'rxjs';
 import { ClientsService } from '../clients.service';
-import { Client } from '../clients/client.model';
+import { Client, Salutation } from '../clients/client.model';
 
 @Component({
   selector: 'app-clients-form',
@@ -108,11 +108,10 @@ export class ClientsFormComponent implements OnInit {
 
   handleSubmit()
   {
-    console.log(this.clientsDataForm);
     if(this.clientsDataForm.valid)
     {
       var client: Client = {
-        salutation: this.clientsDataForm.controls['salutation'].value,
+        salutation: Salutation[this.clientsDataForm.controls['salutation'].value as keyof typeof Salutation],
         firstName: this.clientsDataForm.controls['firstName'].value,
         lastName: this.clientsDataForm.controls['lastName'].value,
         dateOfBirth: this.clientsDataForm.controls['dateOfBirth'].value,
@@ -128,6 +127,8 @@ export class ClientsFormComponent implements OnInit {
         email: this.clientsDataForm.controls['email'].value,
         phoneNumber: this.clientsDataForm.controls['phone'].value
       }
+      
+      console.log(client);
       this.clientsService.addClient(client).subscribe({
         next: (data: HttpResponse<any>) => {
           this.router.navigate(["/clients"]);

@@ -17,9 +17,9 @@ export interface Client {
     phoneNumber?: string;
 }
 
-enum Salutation {
-    MR = "MR",
-    MRS = "MRS",
-    MS = "MS",
-    MISS = "MISS"
+export enum Salutation {
+    Mr = "MR",
+    Mrs = "MRS",
+    Ms = "MS",
+    Miss = "MISS"
 }
