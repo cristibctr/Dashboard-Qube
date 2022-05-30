@@ -42,7 +42,6 @@ export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterfa
         return (<any>item).tableDate < d && this.getDate(item.endDate) >= new Date();
       case 'all':
         d.setDate(d.getDate() - 30);
-        console.log(d);
         return (<any>item).tableDate > d;
       default:
         return this.getDate(item.endDate) >= d;
