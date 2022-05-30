@@ -62,7 +62,7 @@ export class ClientsFormComponent implements OnInit {
     return this.clientsDataForm.controls['country'];
   }
 
-    constructor(private formBuilder: FormBuilder, private clientsService: ClientsService, private router: Router) { 
+    constructor(private formBuilder: FormBuilder, private clientsService: ClientsService, private router: Router) {
     this.getAgeRange();
     this.clientsDataForm = this.formBuilder.group({
       salutation: ['', [Validators.required]],
@@ -127,8 +127,7 @@ export class ClientsFormComponent implements OnInit {
         email: this.clientsDataForm.controls['email'].value,
         phoneNumber: this.clientsDataForm.controls['phone'].value
       }
-      
-      console.log(client);
+
       this.clientsService.addClient(client).subscribe({
         next: (data: HttpResponse<any>) => {
           this.clientsService.clientIsCreated = true;

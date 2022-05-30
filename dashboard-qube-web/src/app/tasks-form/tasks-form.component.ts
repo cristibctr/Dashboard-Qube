@@ -194,7 +194,6 @@ checkDate(control: AbstractControl) {
       var data1 = new Date(year1, month1 - 1, day1);
       let date2 = new Date();
       date2.setHours(0,0,0,0)
-      console.log(data1 + " " + date2)
       if(data1 < date2){
         return {invalidDate: true}
       }
