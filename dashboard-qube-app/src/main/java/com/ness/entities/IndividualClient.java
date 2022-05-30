@@ -54,17 +54,8 @@ public class IndividualClient {
     @Column(name = "number")
     private String number;
 
-    @Column(name = "company_name")
-    private String companyName;
-
     @Column(name = "apartment")
     private String apartment;
-
-    @Column(name = "suite")
-    private String suite;
-
-    @Column(name = "unit")
-    private String unit;
 
     @Column(name = "building")
     private String building;

@@ -58,7 +58,7 @@ public class IndividualClientsController {
                 }
             }
             if(clientAlreadyExists){
-                return ResponseEntity.status(204).body("Individual Client already exists");
+                return ResponseEntity.status(409).body("Individual Client already exists");
             }
 
         }

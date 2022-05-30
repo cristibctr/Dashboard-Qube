@@ -16,13 +16,13 @@
             <label>Salutation*</label>
             <clr-combobox name="salutation" required formControlName="salutation">
                 <clr-options>
-                    <clr-option clrValue="Miss">Miss</clr-option>
-                    <clr-option clrValue="Mr">Mr.</clr-option>
-                    <clr-option clrValue="Mrs">Mrs.</clr-option>
-                    <clr-option clrValue="Ms">Ms.</clr-option>
+                    <clr-option clrValue="MISS">Miss</clr-option>
+                    <clr-option clrValue="MR">Mr.</clr-option>
+                    <clr-option clrValue="MRS">Mrs.</clr-option>
+                    <clr-option clrValue="MS">Ms.</clr-option>
                 </clr-options>
             </clr-combobox>
-            <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+            <clr-control-error *clrIfError="'required'">This field is required</clr-control-error>
         </clr-combobox-container>
         <clr-input-container>
             <label for="firstName">
@@ -31,7 +31,7 @@
             <input clrInput type="text" required id="firstName"
                   formControlName="firstName"/>
             <clr-control-error *clrIfError="'required'">
-            First name field is mandatory
+            This field is required
             </clr-control-error>
             <clr-control-error *clrIfError="'minlength'">
             First name must be at least 2 characters long
@@ -50,7 +50,16 @@
             <input clrInput type="text" required id="lastName"
                   formControlName="lastName"/>
             <clr-control-error *clrIfError="'required'">
-                Last Name field is mandatory
+                This field is required
+            </clr-control-error>
+            <clr-control-error *clrIfError="'pattern'">
+                Last Name must contain only letters and one space or - is allowed between words
+            </clr-control-error>
+            <clr-control-error *clrIfError="'minlength'">
+                Last name must be at least 2 characters long
+            </clr-control-error>
+            <clr-control-error *clrIfError="'maxlength'">
+                Last name must not exceed 25 characters
             </clr-control-error>
         </clr-input-container>
         <clr-date-container>
@@ -60,7 +69,7 @@
             <input clrDate cngDateFormatter required type="text" id="dateOfBirth"
             formControlName="dateOfBirth" max={{dateNowMinus18}}, min="{{dateNowMinus120}}">
             <clr-control-error *clrIfError="'pattern'">Invalid date pattern</clr-control-error>
-            <clr-control-error *clrIfError="'required'">This field is mandatory</clr-control-error>
+            <clr-control-error *clrIfError="'required'">This field is required</clr-control-error>
             <clr-control-error *clrIfError="'minAge'">You must be at least 18 years old to register</clr-control-error>
             <clr-control-error *clrIfError="'maxAge'">Your age looks a bit suspicious</clr-control-error>
         </clr-date-container>
@@ -82,6 +91,12 @@
                 </label>
                 <input clrInput type="text" id="street"
                       formControlName="street"/>
+                <clr-control-error *clrIfError="'minlength'">
+                    Street must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Street must not exceed 30 characters
+                </clr-control-error>
             </clr-input-container>
             <clr-input-container>
                 <label for="no">
@@ -89,6 +104,9 @@
                 </label>
                 <input clrInput type="text" id="no"
                       formControlName="no"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    No. must not exceed 10 characters
+                </clr-control-error>
             </clr-input-container>
         </div>
         <div class="clr-row">
@@ -98,6 +116,9 @@
                 </label>
                 <input clrInput type="text" id="building"
                       formControlName="building"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Building must not exceed 4 characters
+                </clr-control-error>
             </clr-input-container>
             <clr-input-container>
                 <label for="ap">
@@ -105,6 +126,9 @@
                 </label>
                 <input clrInput type="text" id="ap"
                       formControlName="ap"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Ap. must not exceed 4 characters
+                </clr-control-error>
             </clr-input-container>
             <clr-input-container>
                 <label for="floor">
@@ -112,6 +136,9 @@
                 </label>
                 <input clrInput type="text" id="floor"
                       formControlName="floor"/>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Floor must not exceed 3 characters
+                </clr-control-error>
             </clr-input-container>
         </div>
         <div class="clr-row">
@@ -121,6 +148,12 @@
                 </label>
                 <input clrInput type="text" id="postalCode"
                       formControlName="postalCode" class="clr-col-md-8"/>
+                <clr-control-error *clrIfError="'minlength'">
+                    Postal code must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Postal code must not exceed 10 characters
+                </clr-control-error>
             </clr-input-container>
             <clr-combobox-container>
                 <label>City</label>
@@ -130,6 +163,12 @@
                     </clr-options>
                     <clr-control-error *ngIf="countryFirst">Country needs to be selected first</clr-control-error>
                 </clr-combobox>
+                <clr-control-error *clrIfError="'minlength'">
+                    City must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    City must not exceed 25 characters
+                </clr-control-error>
             </clr-combobox-container>
             <clr-combobox-container>
                 <label>Country</label>
@@ -138,6 +177,12 @@
                         <clr-option [clrValue]="country" *clrOptionItems="let country of countries">{{country}}</clr-option>
                     </clr-options>
                 </clr-combobox>
+                <clr-control-error *clrIfError="'minlength'">
+                    Country must be at least 2 characters long
+                </clr-control-error>
+                <clr-control-error *clrIfError="'maxlength'">
+                    Country must not exceed 25 characters
+                </clr-control-error>
             </clr-combobox-container>
         </div>
         <div class="clr-row">
@@ -154,7 +199,7 @@
                     Please enter a valid email address.
                 </clr-control-error>
                 <clr-control-error *clrIfError="'emailOrPhone'">
-                    Email or phone number is mandatory
+                    Email or phone number is required
                 </clr-control-error>
             </clr-input-container>
             <clr-input-container>
@@ -167,7 +212,7 @@
                     Phone number is invalid
                 </clr-control-error>
                 <clr-control-error *clrIfError="'emailOrPhone'">
-                    Email or phone number is mandatory
+                    Email or phone number is required
                 </clr-control-error>
             </clr-input-container>
         </div>
@@ -176,3 +221,6 @@
         </div>
     </form>
 </div>
+<clr-alert class="alert" clrAlertType="danger" [clrAlertAppLevel]="true" [clrAlertClosable]="true" *ngIf="errorMessage.length != 0" (clrAlertClosedChange)="onClose()">
+    <em>{{errorMessage}}</em>
+</clr-alert>

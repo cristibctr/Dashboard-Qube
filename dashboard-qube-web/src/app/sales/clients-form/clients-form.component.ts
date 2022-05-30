@@ -1,8 +1,10 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { map, take } from 'rxjs';
 import { ClientsService } from '../clients.service';
+import { Client } from '../clients/client.model';
 
 @Component({
   selector: 'app-clients-form',
@@ -18,6 +20,7 @@ export class ClientsFormComponent implements OnInit {
   countries: string[] = [];
   cities: string[] = [];
   countryFirst: boolean = true;
+  errorMessage: string = '';
 
   get salutation() {
     return this.clientsDataForm.controls['salutation'];
@@ -59,28 +62,32 @@ export class ClientsFormComponent implements OnInit {
     return this.clientsDataForm.controls['country'];
   }
 
-  constructor(private formBuilder: FormBuilder, private clientsService: ClientsService) { 
+    constructor(private formBuilder: FormBuilder, private clientsService: ClientsService, private router: Router) { 
+    this.getAgeRange();
     this.clientsDataForm = this.formBuilder.group({
       salutation: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       dateOfBirth: ['', [Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.minAgeValidator(new Date(Date.parse(this.dateNowMinus18)), new Date(Date.parse(this.dateNowMinus120))) ]],
       nationality: ['', []],
-      street: ['', []],
-      no: ['', []],
-      building: ['', []],
-      ap:  ['', []],
-      floor:  ['', []],
-      postalCode:  ['', []],
-      city:  ['', []],
-      country:  ['', []],
-      email: ['', [Validators.email, this.emailOrPhoneValidator, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]],
+      street: ['', [Validators.minLength(2), Validators.maxLength(30)]],
+      no: ['', [Validators.maxLength(10)]],
+      building: ['', [Validators.maxLength(4)]],
+      ap:  ['', [Validators.maxLength(4)]],
+      floor:  ['', [Validators.maxLength(3)]],
+      postalCode:  ['', [Validators.minLength(2), Validators.maxLength(10)]],
+      city:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
+      country:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
+      email: ['', [Validators.maxLength(30), Validators.email, this.emailOrPhoneValidator, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]],
       phone: ['', [Validators.minLength(12), Validators.maxLength(13), Validators.pattern("^(00|\\+)40\\d{9}$"), this.emailOrPhoneValidator]],
     });
   }
 
   ngOnInit(): void {
-    this.getAgeRange();
+  }
+
+  onClose(){
+    this.errorMessage = '';
   }
 
   getNationalities() {
@@ -102,6 +109,39 @@ export class ClientsFormComponent implements OnInit {
   handleSubmit()
   {
     console.log(this.clientsDataForm);
+    if(this.clientsDataForm.valid)
+    {
+      var client: Client = {
+        salutation: this.clientsDataForm.controls['salutation'].value,
+        firstName: this.clientsDataForm.controls['firstName'].value,
+        lastName: this.clientsDataForm.controls['lastName'].value,
+        dateOfBirth: this.clientsDataForm.controls['dateOfBirth'].value,
+        nationality: this.clientsDataForm.controls['nationality'].value,
+        streetName: this.clientsDataForm.controls['street'].value,
+        number: this.clientsDataForm.controls['no'].value,
+        building: this.clientsDataForm.controls['building'].value,
+        apartment: this.clientsDataForm.controls['ap'].value,
+        floor: this.clientsDataForm.controls['floor'].value,
+        postalCode: this.clientsDataForm.controls['postalCode'].value,
+        city: this.clientsDataForm.controls['city'].value,
+        country: this.clientsDataForm.controls['country'].value,
+        email: this.clientsDataForm.controls['email'].value,
+        phoneNumber: this.clientsDataForm.controls['phone'].value
+      }
+      this.clientsService.addClient(client).subscribe({
+        next: (data: HttpResponse<any>) => {
+          this.router.navigate(["/clients"]);
+        },
+        error: (error: HttpErrorResponse) => {
+          if(error.status == 409)
+            this.errorMessage = `A client with this name "${client.firstName} ${client.lastName}" and date of birth "${client.dateOfBirth}" already exists.`;
+          else if(error.status == 404)
+            this.errorMessage = `The client's data is invalid.`;
+          else
+            this.errorMessage = `An error occured.`;
+        }
+      });
+    }
   }
 
   getAgeRange(){
@@ -206,8 +246,6 @@ export class ClientsFormComponent implements OnInit {
   emailOrPhoneValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const email = control.parent?.get('email');
     const phone = control.parent?.get('phone');
-    console.log(email?.value);
-    console.log(phone?.value);
     if(email?.value.length != 0 || phone?.value.length != 0)
       return null;
     return { emailOrPhone: true };

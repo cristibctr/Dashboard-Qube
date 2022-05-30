@@ -24,6 +24,7 @@ public class IndividualClientDTO {
 
     private String lastName;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
     private String nationality;
@@ -32,13 +33,7 @@ public class IndividualClientDTO {
 
     private String number;
 
-    private String companyName;
-
     private String apartment;
-
-    private String suite;
-
-    private String unit;
 
     private String building;
 

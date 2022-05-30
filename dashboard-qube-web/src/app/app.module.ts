@@ -27,11 +27,8 @@ import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.
 import { ClientsComponent } from './sales/clients/clients.component';
 import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
-<<<<<<< HEAD
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
-=======
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
->>>>>>> 0775cb0b6cc0bccf3840846305a2bd4148c1e58f
 
 
 @NgModule({
@@ -53,11 +50,8 @@ import { ClientsFormComponent } from './sales/clients-form/clients-form.componen
     ClientsComponent,
     OffersComponent,
     TasksFormComponent,
-<<<<<<< HEAD
-    TaskModifyComponent
-=======
+    TaskModifyComponent,
     ClientsFormComponent
->>>>>>> 0775cb0b6cc0bccf3840846305a2bd4148c1e58f
   ],
   imports: [
     BrowserModule,
