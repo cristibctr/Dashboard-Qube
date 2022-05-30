@@ -9,7 +9,9 @@ import { Appointment } from './appointment.model';
 })
 export class AppointmentsService {
 
+  filterSelectionOrder: string[] = ['',''];
   appointmentIsCreated: boolean = false;
+  statusFilterState!: string;
 
   constructor(private http: HttpClient) { }
 

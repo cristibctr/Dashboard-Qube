@@ -9,6 +9,8 @@ import { Task } from './task.model';
 })
 export class TasksService {
 
+  statusFilterState!: string;
+  filterSelectionOrder: string[] = ['',''];
   taskIsCreated: boolean = false;
   successMessage: EventEmitter<string> = new EventEmitter<string>();
 

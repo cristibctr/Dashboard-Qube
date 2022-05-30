@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Observable, Subject } from 'rxjs';
 import { Appointment } from 'src/app/appointments-form/appointment.model';
+import { AppointmentsService } from 'src/app/appointments-form/appointments.service';
 
 @Component({
   selector: 'app-appointments-date-filter',
@@ -10,10 +11,10 @@ import { Appointment } from 'src/app/appointments-form/appointment.model';
 })
 export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterface<Appointment> {
 
-  value: string = "unchecked";
+  value: string = "all";
   changes: any = new EventEmitter<any>(false);
 
-  constructor(private filterContainer: ClrDatagridFilter) {
+  constructor(private filterContainer: ClrDatagridFilter, private appointmentService: AppointmentsService) {
     filterContainer.setFilter(this);
   }
   isActive(): boolean {
@@ -22,6 +23,12 @@ export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterfa
   accepts(item: Appointment): boolean {
     if((<any>item).tableDate == undefined)
       return true;
+    if(this.appointmentService.statusFilterState == "overdue" && this.appointmentService.filterSelectionOrder.indexOf('status') == 0)
+    {
+      var d = new Date();
+      d.setDate(d.getDate() - 30);
+      return (<any>item).tableDate > d;
+    }
     var d = new Date();
     switch(this.value){
       case 't-days':
@@ -35,6 +42,7 @@ export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterfa
         return (<any>item).tableDate < d && this.getDate(item.endDate) >= new Date();
       case 'all':
         d.setDate(d.getDate() - 30);
+        console.log(d);
         return (<any>item).tableDate > d;
       default:
         return this.getDate(item.endDate) >= d;
@@ -47,7 +55,13 @@ export class AppointmentsDateFilterComponent implements ClrDatagridFilterInterfa
     return new Date(Date.parse(newDate));
   }
 
-  onItemChange() {
+  onItemChange(event: any) {
+    if(this.appointmentService.filterSelectionOrder.indexOf('date') != 1 || this.appointmentService.filterSelectionOrder.indexOf('date') == -1)
+    {
+      this.appointmentService.filterSelectionOrder.push('date');
+      this.appointmentService.filterSelectionOrder.shift();
+    }
+    this.value = event.target.value;
     this.changes.emit(true);
   }
 

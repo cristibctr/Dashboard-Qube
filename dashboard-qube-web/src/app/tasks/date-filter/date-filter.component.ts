@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-tasks-date-filter',
@@ -11,7 +12,7 @@ export class TasksDateFilterComponent implements ClrDatagridFilterInterface<Task
   value: string = "all";
   changes: any = new EventEmitter<any>(false);
 
-  constructor(private filterContainer: ClrDatagridFilter) {
+  constructor(private filterContainer: ClrDatagridFilter, private taskService: TasksService) {
     filterContainer.setFilter(this);
   }
   isActive(): boolean {
@@ -20,6 +21,13 @@ export class TasksDateFilterComponent implements ClrDatagridFilterInterface<Task
   accepts(item: Task): boolean {
     if((<any>item).tableDate == undefined)
       return false;
+    if((this.taskService.statusFilterState == "overdue" && this.taskService.filterSelectionOrder.indexOf('status') == 0) ||
+    (this.taskService.statusFilterState == "done" && this.taskService.filterSelectionOrder.indexOf('status') == 0))
+    {
+      var d = new Date();
+      d.setDate(d.getDate() - 30);
+      return (<any>item).tableDate > d;
+    }
     var d = new Date();
     switch(this.value){
       case 't-days':
@@ -40,6 +48,11 @@ export class TasksDateFilterComponent implements ClrDatagridFilterInterface<Task
   }
 
   onItemChange(event: any) {
+    if(this.taskService.filterSelectionOrder.indexOf('date') != 1 || this.taskService.filterSelectionOrder.indexOf('date') == -1)
+    {
+      this.taskService.filterSelectionOrder.push('date');
+      this.taskService.filterSelectionOrder.shift();
+    }
     this.value = event.target.value;
     this.changes.emit(true);
   }
