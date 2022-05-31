@@ -29,6 +29,7 @@ import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
+import { OrganisationFormComponent } from './organisation-form/organisation-form.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { ClientsFormComponent } from './sales/clients-form/clients-form.componen
     OffersComponent,
     TasksFormComponent,
     TaskModifyComponent,
-    ClientsFormComponent
+    ClientsFormComponent,
+    OrganisationFormComponent
   ],
   imports: [
     BrowserModule,
