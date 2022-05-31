@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../clients.service';
+import { Client, Salutation } from './client.model';
 
 @Component({
   selector: 'app-clients',
@@ -8,6 +9,7 @@ import { ClientsService } from '../clients.service';
 })
 export class ClientsComponent implements OnInit {
   appointmentSuccess: boolean = false;
+  clients: Client[] = [];
 
   constructor(private clientsService: ClientsService) { }
 
@@ -19,6 +21,12 @@ export class ClientsComponent implements OnInit {
         this.appointmentSuccess = false;
       }, 2000)
     }
+  }
+
+  searchClientsOrgs(search: string){
+    this.clientsService.searchClients(search).subscribe(data => {
+      this.clients = data.body!;
+    });
   }
 
 }

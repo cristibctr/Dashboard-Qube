@@ -24,5 +24,9 @@ export class ClientsService {
   addClient(clientData: Client) {
     return this.http.post(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/clients`, clientData, {observe: 'response', responseType: 'text'});
   }
+
+  searchClients(searchData: string) {
+    return this.http.post<Client[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/clients/search`, searchData, {observe: 'response', responseType: 'json'});
+  }
   constructor(private http: HttpClient) { }
 }
