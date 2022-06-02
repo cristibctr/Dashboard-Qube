@@ -1,6 +1,7 @@
 package com.ness.controllers;
 
 
+import com.ness.dtos.IndividualClientDTO;
 import com.ness.dtos.OrganisationDTO;
 import com.ness.entities.Organisation;
 import com.ness.mappers.OrganisationsMapper;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -54,5 +58,13 @@ public class OrganisationsController {
 
         organisationService.save(organisationDTO);
         return ResponseEntity.status(200).body("Organisation created");
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(path="/api/organisations/search", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OrganisationDTO>> searchClient(@RequestParam String searchString)
+    {
+        Optional<List<OrganisationDTO>> orgDTOList = organisationService.getOrgBySearchString(searchString.toUpperCase().trim());
+        return ResponseEntity.status(200).body(orgDTOList.isPresent() ? orgDTOList.get() : new ArrayList<OrganisationDTO>());
     }
 }

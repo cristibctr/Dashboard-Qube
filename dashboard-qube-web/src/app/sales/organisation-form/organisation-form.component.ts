@@ -3,7 +3,7 @@ import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, take } from 'rxjs';
-import { ClientsService } from '../sales/clients.service';
+import { ClientsService } from '../clients.service';
 import { OrganisationService } from './organisation-service.service';
 import { Organisation } from './organisation.model';
 

@@ -13,17 +13,17 @@ public interface IndividualClientsRepository extends CrudRepository<IndividualCl
     Optional<List<IndividualClient>> findByLastName(String lastName);
     @Query(
         value = "SELECT i FROM IndividualClient i WHERE " +
-            "i.email LIKE %:searchString% " +
-            "OR i.firstName LIKE %:searchString% " +
-            "OR i.phoneNumber LIKE %:searchString% " +
-            "OR i.lastName LIKE %:searchString% " +
-            "OR i.country LIKE %:searchString% " +
-            "OR i.city LIKE %:searchString% " +
-            "OR i.streetName LIKE %:searchString% " +
-            "OR i.number LIKE %:searchString% " +
-            "OR i.building LIKE %:searchString% " +
-            "OR i.apartment LIKE %:searchString% " +
-            "OR i.floor LIKE %:searchString% "
+            "UPPER(i.email) LIKE %:searchString% " +
+            "OR UPPER(i.firstName) LIKE %:searchString% " +
+            "OR UPPER(i.phoneNumber) LIKE %:searchString% " +
+            "OR UPPER(i.lastName) LIKE %:searchString% " +
+            "OR UPPER(i.country) LIKE %:searchString% " +
+            "OR UPPER(i.city) LIKE %:searchString% " +
+            "OR UPPER(i.streetName) LIKE %:searchString% " +
+            "OR UPPER(i.number) LIKE %:searchString% " +
+            "OR UPPER(i.building) LIKE %:searchString% " +
+            "OR UPPER(i.apartment) LIKE %:searchString% " +
+            "OR UPPER(i.floor) LIKE %:searchString% "
     )
     Optional<List<IndividualClient>> findClientByEmailAddressNamePhone(@Param("searchString") String searchString);
 }

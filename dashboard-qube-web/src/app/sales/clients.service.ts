@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
 import { Client } from './clients/client.model';
@@ -26,7 +26,8 @@ export class ClientsService {
   }
 
   searchClients(searchData: string) {
-    return this.http.post<Client[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/clients/search`, searchData, {observe: 'response', responseType: 'json'});
+    let params = new HttpParams().set("searchString", searchData);
+    return this.http.get<Client[]>(`http://${AppConfigService.settings.apiEndpoint}:${AppConfigService.settings.apiPort}/api/clients/search`, {params: params,observe: 'response', responseType: 'json'});
   }
   constructor(private http: HttpClient) { }
 }

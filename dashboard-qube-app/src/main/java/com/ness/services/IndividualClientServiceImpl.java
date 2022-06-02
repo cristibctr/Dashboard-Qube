@@ -44,9 +44,9 @@ public class IndividualClientServiceImpl implements IndividualClientsService{
     }
 
     @Override
-    public List<IndividualClientDTO> getClientsBySearchString(String searchString) {
+    public Optional<List<IndividualClientDTO>> getClientsBySearchString(String searchString) {
         Optional<List<IndividualClient>> individualClientsList = individualClientsRepository.findClientByEmailAddressNamePhone(searchString);
-        return individualClientsList.map(individualClients -> individualClients.stream().map(entityDTOMapper::mapToDTO).collect(Collectors.toList())).orElse(null);
+        return Optional.ofNullable(individualClientsList.map(individualClients -> individualClients.stream().map(entityDTOMapper::mapToDTO).collect(Collectors.toList())).orElse(null));
     }
 
 

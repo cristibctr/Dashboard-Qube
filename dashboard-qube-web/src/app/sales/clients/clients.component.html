@@ -15,12 +15,12 @@
 <div class="clr-row">
     <div class="clr-col-sm-11 clr-offset-xl-1" *ngIf="searchDone">
         <button type="button" class="btn btn-outline" routerLink="new">New client</button>
-        <button type="button" class="btn btn-outline" routerLink="/organisation/new">New organisation</button>
+        <button type="button" class="btn btn-outline" routerLink="/organisations/new">New organisation</button>
     </div>
 </div>
 <div class="clr-row">
     <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
-        <app-search-table [clients]="clients" [search]="searchTerms"></app-search-table>
+        <app-search-table [clients]="clients" [search]="searchTerms" [orgs]="orgs"></app-search-table>
     </div>
 </div>
 <clr-alert class="alert" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="clientSuccess || organisationSucces">

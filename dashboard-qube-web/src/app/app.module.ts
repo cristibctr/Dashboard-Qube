@@ -32,7 +32,7 @@ import { ClientsFormComponent } from './sales/clients-form/clients-form.componen
 import { SearchTableComponent } from './sales/clients/search-table/search-table.component';
 import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
 import { BoldPipe } from './sales/clients/search-table/bold.pipe';
-import { OrganisationFormComponent } from './organisation-form/organisation-form.component';
+import { OrganisationFormComponent } from './sales/organisation-form/organisation-form.component';
 
 
 @NgModule({

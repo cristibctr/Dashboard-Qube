@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
-import { OrganisationService } from 'src/app/organisation-form/organisation-service.service';
+import { OrganisationService } from 'src/app/sales/organisation-form/organisation-service.service';
 import { ClientsService } from '../clients.service';
+import { Organisation } from '../organisation-form/organisation.model';
 import { Client, Salutation } from './client.model';
 
 @Component({
@@ -12,6 +13,7 @@ import { Client, Salutation } from './client.model';
 export class ClientsComponent implements OnInit {
   clientSuccess: boolean = false;
   clients: Client[] = [];
+  orgs: Organisation[] = [];
   searchDone: boolean = false;
   searchTerms!: string;
   organisationSucces: boolean = false;
@@ -43,6 +45,9 @@ export class ClientsComponent implements OnInit {
       this.searchDone = true;
       this.clientsService.searchClients(search).pipe(take(1)).subscribe(data => {
         this.clients = data.body!;
+      });
+      this.organisationsService.searchOrganisations(search).pipe(take(1)).subscribe(data => {
+        this.orgs = data.body!;
       });
     } 
   }
