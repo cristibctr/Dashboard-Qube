@@ -10,6 +10,7 @@ import { ClientsComponent } from './sales/clients/clients.component';
 import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
+import { OrganisationFormComponent } from './organisation-form/organisation-form.component';
 
 const routes: Routes = [
   {path: 'register', component: RegistrationPageComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'offers', component: OffersComponent},
   {path: 'tasks/new', component: TasksFormComponent},
   {path: 'appointments/new', component: AppointmentsFormComponent},
-  {path: 'clients/new-client', component: ClientsFormComponent},
+  {path: 'clients/new', component: ClientsFormComponent},
+  {path: 'organisations/new', component: OrganisationFormComponent},
 ];
 
 @NgModule({

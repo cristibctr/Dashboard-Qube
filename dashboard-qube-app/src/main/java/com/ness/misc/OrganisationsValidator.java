@@ -1,43 +1,59 @@
 package com.ness.misc;
 
-import com.ness.dtos.IndividualClientDTO;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
+import com.ness.dtos.OrganisationDTO;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IndividualClientsValidator {
-
-    public static boolean validate(IndividualClientDTO individualClientDTO)
+public class OrganisationsValidator {
+    public static boolean validate(OrganisationDTO organisationDTO)
     {
-        boolean emailValidation = validateEmail(individualClientDTO.getEmail());
-        boolean emailOrPhoneNumberValidation = validateEmailOrPhoneNumber(individualClientDTO.getEmail(),
-            individualClientDTO.getPhoneNumber());
-        boolean dateOfBirthValidation = validateDateOfBirth(individualClientDTO.getDateOfBirth());
-        boolean firstNameValidation = validateFirstName(individualClientDTO.getFirstName());
-        boolean lastNameValidation = validateLastName(individualClientDTO.getLastName());
-        boolean phoneNumberValidation = validatePhoneNumber(individualClientDTO.getPhoneNumber());
-        boolean cityValidation = validateCity(individualClientDTO.getCity());
-        boolean countryValidation = validateCountry(individualClientDTO.getCountry());
-        boolean postalCodeValidation = validatePostalCode(individualClientDTO.getPostalCode());
-        boolean addressLine1Validation = validateAddressLine1(individualClientDTO.getStreetName(),
-            individualClientDTO.getNumber());
-        boolean addressLine2Validation = validateAddressLine2(individualClientDTO.getBuilding(),
-            individualClientDTO.getApartment(), individualClientDTO.getFloor());
+        boolean emailValidation = validateEmail(organisationDTO.getEmail());
+        boolean organisationTypeValidation = validateOrganisationType(organisationDTO.getOrganisationType());
+        boolean emailOrPhoneNumberValidation = validateEmailOrPhoneNumber(organisationDTO.getEmail(),
+            organisationDTO.getPhoneNumber());
+        boolean nameValidation = validateName(organisationDTO.getName());
+        boolean contactNameValidation = validateContactName(organisationDTO.getContactName());
+        boolean phoneNumberValidation = validatePhoneNumber(organisationDTO.getPhoneNumber());
+        boolean cityValidation = validateCity(organisationDTO.getCity());
+        boolean countryValidation = validateCountry(organisationDTO.getCountry());
+        boolean postalCodeValidation = validatePostalCode(organisationDTO.getPostalCode());
+        boolean addressLine1Validation = validateAddressLine1(organisationDTO.getStreetName(),
+            organisationDTO.getNumber());
+        boolean addressLine2Validation = validateAddressLine2(organisationDTO.getBuilding(),
+            organisationDTO.getApartment(), organisationDTO.getFloor());
+        boolean taxIdValidation = validateTaxId(organisationDTO.getTaxId());
 
         return emailOrPhoneNumberValidation &
             emailValidation &
-            dateOfBirthValidation &
-            firstNameValidation &
-            lastNameValidation &
+            nameValidation &
+            contactNameValidation &
             phoneNumberValidation &
             cityValidation &
             countryValidation &
             postalCodeValidation &
             addressLine1Validation &
-            addressLine2Validation
+            addressLine2Validation &
+            taxIdValidation &
+            organisationTypeValidation
             ;
+    }
+
+    private static boolean validateOrganisationType(String organisationType) {
+        if(organisationType.toLowerCase().equals("company") || organisationType.toLowerCase().equals("public " +
+            "organisation")){
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean validateTaxId(String taxId) {
+        if(taxId == null || taxId.length() == 0)
+            return false;
+        Pattern pattern = Pattern.compile("[0-9]{6,6}$");
+        Matcher matcher = pattern.matcher(taxId);
+        return matcher.matches();
     }
 
     private static boolean validateEmailOrPhoneNumber(String email, String phoneNumber) {
@@ -95,20 +111,20 @@ public class IndividualClientsValidator {
         return matcher.matches();
     }
 
-    private static boolean validateLastName(String lastName) {
+    private static boolean validateContactName(String contactName) {
+        if(contactName == null || contactName.length() == 0)
+            return false;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(lastName);
-        return lastName.length() >= 2 && lastName.length() <= 25 && matcher.matches();
+        Matcher matcher = pattern.matcher(contactName);
+        return contactName.length() >= 2 && contactName.length() <= 25 && matcher.matches();
     }
 
-    private static boolean validateFirstName(String firstName) {
+    private static boolean validateName(String name) {
+        if(name == null || name.length() == 0)
+            return false;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(firstName);
-        return firstName.length() >= 2 && firstName.length() <= 25 && matcher.matches();
-    }
-
-    private static boolean validateDateOfBirth(Date dateOfBirth) {
-        return dateOfBirth.before(Date.from(ZonedDateTime.now().minusYears(18).toInstant())) && dateOfBirth.after(Date.from(ZonedDateTime.now().minusYears(120).toInstant()));
+        Matcher matcher = pattern.matcher(name);
+        return name.length() >= 2 && name.length() <= 25 && matcher.matches();
     }
 
     static private boolean validateEmail(String email)

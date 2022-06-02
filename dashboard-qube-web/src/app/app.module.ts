@@ -32,6 +32,7 @@ import { ClientsFormComponent } from './sales/clients-form/clients-form.componen
 import { SearchTableComponent } from './sales/clients/search-table/search-table.component';
 import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
 import { BoldPipe } from './sales/clients/search-table/bold.pipe';
+import { OrganisationFormComponent } from './organisation-form/organisation-form.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { BoldPipe } from './sales/clients/search-table/bold.pipe';
     ClientsFormComponent,
     SearchTableComponent,
     SearchBarComponent,
-    BoldPipe
+    BoldPipe,
+    OrganisationFormComponent
   ],
   imports: [
     BrowserModule,
