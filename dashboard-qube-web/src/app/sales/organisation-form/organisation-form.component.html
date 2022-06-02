@@ -2,7 +2,7 @@
   <div class="clr-col-md-5 clr-col-lg-3 clr-offset-sm-1">
       <div class="clr-row clr-align-items-center">
           <cds-icon shape="arrow" direction="left" size="lg" routerLink="/clients" class="back-arrow"></cds-icon>
-          <span class="page-title">New Client</span>
+          <span class="page-title">New Organisation</span>
       </div>
   </div>
 </div>
@@ -72,7 +72,7 @@
       </clr-input-container>
 
       <div class="clr-row">
-          <h3 class="subtitle">Adress</h3>
+          <h3 class="subtitle">Address</h3>
       </div>
       <div class="clr-row">
           <clr-input-container>
@@ -154,10 +154,10 @@
                   <clr-control-error *ngIf="countryFirst">Country needs to be selected first</clr-control-error>
               </clr-combobox>
               <clr-control-error *clrIfError="'minlength'">
-                  City must be at least 2 characters long
+                  City must be at least 1 characters long
               </clr-control-error>
               <clr-control-error *clrIfError="'maxlength'">
-                  City must not exceed 25 characters
+                  City must not exceed 60 characters
               </clr-control-error>
           </clr-combobox-container>
           <clr-combobox-container>
@@ -168,10 +168,10 @@
                   </clr-options>
               </clr-combobox>
               <clr-control-error *clrIfError="'minlength'">
-                  Country must be at least 2 characters long
+                  Country must be at least 1 characters long
               </clr-control-error>
               <clr-control-error *clrIfError="'maxlength'">
-                  Country must not exceed 25 characters
+                  Country must not exceed 60 characters
               </clr-control-error>
           </clr-combobox-container>
       </div>

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
 @Component
@@ -24,7 +25,7 @@ public class IndividualClientDTO {
 
     private String lastName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "en_GB")
     private Date dateOfBirth;
 
     private String nationality;

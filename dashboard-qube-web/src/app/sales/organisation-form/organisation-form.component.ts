@@ -25,8 +25,8 @@ export class OrganisationFormComponent implements OnInit {
   constructor(private router: Router, private organisationService: OrganisationService, private formBuilder: FormBuilder, private clientService: ClientsService) {
     this.organisationDataForm = this.formBuilder.group({
       organisationType: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
-      contactName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
+      contactName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
       taxId: ['', [Validators.required, Validators.pattern('^[0-9]{6,6}$')]],
       street: ['', [Validators.minLength(2), Validators.maxLength(30)]],
       no: ['', [Validators.maxLength(10)]],
@@ -34,8 +34,8 @@ export class OrganisationFormComponent implements OnInit {
       ap:  ['', [Validators.maxLength(4)]],
       floor:  ['', [Validators.maxLength(3)]],
       postalCode:  ['', [Validators.minLength(2), Validators.maxLength(10)]],
-      city:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
-      country:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
+      city:  ['', [Validators.minLength(1), Validators.maxLength(60)]],
+      country:  ['', [Validators.minLength(1), Validators.maxLength(60)]],
       email: ['', [Validators.maxLength(30), Validators.email, this.emailOrPhoneValidator, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]],
       phone: ['', [Validators.minLength(12), Validators.maxLength(13), Validators.pattern("^(00|\\+)40\\d{9}$"), this.emailOrPhoneValidator]],
     });
@@ -75,9 +75,9 @@ export class OrganisationFormComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           if(error.status == 409)
-            this.errorMessage = `A client with this name already exists.`;
+            this.errorMessage = `An organisation with Tax Id ${this.organisationDataForm.controls['taxId'].value} already exists`;
           else if(error.status == 404)
-            this.errorMessage = `The client's data is invalid.`;
+            this.errorMessage = `The organisation's data is invalid.`;
           else
             this.errorMessage = `An error occured.`;
         }
