@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 public class IndividualClientsController {
-
+    @Autowired
     private IndividualClientsMapper individualClientsMapper;
 
     private final IndividualClientsService individualClientsService;
@@ -50,9 +52,13 @@ public class IndividualClientsController {
 
         if(existentClients != null){
             boolean clientAlreadyExists = false;
+            LocalDate newIndividualClientDTO =
+                individualClientDTO.getDateOfBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             for (IndividualClient client: existentClients) {
-                if(client.getFirstName().equals(individualClientDTO.getFirstName()) && client.getDateOfBirth().equals(individualClientDTO.getDateOfBirth())){
+                LocalDate newClient = client.getDateOfBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                if(client.getFirstName().equals(individualClientDTO.getFirstName()) && newClient.equals(newIndividualClientDTO)){
                     clientAlreadyExists = true;
                     break;
                 }
