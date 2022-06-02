@@ -219,3 +219,41 @@ INSERT INTO public.users(
 );
     ALTER TABLE ONLY public.orasele_romaniei
         ADD CONSTRAINT orasele_romaniei_pkey PRIMARY KEY (id);
+
+--Organisations
+
+    CREATE TABLE public.organisations (
+                                          id integer NOT NULL,
+                                          organisation_type character varying,
+                                          name character varying(23),
+                                          contact_name character varying(23),
+                                          tax_id character varying(6),
+                                          street_name character varying(28),
+                                          number character varying(10),
+                                          building character varying(4),
+                                          apartment character varying(4),
+                                          floor character varying(3),
+                                          postal_code character varying(8),
+                                          city character varying(60),
+                                          country character varying(60),
+                                          email character varying(30),
+                                          phone_number character varying(13)
+    );
+
+
+    ALTER TABLE public.organisations OWNER TO postgres;
+
+    ALTER TABLE public.organisations ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.organisations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+    ALTER TABLE ONLY public.organisations
+        ADD CONSTRAINT organisations_pkey PRIMARY KEY (id);
+
+    ALTER TABLE ONLY public.organisations
+        ADD CONSTRAINT tax_id_unique UNIQUE (tax_id);
