@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IndividualClientServiceImpl implements IndividualClientsService{
@@ -42,6 +43,11 @@ public class IndividualClientServiceImpl implements IndividualClientsService{
         return null;
     }
 
+    @Override
+    public Optional<List<IndividualClientDTO>> getClientsBySearchString(String searchString) {
+        Optional<List<IndividualClient>> individualClientsList = individualClientsRepository.findClientByEmailAddressNamePhone(searchString);
+        return Optional.ofNullable(individualClientsList.map(individualClients -> individualClients.stream().map(entityDTOMapper::mapToDTO).collect(Collectors.toList())).orElse(null));
+    }
 
 
     @Override

@@ -8,9 +8,11 @@ import com.ness.misc.IndividualClientNotFoundException;
 import com.ness.misc.OrganisationNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrganisationService {
     List<Organisation> getOrganisations();
     Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException;
+    Optional<List<OrganisationDTO>> getOrgBySearchString(String searchString);
     void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException;
 }

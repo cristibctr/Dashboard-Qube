@@ -29,7 +29,10 @@ import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
-import { OrganisationFormComponent } from './organisation-form/organisation-form.component';
+import { SearchTableComponent } from './sales/clients/search-table/search-table.component';
+import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
+import { BoldPipe } from './sales/clients/search-table/bold.pipe';
+import { OrganisationFormComponent } from './sales/organisation-form/organisation-form.component';
 
 
 @NgModule({
@@ -53,6 +56,9 @@ import { OrganisationFormComponent } from './organisation-form/organisation-form
     TasksFormComponent,
     TaskModifyComponent,
     ClientsFormComponent,
+    SearchTableComponent,
+    SearchBarComponent,
+    BoldPipe,
     OrganisationFormComponent
   ],
   imports: [

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganisationService } from 'src/app/organisation-form/organisation-service.service';
+import { take } from 'rxjs';
+import { OrganisationService } from 'src/app/sales/organisation-form/organisation-service.service';
 import { ClientsService } from '../clients.service';
+import { Organisation } from '../organisation-form/organisation.model';
+import { Client, Salutation } from './client.model';
 
 @Component({
   selector: 'app-clients',
@@ -8,17 +11,21 @@ import { ClientsService } from '../clients.service';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
-  appointmentSuccess: boolean = false;
+  clientSuccess: boolean = false;
+  clients: Client[] = [];
+  orgs: Organisation[] = [];
+  searchDone: boolean = false;
+  searchTerms!: string;
   organisationSucces: boolean = false;
 
   constructor(private clientsService: ClientsService, private organisationsService: OrganisationService) { }
 
   ngOnInit(): void {
     if(this.clientsService.clientIsCreated === true){
-      this.appointmentSuccess = true;
+      this.clientSuccess = true;
       this.clientsService.clientIsCreated = false;
       setTimeout(() => {
-        this.appointmentSuccess = false;
+        this.clientSuccess = false;
       }, 2000)
     }
 
@@ -30,6 +37,19 @@ export class ClientsComponent implements OnInit {
       }, 2000)
     }
 
+  }
+
+  searchClientsOrgs(search: string){
+    this.searchTerms = search;
+    if(search.length > 0){
+      this.searchDone = true;
+      this.clientsService.searchClients(search).pipe(take(1)).subscribe(data => {
+        this.clients = data.body!;
+      });
+      this.organisationsService.searchOrganisations(search).pipe(take(1)).subscribe(data => {
+        this.orgs = data.body!;
+      });
+    } 
   }
 
 }

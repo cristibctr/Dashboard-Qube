@@ -1,6 +1,8 @@
 package com.ness.services;
 
+import com.ness.dtos.IndividualClientDTO;
 import com.ness.dtos.OrganisationDTO;
+import com.ness.entities.IndividualClient;
 import com.ness.entities.Organisation;
 import com.ness.mappers.EntityDTOMapper;
 import com.ness.misc.OrganisationNotFoundException;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrganisationServiceImpl implements OrganisationService{
@@ -39,6 +42,12 @@ public class OrganisationServiceImpl implements OrganisationService{
             return organisationByTaxId.get();
         }
         return null;
+    }
+
+    @Override
+    public Optional<List<OrganisationDTO>> getOrgBySearchString(String searchString) {
+        Optional<List<Organisation>> orgList = organisationsRepository.findOrgByEmailAddressNamePhone(searchString);
+        return Optional.ofNullable(orgList.map(orgs -> orgs.stream().map(entityDTOMapper::mapToDTO).collect(Collectors.toList())).orElse(null));
     }
 
     @Override
