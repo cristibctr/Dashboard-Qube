@@ -53,7 +53,7 @@ export class TasksFormComponent implements OnInit {
 
   constructor(private router: Router, private tasksService: TasksService, private formBuilder: FormBuilder) {
     this.tasksDataForm = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
+      title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(60), Validators.pattern('^([\\S]+[\\s-])*[a-zA-z]+$')]],
       dueDate: [null, [Validators.required, Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.checkDate ]],
       dueDateTime: [null, [Validators.required, this.checkValidityOfDueDateTime]],
       description: [null, [Validators.maxLength(500)]],
