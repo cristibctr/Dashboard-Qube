@@ -6,6 +6,7 @@ import com.ness.mappers.IndividualClientsMapper;
 import com.ness.misc.IndividualClientsValidator;
 import com.ness.repositories.IndividualClientsRepository;
 import com.ness.services.IndividualClientsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
-=======
 import java.time.LocalDate;
 import java.time.ZoneId;
->>>>>>> main
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
