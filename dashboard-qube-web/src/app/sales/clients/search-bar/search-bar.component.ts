@@ -17,10 +17,12 @@ export class SearchBarComponent implements OnInit {
   }
 
   onInputChange(){
-    clearTimeout(this.myTimeout);
-    this.myTimeout = setTimeout(() => {
-      this.searchEvent.emit(this.inputSearch);
-    }, 1000);
+    if(this.inputSearch.length >= 2){
+      clearTimeout(this.myTimeout);
+      this.myTimeout = setTimeout(() => {
+        this.searchEvent.emit(this.inputSearch);
+      }, 1000);
+    }
   }
 
 }
