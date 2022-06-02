@@ -1,11 +1,8 @@
 package com.ness.misc;
 
 
-import com.ness.dtos.IndividualClientDTO;
 import com.ness.dtos.OrganisationDTO;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +10,7 @@ public class OrganisationsValidator {
     public static boolean validate(OrganisationDTO organisationDTO)
     {
         boolean emailValidation = validateEmail(organisationDTO.getEmail());
+        boolean organisationTypeValidation = validateOrganisationType(organisationDTO.getOrganisationType());
         boolean emailOrPhoneNumberValidation = validateEmailOrPhoneNumber(organisationDTO.getEmail(),
             organisationDTO.getPhoneNumber());
         boolean nameValidation = validateName(organisationDTO.getName());
@@ -25,6 +23,7 @@ public class OrganisationsValidator {
             organisationDTO.getNumber());
         boolean addressLine2Validation = validateAddressLine2(organisationDTO.getBuilding(),
             organisationDTO.getApartment(), organisationDTO.getFloor());
+        boolean taxIdValidation = validateTaxId(organisationDTO.getTaxId());
 
         return emailOrPhoneNumberValidation &
             emailValidation &
@@ -35,8 +34,26 @@ public class OrganisationsValidator {
             countryValidation &
             postalCodeValidation &
             addressLine1Validation &
-            addressLine2Validation
+            addressLine2Validation &
+            taxIdValidation &
+            organisationTypeValidation
             ;
+    }
+
+    private static boolean validateOrganisationType(String organisationType) {
+        if(organisationType.toLowerCase().equals("company") || organisationType.toLowerCase().equals("public " +
+            "organisation")){
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean validateTaxId(String taxId) {
+        if(taxId == null || taxId.length() == 0)
+            return false;
+        Pattern pattern = Pattern.compile("[0-9]{6,6}$");
+        Matcher matcher = pattern.matcher(taxId);
+        return matcher.matches();
     }
 
     private static boolean validateEmailOrPhoneNumber(String email, String phoneNumber) {
@@ -77,13 +94,13 @@ public class OrganisationsValidator {
         if(country == null || country.length() == 0)
             return true;
 
-        return country.length() >= 2 && country.length() <= 25;
+        return country.length() >= 1 && country.length() <= 60;
     }
 
     private static boolean validateCity(String city) {
         if(city == null || city.length() == 0)
             return true;
-        return city.length() >= 2 && city.length() <= 25;
+        return city.length() >= 1 && city.length() <= 60;
     }
 
     private static boolean validatePhoneNumber(String phoneNumber) {
@@ -94,16 +111,20 @@ public class OrganisationsValidator {
         return matcher.matches();
     }
 
-    private static boolean validateContactName(String lastName) {
+    private static boolean validateContactName(String contactName) {
+        if(contactName == null || contactName.length() == 0)
+            return false;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(lastName);
-        return lastName.length() >= 2 && lastName.length() <= 25 && matcher.matches();
+        Matcher matcher = pattern.matcher(contactName);
+        return contactName.length() >= 2 && contactName.length() <= 25 && matcher.matches();
     }
 
-    private static boolean validateName(String firstName) {
+    private static boolean validateName(String name) {
+        if(name == null || name.length() == 0)
+            return false;
         Pattern pattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(firstName);
-        return firstName.length() >= 2 && firstName.length() <= 25 && matcher.matches();
+        Matcher matcher = pattern.matcher(name);
+        return name.length() >= 2 && name.length() <= 25 && matcher.matches();
     }
 
     static private boolean validateEmail(String email)

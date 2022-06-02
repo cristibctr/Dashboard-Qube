@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrganisationServiceImpl implements OrganisationService{
@@ -31,7 +32,12 @@ public class OrganisationServiceImpl implements OrganisationService{
     }
 
     @Override
-    public List<Organisation> getOrganisationsByTaxId(String taxId) {
+    public Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException {
+        Optional<Organisation> organisationByTaxId = organisationsRepository.findByTaxId(taxId);
+
+        if(organisationByTaxId.isPresent()){
+            return organisationByTaxId.get();
+        }
         return null;
     }
 

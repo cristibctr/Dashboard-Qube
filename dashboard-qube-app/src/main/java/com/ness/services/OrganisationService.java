@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface OrganisationService {
     List<Organisation> getOrganisations();
-    List<Organisation> getOrganisationsByTaxId(String taxId);
+    Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException;
     void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException;
 }

@@ -78,13 +78,13 @@ public class IndividualClientsValidator {
         if(country == null || country.length() == 0)
             return true;
 
-        return country.length() >= 2 && country.length() <= 25;
+        return country.length() >= 1 && country.length() <= 60;
     }
 
     private static boolean validateCity(String city) {
         if(city == null || city.length() == 0)
             return true;
-        return city.length() >= 2 && city.length() <= 25;
+        return city.length() >= 1 && city.length() <= 60;
     }
 
     private static boolean validatePhoneNumber(String phoneNumber) {
