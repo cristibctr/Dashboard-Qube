@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { ClientsService } from '../clients.service';
 import { Client, Salutation } from './client.model';
 
@@ -8,25 +9,31 @@ import { Client, Salutation } from './client.model';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
-  appointmentSuccess: boolean = false;
+  clientSuccess: boolean = false;
   clients: Client[] = [];
+  searchDone: boolean = false;
+  searchTerms!: string;
 
   constructor(private clientsService: ClientsService) { }
 
   ngOnInit(): void {
     if(this.clientsService.clientIsCreated === true){
-      this.appointmentSuccess = true;
+      this.clientSuccess = true;
       this.clientsService.clientIsCreated = false;
       setTimeout(() => {
-        this.appointmentSuccess = false;
+        this.clientSuccess = false;
       }, 2000)
     }
   }
 
   searchClientsOrgs(search: string){
-    this.clientsService.searchClients(search).subscribe(data => {
-      this.clients = data.body!;
-    });
+    this.searchTerms = search;
+    if(search.length > 0){
+      this.searchDone = true;
+      this.clientsService.searchClients(search).pipe(take(1)).subscribe(data => {
+        this.clients = data.body!;
+      });
+    } 
   }
 
 }

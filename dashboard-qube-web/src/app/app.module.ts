@@ -31,6 +31,7 @@ import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
 import { SearchTableComponent } from './sales/clients/search-table/search-table.component';
 import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
+import { BoldPipe } from './sales/clients/search-table/bold.pipe';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { SearchBarComponent } from './sales/clients/search-bar/search-bar.compon
     TaskModifyComponent,
     ClientsFormComponent,
     SearchTableComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    BoldPipe
   ],
   imports: [
     BrowserModule,

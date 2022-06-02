@@ -13,10 +13,16 @@
     </div>
 </div>
 <div class="clr-row">
-    <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
-        <app-search-table [clients]="clients"></app-search-table>
+    <div class="clr-col-sm-11 clr-offset-xl-1" *ngIf="searchDone">
+        <button type="button" class="btn btn-outline" routerLink="new-client">New client</button>
+        <button type="button" class="btn btn-outline" routerLink="new-org">New organisation</button>
     </div>
 </div>
-<clr-alert class="alert" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="appointmentSuccess">
+<div class="clr-row">
+    <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
+        <app-search-table [clients]="clients" [search]="searchTerms"></app-search-table>
+    </div>
+</div>
+<clr-alert class="alert" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="clientSuccess">
     <em>Registration completed successfully.</em>
 </clr-alert>

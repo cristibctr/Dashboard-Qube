@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'offers', component: OffersComponent},
   {path: 'tasks/new', component: TasksFormComponent},
   {path: 'appointments/new', component: AppointmentsFormComponent},
-  {path: 'clients/new', component: ClientsFormComponent},
+  {path: 'clients/new-client', component: ClientsFormComponent},
 ];
 
 @NgModule({

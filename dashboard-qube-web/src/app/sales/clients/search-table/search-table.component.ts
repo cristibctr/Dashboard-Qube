@@ -10,6 +10,7 @@ import { ClientsOrgs } from './clients-orgs.model';
 export class SearchTableComponent implements OnInit, OnChanges {
 
   @Input() clients!: Client[];
+  @Input() search!: string;
   _clientsOrgs!: ClientsOrgs[];
 
   constructor() { 
