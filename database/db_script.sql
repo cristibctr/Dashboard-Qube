@@ -241,7 +241,7 @@ INSERT INTO public.users(
     ALTER TABLE public.organisations OWNER TO postgres;
 
     ALTER TABLE public.organisations ALTER COLUMN id SET DEFAULT nextval(
-    'individual_clients_and_organisations_id_seq');
+    'public.individual_clients_and_organisations_id_seq');
 
     ALTER TABLE ONLY public.organisations
         ADD CONSTRAINT organisations_pkey PRIMARY KEY (id);
