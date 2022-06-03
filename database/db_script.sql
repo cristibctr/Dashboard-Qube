@@ -160,7 +160,7 @@ INSERT INTO public.users(
     ALTER TABLE public.individual_clients OWNER TO postgres;
 
     ALTER TABLE public.individual_clients ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.individual_clients_id_seq
+    SEQUENCE NAME public.individual_clients_and_organisations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -240,14 +240,8 @@ INSERT INTO public.users(
 
     ALTER TABLE public.organisations OWNER TO postgres;
 
-    ALTER TABLE public.organisations ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.organisations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
+    ALTER TABLE public.organisations ALTER COLUMN id SET DEFAULT nextval(
+    'individual_clients_and_organisations_id_seq');
 
     ALTER TABLE ONLY public.organisations
         ADD CONSTRAINT organisations_pkey PRIMARY KEY (id);
