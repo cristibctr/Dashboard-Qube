@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Organisation } from '../../organisation-form/organisation.model';
 import { Client } from '../client.model';
 import { ClientsOrgs } from './clients-orgs.model';
@@ -15,7 +16,7 @@ export class SearchTableComponent implements OnInit, OnChanges {
   @Input() orgs!: Organisation[];
   _clientsOrgs!: ClientsOrgs[];
 
-  constructor() { 
+  constructor(private router: Router) { 
     
   }
   
@@ -39,6 +40,7 @@ export class SearchTableComponent implements OnInit, OnChanges {
     this._clientsOrgs = [];
     clientsAndOrgArg.clientsArg.forEach((client: Client) => {
       this._clientsOrgs.push({
+        id: client.id!,
         fullName: [client.salutation,
           client.firstName,
           client.lastName]
@@ -56,6 +58,7 @@ export class SearchTableComponent implements OnInit, OnChanges {
     })
     clientsAndOrgArg.orgsArg.forEach((orgs: Organisation) => {
       this._clientsOrgs.push({
+        id: orgs.id!,
         fullName: orgs.name,
         fullAddress: [orgs.country,
           orgs.city, 
@@ -68,6 +71,10 @@ export class SearchTableComponent implements OnInit, OnChanges {
         email: orgs.email!
       });
     })
+  }
+
+  onClickClientOrg(clientOrOrg: ClientsOrgs) {
+    this.router.navigate(['/clients/' + clientOrOrg.id]);
   }
 
 }

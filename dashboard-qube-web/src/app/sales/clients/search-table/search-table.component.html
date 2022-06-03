@@ -6,7 +6,7 @@
     <clr-dg-column>Email
     </clr-dg-column>
 
-    <clr-dg-row class="client-row" *ngFor="let clientOrg of _clientsOrgs">
+    <clr-dg-row class="client-row" *ngFor="let clientOrg of _clientsOrgs" class="client-org-row" (click)="onClickClientOrg(clientOrg)">
         <clr-dg-cell [innerHTML]="clientOrg.fullName | bold:search"></clr-dg-cell>
         <clr-dg-cell [innerHTML]="clientOrg.fullAddress | bold:search"></clr-dg-cell>
         <clr-dg-cell [innerHTML]="clientOrg.phone | bold:search"></clr-dg-cell>

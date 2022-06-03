@@ -1,47 +1,51 @@
-<div class="clr-row clr-align-items-center clr-justify-content-between">
-    <div class="clr-col-7 clr-col-md-5 clr-col-lg-3 clr-col-sm-5 clr-offset-xl-1">
-        <div class="clr-row clr-align-items-center">
-            <cds-icon shape="arrow" direction="left" size="lg" routerLink="/home" class="back-arrow"></cds-icon>
-            <span class="page-title">Appointments</span>
+<div class="content-container">
+    <div class="content-area" style="padding-top:0px">
+        <div class="clr-row clr-align-items-center clr-justify-content-between">
+            <div class="clr-col-7 clr-col-md-5 clr-col-lg-3 clr-col-sm-5 clr-offset-xl-1">
+                <div class="clr-row clr-align-items-center">
+                    <cds-icon shape="arrow" direction="left" size="lg" routerLink="/home" class="back-arrow"></cds-icon>
+                    <span class="page-title">Appointments</span>
+                </div>
+            </div>
+            <button class="clr-col-4 clr-col-sm-4 clr-col-lg-3 clr-col-xl-auto btn btn-secondary clr-align-self-center" routerLink="/appointments/new">New Appointment</button>
         </div>
-    </div>
-    <button class="clr-col-4 clr-col-sm-4 clr-col-lg-3 clr-col-xl-auto btn btn-secondary clr-align-self-center" routerLink="/appointments/new">New Appointment</button>
-</div>
-<hr>
-<div class="clr-row">
-    <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
-        <clr-datagrid>
-            <clr-dg-column>Title</clr-dg-column>
-            <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Date, Time
-                <clr-dg-filter>
-                    <app-appointments-date-filter></app-appointments-date-filter>
-                </clr-dg-filter>
-            </clr-dg-column>
-            <clr-dg-column>Contact type</clr-dg-column>
-            <clr-dg-column [clrDgField]="'status'">Status
-                <clr-dg-filter>
-                    <app-appointments-status-filter></app-appointments-status-filter>
-                </clr-dg-filter>
-            </clr-dg-column>
+        <hr>
+        <div class="clr-row">
+            <div class="clr-col-sm-12 clr-col-xl-6 clr-offset-xl-1">
+                <clr-datagrid>
+                    <clr-dg-column>Title</clr-dg-column>
+                    <clr-dg-column [clrDgField]="'tableDate'" [clrDgSortOrder]="ascSort" >Date, Time
+                        <clr-dg-filter>
+                            <app-appointments-date-filter></app-appointments-date-filter>
+                        </clr-dg-filter>
+                    </clr-dg-column>
+                    <clr-dg-column>Contact type</clr-dg-column>
+                    <clr-dg-column [clrDgField]="'status'">Status
+                        <clr-dg-filter>
+                            <app-appointments-status-filter></app-appointments-status-filter>
+                        </clr-dg-filter>
+                    </clr-dg-column>
 
-            <clr-dg-row class="appointment-row" [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments" (click)="onClickAppointment(appointment)">
-                <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
-                <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
-                <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
-                <clr-dg-cell>{{appointment.status}}</clr-dg-cell>
-            </clr-dg-row>
+                    <clr-dg-row class="appointment-row" [ngClass]="getAppointmentStatus(appointment) == 'Overdue' ? 'red-color' : ''" *clrDgItems="let appointment of appointments" (click)="onClickAppointment(appointment)">
+                        <clr-dg-cell>{{appointment.title}}</clr-dg-cell>
+                        <clr-dg-cell>{{appointment.tableDate | date:'dd/MM/yyyy HH:mm'}} - {{getDate(appointment.endDate) | date:'dd/MM/yyyy HH:mm'}}</clr-dg-cell>
+                        <clr-dg-cell>{{appointment.contactType}}</clr-dg-cell>
+                        <clr-dg-cell>{{appointment.status}}</clr-dg-cell>
+                    </clr-dg-row>
 
-            <clr-dg-footer>
-                <clr-dg-pagination #pagination [clrDgPageSize]="10">
-                    <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Appointments per page</clr-dg-page-size>
-                    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-                    of {{pagination.totalItems}} Appointments
-                </clr-dg-pagination>
-            </clr-dg-footer>
-        </clr-datagrid>
+                    <clr-dg-footer>
+                        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Appointments per page</clr-dg-page-size>
+                            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                            of {{pagination.totalItems}} Appointments
+                        </clr-dg-pagination>
+                    </clr-dg-footer>
+                </clr-datagrid>
+            </div>
+        </div>
+        <app-appointment-modify [(modalIsOpen)]="showModal" [appointment]="modalAppointment" (messageModified)="onMessageModified()"></app-appointment-modify>
+        <clr-alert class="successful-register appointment-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="appointmentSuccess">
+            {{appointmentSuccessMessage}}
+        </clr-alert>
     </div>
 </div>
-<app-appointment-modify [(modalIsOpen)]="showModal" [appointment]="modalAppointment" (messageModified)="onMessageModified()"></app-appointment-modify>
-<clr-alert class="successful-register appointment-success" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="appointmentSuccess">
-    {{appointmentSuccessMessage}}
-</clr-alert>

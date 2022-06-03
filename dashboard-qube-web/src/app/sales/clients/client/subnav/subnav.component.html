@@ -1,17 +1,14 @@
-  <nav class="sidenav">
-    <section class="sidenav-content">
-      <a routerLink="overview" routerLinkActive="active" class="nav-link" >
-        Overview
-      </a>
-      <a routerLink="client-info" routerLinkActive="active" class="nav-link">
-        Client Info
-      </a>
-      <a routerLink="offers" routerLinkActive="active" class="nav-link">
-        Offers
-      </a>
-      <a routerLink="vehicles" routerLinkActive="active" class="nav-link">
-        Vehicles
-      </a>
-    </section>
-  </nav>
-
+<clr-vertical-nav [clrVerticalNavCollapsible]="true">
+  <a routerLink="overview" routerLinkActive="active" class="nav-link" >
+    Overview
+  </a>
+  <a routerLink="client-info" routerLinkActive="active" class="nav-link">
+    Client Info
+  </a>
+  <a routerLink="offers" routerLinkActive="active" class="nav-link">
+    Offers
+  </a>
+  <a routerLink="vehicles" routerLinkActive="active" class="nav-link">
+    Vehicles
+  </a>
+</clr-vertical-nav>

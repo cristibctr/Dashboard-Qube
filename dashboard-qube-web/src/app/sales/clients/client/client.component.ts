@@ -7,10 +7,14 @@ import { ClientService } from './client.service';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  styleUrls: ['./client.component.scss'],
+  // host: {
+  //   class: 'content-container'
+  // }
 })
 export class ClientComponent implements OnInit {
   selectedClientId!: number;
+  clientName!: string;
 
   constructor(private clientService: ClientService, private route: ActivatedRoute) { }
 
@@ -19,12 +23,14 @@ export class ClientComponent implements OnInit {
     this.clientService.getClient(this.selectedClientId).pipe(take(1)).subscribe({
       next: (client) => {
         this.clientService.addData(client.body!);
+        this.clientName = client.body!.firstName + ' ' + client.body!.lastName;
       },
       error: (err) => {
         if(err.status === 404) {
           this.clientService.getOrganisation(this.selectedClientId).pipe(take(1)).subscribe({
             next: (organisation) => {
               this.clientService.addData(organisation.body!);
+              this.clientName = organisation.body!.name;
             },
             error: (err) => {
               console.log(err);
