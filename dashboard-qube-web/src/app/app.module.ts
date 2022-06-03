@@ -25,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksDateFilterComponent } from './tasks/date-filter/date-filter.component';
 import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.component';
 import { ClientsComponent } from './sales/clients/clients.component';
-import { OffersComponent } from './sales/offers/offers.component';
+import { OffersComponent } from './offers/offers.component';
 import { OffersComponent as OffersComponentCard} from './sales/clients/client/overview/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
@@ -38,6 +38,13 @@ import { OverviewComponent } from './sales/clients/client/overview/overview.comp
 import { AddressContactComponent } from './sales/clients/client/overview/address-contact/address-contact.component';
 import { ClientComponent } from './sales/clients/client/client.component';
 import { ClientInfoComponent } from './sales/clients/client/client-info/client-info.component';
+import { OffersComponent as ClientOffersComponent } from './sales/clients/client/offers/offers.component';
+import { SubnavComponent } from './sales/clients/client/subnav/subnav.component';
+import { VehiclesComponent } from './sales/clients/client/vehicles/vehicles.component';
+
+
+
+
 
 
 @NgModule({
@@ -69,7 +76,10 @@ import { ClientInfoComponent } from './sales/clients/client/client-info/client-i
     AddressContactComponent,
     ClientComponent,
     ClientInfoComponent,
-    OffersComponentCard
+    OffersComponentCard,
+    VehiclesComponent,
+    SubnavComponent,
+    ClientOffersComponent
   ],
   imports: [
     BrowserModule,
