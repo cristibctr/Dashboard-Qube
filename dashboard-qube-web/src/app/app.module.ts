@@ -25,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksDateFilterComponent } from './tasks/date-filter/date-filter.component';
 import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.component';
 import { ClientsComponent } from './sales/clients/clients.component';
-import { OffersComponent } from './sales/offers/offers.component';
+
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
@@ -33,6 +33,18 @@ import { SearchTableComponent } from './sales/clients/search-table/search-table.
 import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
 import { BoldPipe } from './sales/clients/search-table/bold.pipe';
 import { OrganisationFormComponent } from './sales/organisation-form/organisation-form.component';
+
+import { OffersComponent } from './offers/offers.component';
+import { ClientInfoComponent } from './sales/clients/client/client-info/client-info.component';
+import { ClientOffersComponent } from './sales/clients/client/client-offers/client-offers.component';
+import { ClientComponent } from './sales/clients/client/client.component';
+import { OverviewComponent } from './sales/clients/client/overview/overview.component';
+import { SubnavComponent } from './sales/clients/client/subnav/subnav.component';
+import { VehiclesComponent } from './sales/clients/client/vehicles/vehicles.component';
+
+
+
+
 
 
 @NgModule({
@@ -59,7 +71,13 @@ import { OrganisationFormComponent } from './sales/organisation-form/organisatio
     SearchTableComponent,
     SearchBarComponent,
     BoldPipe,
-    OrganisationFormComponent
+    OrganisationFormComponent,
+    ClientComponent,
+    OverviewComponent,
+    ClientInfoComponent,
+    VehiclesComponent,
+    ClientOffersComponent,
+    SubnavComponent
   ],
   imports: [
     BrowserModule,
