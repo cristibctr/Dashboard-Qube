@@ -171,9 +171,6 @@ INSERT INTO public.users(
     ALTER TABLE ONLY public.individual_clients
         ADD CONSTRAINT individual_clients_pkey PRIMARY KEY (id);
 
-    ALTER TABLE ONLY public.individual_clients
-        ADD CONSTRAINT unique_email UNIQUE (email);
-
 --Countries
 
 
