@@ -90,9 +90,9 @@ public class IndividualClientsValidator {
     private static boolean validatePhoneNumber(String phoneNumber) {
         if(phoneNumber == null || phoneNumber.length() == 0)
             return true;
-        Pattern pattern = Pattern.compile("^(00|\\+)40\\d{9}$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^\\+?\\d+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(phoneNumber);
-        return matcher.matches();
+        return matcher.matches() && phoneNumber.length() >= 3 && phoneNumber.length() <= 20;
     }
 
     private static boolean validateLastName(String lastName) {
