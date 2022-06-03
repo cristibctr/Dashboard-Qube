@@ -79,7 +79,7 @@ export class ClientsFormComponent implements OnInit {
       city:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
       country:  ['', [Validators.minLength(2), Validators.maxLength(25)]],
       email: ['', [Validators.maxLength(30), Validators.email, this.emailOrPhoneValidator, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]],
-      phone: ['', [Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^(00|\\+)\\d+$"), this.emailOrPhoneValidator]],
+      phone: ['', [Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^\\+?\\d+$"), this.emailOrPhoneValidator]],
     });
   }
 
