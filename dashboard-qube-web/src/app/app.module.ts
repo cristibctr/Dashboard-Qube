@@ -26,6 +26,7 @@ import { TasksDateFilterComponent } from './tasks/date-filter/date-filter.compon
 import { TasksStatusFilterComponent } from './tasks/status-filter/status-filter.component';
 import { ClientsComponent } from './sales/clients/clients.component';
 import { OffersComponent } from './sales/offers/offers.component';
+import { OffersComponent as OffersComponentCard} from './sales/clients/client/overview/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TaskModifyComponent } from './tasks/task-modify/task-modify.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
@@ -33,6 +34,10 @@ import { SearchTableComponent } from './sales/clients/search-table/search-table.
 import { SearchBarComponent } from './sales/clients/search-bar/search-bar.component';
 import { BoldPipe } from './sales/clients/search-table/bold.pipe';
 import { OrganisationFormComponent } from './sales/organisation-form/organisation-form.component';
+import { OverviewComponent } from './sales/clients/client/overview/overview.component';
+import { AddressContactComponent } from './sales/clients/client/overview/address-contact/address-contact.component';
+import { ClientComponent } from './sales/clients/client/client.component';
+import { ClientInfoComponent } from './sales/clients/client/client-info/client-info.component';
 
 
 @NgModule({
@@ -59,7 +64,12 @@ import { OrganisationFormComponent } from './sales/organisation-form/organisatio
     SearchTableComponent,
     SearchBarComponent,
     BoldPipe,
-    OrganisationFormComponent
+    OrganisationFormComponent,
+    OverviewComponent,
+    AddressContactComponent,
+    ClientComponent,
+    ClientInfoComponent,
+    OffersComponentCard
   ],
   imports: [
     BrowserModule,

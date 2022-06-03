@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,4 +87,13 @@ public class IndividualClientsController {
         return ResponseEntity.status(200).body(individualClientDTOList.isPresent() ? individualClientDTOList.get() : new ArrayList<IndividualClientDTO>());
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(path = "/api/clients/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<IndividualClientDTO> searchClient(@PathVariable Integer id)
+    {
+        IndividualClientDTO individualClientDTO = individualClientsService.getIndividualClient(id);
+        if (individualClientDTO == null)
+            return ResponseEntity.status(404).body(null);
+        return ResponseEntity.status(200).body(individualClientDTO);
+    }
 }

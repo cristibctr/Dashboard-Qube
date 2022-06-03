@@ -11,6 +11,10 @@ import { OffersComponent } from './sales/offers/offers.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { ClientsFormComponent } from './sales/clients-form/clients-form.component';
 import { OrganisationFormComponent } from './sales/organisation-form/organisation-form.component';
+import { ClientComponent } from './sales/clients/client/client.component';
+import { OverviewComponent } from './sales/clients/client/overview/overview.component';
+import { ClientInfoComponent } from './sales/clients/client/client-info/client-info.component';
+import { OffersComponent as ClientOffersComponent } from './sales/clients/client/offers/offers.component';
 
 const routes: Routes = [
   {path: 'register', component: RegistrationPageComponent},
@@ -26,6 +30,14 @@ const routes: Routes = [
   {path: 'appointments/new', component: AppointmentsFormComponent},
   {path: 'clients/new', component: ClientsFormComponent},
   {path: 'organisations/new', component: OrganisationFormComponent},
+  {path: 'clients/:id', component: ClientComponent,
+    children: [
+      {path: '', redirectTo: 'overview', pathMatch: 'full'},
+      {path: 'overview', component: OverviewComponent},
+      {path: 'client-info', component: ClientInfoComponent},
+      {path: 'offers', component: ClientOffersComponent},
+    ]
+  },
 ];
 
 @NgModule({

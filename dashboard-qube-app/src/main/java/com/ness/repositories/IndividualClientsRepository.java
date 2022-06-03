@@ -26,4 +26,5 @@ public interface IndividualClientsRepository extends CrudRepository<IndividualCl
             "OR UPPER(i.floor) LIKE %:searchString% "
     )
     Optional<List<IndividualClient>> findClientByEmailAddressNamePhone(@Param("searchString") String searchString);
+    Optional<IndividualClient> findById(Integer Id);
 }

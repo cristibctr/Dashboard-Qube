@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface OrganisationService {
     List<Organisation> getOrganisations();
+    OrganisationDTO getOrganisation(Integer Id);
     Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException;
     Optional<List<OrganisationDTO>> getOrgBySearchString(String searchString);
     void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException;

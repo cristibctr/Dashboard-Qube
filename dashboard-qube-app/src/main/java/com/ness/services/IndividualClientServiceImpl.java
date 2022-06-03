@@ -34,6 +34,12 @@ public class IndividualClientServiceImpl implements IndividualClientsService{
     }
 
     @Override
+    public IndividualClientDTO getIndividualClient(Integer id) {
+        Optional<IndividualClient> individualClientOptional= individualClientsRepository.findById(id);
+        return individualClientOptional.isPresent() ? entityDTOMapper.mapToDTO(individualClientOptional.get()) : null;
+    }
+
+    @Override
     public List<IndividualClient> getIndividualByLastName(String lastName) {
         Optional<List<IndividualClient>> client = individualClientsRepository.findByLastName(lastName);
 
