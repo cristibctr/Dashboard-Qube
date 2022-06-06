@@ -89,6 +89,9 @@
                     <clr-control-error *clrIfError="'maxlength'">
                         Street must not exceed 30 characters
                     </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      Street is invalid
+                  </clr-control-error>
                 </clr-input-container>
                 <clr-input-container>
                     <label for="no">
@@ -99,6 +102,9 @@
                     <clr-control-error *clrIfError="'maxlength'">
                         No. must not exceed 10 characters
                     </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      No. is invalid
+                  </clr-control-error>
                 </clr-input-container>
             </div>
             <div class="clr-row">
@@ -111,6 +117,9 @@
                     <clr-control-error *clrIfError="'maxlength'">
                         Building must not exceed 4 characters
                     </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      Building is invalid
+                  </clr-control-error>
                 </clr-input-container>
                 <clr-input-container>
                     <label for="ap">
@@ -121,6 +130,9 @@
                     <clr-control-error *clrIfError="'maxlength'">
                         Ap. must not exceed 4 characters
                     </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      Ap. is invalid
+                  </clr-control-error>
                 </clr-input-container>
                 <clr-input-container>
                     <label for="floor">
@@ -129,7 +141,10 @@
                     <input clrInput type="text" id="floor"
                             formControlName="floor"/>
                     <clr-control-error *clrIfError="'maxlength'">
-                        Floor must not exceed 3 characters
+                      Floor must not exceed 3 characters
+                    </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      Floor is invalid
                     </clr-control-error>
                 </clr-input-container>
             </div>
@@ -145,6 +160,9 @@
                     </clr-control-error>
                     <clr-control-error *clrIfError="'maxlength'">
                         Postal code must not exceed 10 characters
+                    </clr-control-error>
+                    <clr-control-error *clrIfError="'pattern'">
+                      Postal code is invalid
                     </clr-control-error>
                 </clr-input-container>
                 <clr-combobox-container>
