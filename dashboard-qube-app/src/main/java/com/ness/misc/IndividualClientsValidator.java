@@ -82,7 +82,7 @@ public class IndividualClientsValidator {
             return false;
         }
 
-        Pattern streetPattern = Pattern.compile("^[\\S]+$", Pattern.CASE_INSENSITIVE);
+        Pattern streetPattern = Pattern.compile("^([a-zA-Z]+[\\s-])*[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
         Matcher streetMatcher = streetPattern.matcher(streetName);
 
         if(streetName != "" &&!streetMatcher.matches()){
