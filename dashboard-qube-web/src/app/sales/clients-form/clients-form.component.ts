@@ -70,7 +70,7 @@ export class ClientsFormComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
       dateOfBirth: ['', [Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.minAgeValidator(new Date(Date.parse(this.dateNowMinus18)), new Date(Date.parse(this.dateNowMinus120))) ]],
       nationality: ['', []],
-      street: ['', [Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
+      street: ['', [Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
       no: ['', [Validators.maxLength(10), Validators.pattern('^[\\S]+$')]],
       building: ['', [Validators.maxLength(4), Validators.pattern('^[\\S]+$')]],
       ap:  ['', [Validators.maxLength(4), Validators.pattern('^[0-9]+$')]],
