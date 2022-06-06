@@ -252,20 +252,24 @@ INSERT INTO public.users(
     ALTER TABLE IF EXISTS public.organisations
         ADD CONSTRAINT email_unique UNIQUE (email);
 
-    CREATE FUNCTION null_email() RETURNS trigger AS $null_email$
-    BEGIN
-		IF (OLD.email = '') THEN
-			NEW.email := null;
-        END IF;
-		IF (NEW.email = '') THEN
-			NEW.email := null;
-        END IF;
-    RETURN NEW;
-    END;
+	CREATE FUNCTION public.null_email() RETURNS trigger
+		LANGUAGE plpgsql
+		AS $$
+		BEGIN
+			IF (OLD.email = '') THEN
+				NEW.email := null;
+			END IF;
+			IF (NEW.email = '') THEN
+				NEW.email := null;
+			END IF;
+			RETURN NEW;
+		END;
 
-    $null_email$ LANGUAGE plpgsql;
+	$$;
+
+	ALTER FUNCTION public.null_email() OWNER TO postgres;
 
     CREATE TRIGGER null_email
-        BEFORE INSERT OR UPDATE on organisations
+        BEFORE INSERT OR UPDATE on public.organisations
                              FOR EACH ROW
-                             EXECUTE FUNCTION null_email();
+                             EXECUTE FUNCTION public.null_email();
