@@ -6,6 +6,7 @@ import com.ness.mappers.EntityDTOMapper;
 import com.ness.misc.OrganisationEmailUniqueException;
 import com.ness.misc.OrganisationNotFoundException;
 import com.ness.repositories.OrganisationsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class OrganisationServiceImpl implements OrganisationService{
     
     private final OrganisationsRepository organisationsRepository;
+    @Autowired
     private final EntityDTOMapper<OrganisationDTO, Organisation> entityDTOMapper;
 
     public OrganisationServiceImpl(OrganisationsRepository organisationsRepository, EntityDTOMapper<OrganisationDTO, Organisation> entityDTOMapper) {

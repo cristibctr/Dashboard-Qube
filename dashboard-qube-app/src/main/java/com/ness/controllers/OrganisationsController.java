@@ -8,6 +8,7 @@ import com.ness.mappers.OrganisationsMapper;
 import com.ness.misc.OrganisationEmailUniqueException;
 import com.ness.misc.OrganisationsValidator;
 import com.ness.services.OrganisationService;
+import jdk.jfr.ContentType;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,7 +36,7 @@ public class OrganisationsController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(path="/api/organisations", produces= MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(path="/api/organisations", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<OrganisationDTO>> getAllClients(){
 
         return ResponseEntity.status(200).body(organisationService.getOrganisations().stream().map(organisation -> organisationsMapper.mapToDTO(organisation)).collect(Collectors.toList()));
