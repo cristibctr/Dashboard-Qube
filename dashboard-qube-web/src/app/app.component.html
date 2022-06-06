@@ -1,11 +1,7 @@
 <clr-main-container>
     <app-nav-bar></app-nav-bar>
-    <div class="content-container">
-		<div class="content-area" style="padding-top:0px">
-            <router-outlet></router-outlet>
-            <clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" class="successful-register" *ngIf="isRegistered">
-                User Registration Successful. Please Login
-            </clr-alert>
-        </div>
-    </div>
+    <router-outlet></router-outlet>
+    <clr-alert clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" class="successful-register" *ngIf="isRegistered">
+        User Registration Successful. Please Login
+    </clr-alert>
 </clr-main-container>

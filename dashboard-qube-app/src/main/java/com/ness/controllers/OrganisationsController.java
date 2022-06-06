@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,5 +67,15 @@ public class OrganisationsController {
     {
         Optional<List<OrganisationDTO>> orgDTOList = organisationService.getOrgBySearchString(searchString.toUpperCase().trim());
         return ResponseEntity.status(200).body(orgDTOList.isPresent() ? orgDTOList.get() : new ArrayList<OrganisationDTO>());
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(path="/api/organisations/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<OrganisationDTO> searchClient(@PathVariable Integer id)
+    {
+        OrganisationDTO orgDTO = organisationService.getOrganisation(id);
+        if(orgDTO == null)
+            return ResponseEntity.status(404).body(null);
+        return ResponseEntity.status(200).body(orgDTO);
     }
 }

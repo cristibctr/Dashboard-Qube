@@ -35,6 +35,12 @@ public class OrganisationServiceImpl implements OrganisationService{
     }
 
     @Override
+    public OrganisationDTO getOrganisation(Integer Id) {
+        Optional<Organisation> organisationOptional = organisationsRepository.findById(Id);
+        return organisationOptional.isPresent() ? entityDTOMapper.mapToDTO(organisationOptional.get()) : null;
+    }
+
+    @Override
     public Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException {
         Optional<Organisation> organisationByTaxId = organisationsRepository.findByTaxId(taxId);
 

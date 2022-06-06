@@ -25,4 +25,5 @@ public interface OrganisationsRepository extends CrudRepository<Organisation, In
             "OR UPPER(o.floor) LIKE %:searchString% "
     )
     Optional<List<Organisation>> findOrgByEmailAddressNamePhone(@Param("searchString") String searchString);
+    Optional<Organisation> findById(Integer id);
 }

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface IndividualClientsService {
     List<IndividualClient> getIndividualClients();
+    IndividualClientDTO getIndividualClient(Integer id);
     List<IndividualClient> getIndividualByLastName(String lastName);
     Optional<List<IndividualClientDTO>> getClientsBySearchString(String searchString);
     void save(IndividualClientDTO individualClientDTO) throws IndividualClientNotFoundException;
