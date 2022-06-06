@@ -35,7 +35,7 @@ export class OrganisationFormComponent implements OnInit {
       floor:  ['', [Validators.maxLength(3)]],
       postalCode:  ['', [Validators.minLength(2), Validators.maxLength(10)]],
       city:  ['', [Validators.minLength(1), Validators.maxLength(60)]],
-      country:  ['', [Validators.minLength(1), Validators.maxLength(60)]],
+      country:  ['Romania', [Validators.minLength(1), Validators.maxLength(60)]],
       email: ['', [Validators.maxLength(30), Validators.email, this.emailOrPhoneValidator, Validators.pattern("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")]],
       phone: ['', [Validators.minLength(12), Validators.maxLength(13), Validators.pattern("^(00|\\+)40\\d{9}$"), this.emailOrPhoneValidator]],
     });
