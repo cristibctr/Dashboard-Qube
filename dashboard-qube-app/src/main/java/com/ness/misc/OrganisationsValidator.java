@@ -104,7 +104,7 @@ public class OrganisationsValidator {
         if(streetName != "" && !streetMatcher.matches()){
             return false;
         }
-        Pattern numberPattern = Pattern.compile("^[0-9]+$");
+        Pattern numberPattern = Pattern.compile("^[\\S]+$");
         Matcher numberMatcher = numberPattern.matcher(number);
 
         if(number != "" && !numberMatcher.matches()){

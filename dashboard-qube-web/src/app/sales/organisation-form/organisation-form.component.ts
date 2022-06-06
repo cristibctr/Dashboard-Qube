@@ -29,7 +29,7 @@ export class OrganisationFormComponent implements OnInit {
       contactName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^([a-zA-Z]+[\\s-])*[a-zA-Z]+$')]],
       taxId: ['', [Validators.required, Validators.pattern('^[0-9]{6,6}$')]],
       street: ['', [Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
-      no: ['', [Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
+      no: ['', [Validators.maxLength(10), Validators.pattern('^[\\S]+$')]],
       building: ['', [Validators.maxLength(4), Validators.pattern('^[\\S]+$')]],
       ap:  ['', [Validators.maxLength(4), Validators.pattern('^[0-9]+$')]],
       floor:  ['', [Validators.maxLength(3), Validators.pattern('^[0-9]+$')]],

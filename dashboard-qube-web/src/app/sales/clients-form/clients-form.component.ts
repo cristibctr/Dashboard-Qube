@@ -71,7 +71,7 @@ export class ClientsFormComponent implements OnInit {
       dateOfBirth: ['', [Validators.pattern('^\\d{2}[\\./\\-]\\d{2}[\\./\\-]\\d{4}$'), this.minAgeValidator(new Date(Date.parse(this.dateNowMinus18)), new Date(Date.parse(this.dateNowMinus120))) ]],
       nationality: ['', []],
       street: ['', [Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^([\\S]+[\\s-])*[\\S)]+$')]],
-      no: ['', [Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
+      no: ['', [Validators.maxLength(10), Validators.pattern('^[\\S]+$')]],
       building: ['', [Validators.maxLength(4), Validators.pattern('^[\\S]+$')]],
       ap:  ['', [Validators.maxLength(4), Validators.pattern('^[0-9]+$')]],
       floor:  ['', [Validators.maxLength(3), Validators.pattern('^[0-9]+$')]],
