@@ -206,6 +206,12 @@
                     <clr-control-error *clrIfError="'emailOrPhone'">
                         Email or phone number is required
                     </clr-control-error>
+                    <clr-control-error *clrIfError="'minlength'">
+                      Phone number must be at least 3 characters long
+                  </clr-control-error>
+                  <clr-control-error *clrIfError="'maxlength'">
+                    Phone number must not exceed 20 characters
+                  </clr-control-error>
                 </clr-input-container>
             </div>
             <div class="clr-row" style="margin-top:24px">
