@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
-  styleUrls: ['./offers.component.scss']
+  styleUrls: ['./offers.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class OffersComponent implements OnInit {
 

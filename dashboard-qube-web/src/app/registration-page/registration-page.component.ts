@@ -8,6 +8,9 @@ import { RegisterService } from './register.service';
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  },
   providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class RegistrationPageComponent implements OnInit {

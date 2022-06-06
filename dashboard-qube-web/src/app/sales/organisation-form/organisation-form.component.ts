@@ -11,6 +11,9 @@ import { Organisation } from './organisation.model';
   selector: 'app-organisation-form',
   templateUrl: './organisation-form.component.html',
   styleUrls: ['./organisation-form.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  },
   providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class OrganisationFormComponent implements OnInit {

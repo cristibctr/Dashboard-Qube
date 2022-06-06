@@ -9,7 +9,10 @@ import { AppointmentModifyService } from './appointment-modify/appointment-modif
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.scss']
+  styleUrls: ['./appointments.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class AppointmentsComponent implements OnInit, OnDestroy {
 

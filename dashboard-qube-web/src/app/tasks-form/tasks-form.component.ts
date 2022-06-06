@@ -9,6 +9,9 @@ import { TasksService } from '../tasks/tasks.service';
   selector: 'app-tasks-form',
   templateUrl: './tasks-form.component.html',
   styleUrls: ['./tasks-form.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  },
   providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class TasksFormComponent implements OnInit {

@@ -8,9 +8,9 @@ import { ClientService } from './client.service';
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
-  // host: {
-  //   class: 'content-container'
-  // }
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class ClientComponent implements OnInit {
   selectedClientId!: number;

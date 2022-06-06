@@ -8,7 +8,10 @@ import { LoginService } from './login.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   loginDataForm!: FormGroup;
