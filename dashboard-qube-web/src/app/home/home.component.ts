@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class HomeComponent implements OnInit, OnDestroy{
   interval: any;

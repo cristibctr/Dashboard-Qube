@@ -10,6 +10,9 @@ import { AppointmentsService } from './appointments.service';
   selector: 'app-appointments-form',
   templateUrl: './appointments-form.component.html',
   styleUrls: ['./appointments-form.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  },
   providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class AppointmentsFormComponent implements OnInit, OnDestroy {

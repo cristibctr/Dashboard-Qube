@@ -8,7 +8,10 @@ import { TasksService } from './tasks.service';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  styleUrls: ['./tasks.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class TasksComponent implements OnInit, OnDestroy {
 

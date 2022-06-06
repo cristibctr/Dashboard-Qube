@@ -248,3 +248,24 @@ INSERT INTO public.users(
 
     ALTER TABLE ONLY public.organisations
         ADD CONSTRAINT tax_id_unique UNIQUE (tax_id);
+
+    ALTER TABLE IF EXISTS public.organisations
+        ADD CONSTRAINT email_unique UNIQUE (email);
+
+    CREATE FUNCTION null_email() RETURNS trigger AS $null_email$
+    BEGIN
+		IF (OLD.email = '') THEN
+			NEW.email := null;
+        END IF;
+		IF (NEW.email = '') THEN
+			NEW.email := null;
+        END IF;
+    RETURN NEW;
+    END;
+
+    $null_email$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER null_email
+        BEFORE INSERT OR UPDATE on organisations
+                             FOR EACH ROW
+                             EXECUTE FUNCTION null_email();

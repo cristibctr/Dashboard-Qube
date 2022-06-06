@@ -8,7 +8,10 @@ import { Client, Salutation } from './client.model';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss']
+  styleUrls: ['./clients.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  }
 })
 export class ClientsComponent implements OnInit {
   clientSuccess: boolean = false;

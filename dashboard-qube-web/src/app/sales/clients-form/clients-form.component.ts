@@ -10,6 +10,9 @@ import { Client, Salutation } from '../clients/client.model';
   selector: 'app-clients-form',
   templateUrl: './clients-form.component.html',
   styleUrls: ['./clients-form.component.scss'],
+  host: {
+    '[class.u-main-container]': 'true',
+  },
   providers: [{ provide: LOCALE_ID, useValue: 'en-gb' }],
 })
 export class ClientsFormComponent implements OnInit {

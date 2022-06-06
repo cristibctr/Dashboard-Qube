@@ -5,6 +5,7 @@ import com.ness.dtos.IndividualClientDTO;
 import com.ness.dtos.OrganisationDTO;
 import com.ness.entities.Organisation;
 import com.ness.mappers.OrganisationsMapper;
+import com.ness.misc.OrganisationEmailUniqueException;
 import com.ness.misc.OrganisationsValidator;
 import com.ness.services.OrganisationService;
 import org.springframework.http.MediaType;
@@ -43,21 +44,23 @@ public class OrganisationsController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path="/api/organisations", produces= MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> save(@RequestBody OrganisationDTO organisationDTO){
+    public ResponseEntity<String> save(@RequestBody OrganisationDTO organisationDTO) {
         if(!OrganisationsValidator.validate(organisationDTO))
         {
             return ResponseEntity.status(404).body("Incorrect request data");
         }
         Organisation existentOrganisation =
             organisationService.getOrganisationByTaxId(organisationDTO.getTaxId());
-
-
-
         if(existentOrganisation != null){
-            return ResponseEntity.status(409).body("Organisation already exists");
+            return ResponseEntity.status(409).body("Organisation taxid already exists");
         }
 
-        organisationService.save(organisationDTO);
+        try{
+            organisationService.save(organisationDTO);
+        }
+        catch(OrganisationEmailUniqueException e){
+            return ResponseEntity.status(409).body("Organisation email already exists");
+        }
         return ResponseEntity.status(200).body("Organisation created");
     }
 
