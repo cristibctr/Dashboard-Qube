@@ -1,12 +1,12 @@
 package com.ness.services;
 
-import com.ness.dtos.IndividualClientDTO;
 import com.ness.dtos.OrganisationDTO;
-import com.ness.entities.IndividualClient;
 import com.ness.entities.Organisation;
 import com.ness.mappers.EntityDTOMapper;
+import com.ness.misc.OrganisationEmailUniqueException;
 import com.ness.misc.OrganisationNotFoundException;
 import com.ness.repositories.OrganisationsRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,7 +57,13 @@ public class OrganisationServiceImpl implements OrganisationService{
     }
 
     @Override
-    public void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException {
-        this.organisationsRepository.save(entityDTOMapper.mapDTOTo(organisationDTO));
+    public void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException, OrganisationEmailUniqueException {
+        try {
+            this.organisationsRepository.save(entityDTOMapper.mapDTOTo(organisationDTO));
+        }
+        catch (DataIntegrityViolationException e){
+            if(e.getMostSpecificCause().getMessage().contains("email_unique"))
+                throw new OrganisationEmailUniqueException("Organisation email already exists");
+        }
     }
 }

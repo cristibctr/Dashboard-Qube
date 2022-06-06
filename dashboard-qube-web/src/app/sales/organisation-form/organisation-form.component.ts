@@ -75,7 +75,12 @@ export class OrganisationFormComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           if(error.status == 409)
-            this.errorMessage = `An organisation with Tax Id ${this.organisationDataForm.controls['taxId'].value} already exists`;
+          {
+            if(error.error == "Organisation taxid already exists")
+              this.errorMessage = `An organisation with Tax Id ${this.organisationDataForm.controls['taxId'].value} already exists`;
+            if(error.error == "Organisation email already exists")
+              this.errorMessage = `An organisation with Email ${this.organisationDataForm.controls['email'].value} already exists`;
+          }
           else if(error.status == 404)
             this.errorMessage = `The organisation's data is invalid.`;
           else
