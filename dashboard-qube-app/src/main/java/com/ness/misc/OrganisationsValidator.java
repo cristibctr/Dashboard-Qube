@@ -67,6 +67,28 @@ public class OrganisationsValidator {
         if((building != null && building.length() > 4) || ( apartment!= null && apartment.length() > 4) || (floor != null && floor.length() > 3)){
             return false;
         }
+
+        Pattern buildingPattern = Pattern.compile("^[\\S]+$", Pattern.CASE_INSENSITIVE);
+        Matcher buildingMatcher = buildingPattern.matcher(building);
+
+        if(building != "" && !buildingMatcher.matches()){
+            return false;
+        }
+
+        Pattern apartmentPattern = Pattern.compile("^[0-9]+$");
+        Matcher apartmentMatcher = apartmentPattern.matcher(apartment);
+
+        if(apartment != "" && !apartmentMatcher.matches()){
+            return false;
+        }
+
+        Pattern floorPattern = Pattern.compile("^[0-9]+$");
+        Matcher floorMatcher = floorPattern.matcher(floor);
+
+        if(floor != "" && !floorMatcher.matches()){
+            return false;
+        }
+
         return true;
     }
 
@@ -75,6 +97,20 @@ public class OrganisationsValidator {
         if((number != null && number.length() > 10) || (streetName != null && (streetName.length() == 1 || streetName.length() > 30))){
             return false;
         }
+
+        Pattern streetPattern = Pattern.compile("^[\\S]+$", Pattern.CASE_INSENSITIVE);
+        Matcher streetMatcher = streetPattern.matcher(streetName);
+
+        if(streetName != "" && !streetMatcher.matches()){
+            return false;
+        }
+        Pattern numberPattern = Pattern.compile("^[\\S]+$");
+        Matcher numberMatcher = numberPattern.matcher(number);
+
+        if(number != "" && !numberMatcher.matches()){
+            return false;
+        }
+
         return true;
     }
 
@@ -85,6 +121,14 @@ public class OrganisationsValidator {
         if(postalCode != "" && (postalCode.length() < 2 || postalCode.length() > 10)){
             return false;
         }
+
+        Pattern pattern = Pattern.compile("^[\\S]+$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(postalCode);
+
+        if(postalCode != "" && !matcher.matches()){
+            return false;
+        }
+
         return true;
     }
 
