@@ -15,6 +15,7 @@ import { ClientService } from './client.service';
 export class ClientComponent implements OnInit {
   selectedClientId!: number;
   clientName!: string;
+  clientSalutation!: string;
 
   constructor(private clientService: ClientService, private route: ActivatedRoute) { }
 
@@ -24,6 +25,7 @@ export class ClientComponent implements OnInit {
       next: (client) => {
         this.clientService.addData(client.body!);
         this.clientName = client.body!.firstName + ' ' + client.body!.lastName;
+        this.clientSalutation = client.body!.salutation;
       },
       error: (err) => {
         if(err.status === 404) {
