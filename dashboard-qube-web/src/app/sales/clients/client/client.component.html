@@ -11,5 +11,8 @@
     <app-subnav></app-subnav>
     <div class="content-area">
         <router-outlet></router-outlet>
+        <clr-alert class="alert" clrAlertType="success" [clrAlertAppLevel]="true" [clrAlertClosable]="false" *ngIf="clientSuccess || organisationSuccess">
+            <em>Registration completed successfully.</em>
+        </clr-alert>
     </div>
 </div>

@@ -10,6 +10,7 @@ import { Client } from '../client.model';
 })
 export class ClientService {
   private dataRetrieved: Subject<Client | Organisation | null> = new BehaviorSubject<Client | Organisation | null>(null);
+  clientIsCreated: boolean = false;
 
   dataRetrieved$ = this.dataRetrieved.asObservable();
 
