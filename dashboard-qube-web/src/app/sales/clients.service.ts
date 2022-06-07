@@ -7,7 +7,6 @@ import { Client } from './clients/client.model';
   providedIn: 'root'
 })
 export class ClientsService {
-  clientIsCreated: boolean = false;
 
   getNationalities() {
     return this.http.get<{id: number, common_name: string, demonym: string}[]>(`https://api.manatal.com/open/v3/nationalities/`, {observe: 'response', responseType: 'json'});

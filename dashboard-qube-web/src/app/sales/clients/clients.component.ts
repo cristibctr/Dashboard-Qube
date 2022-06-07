@@ -14,33 +14,14 @@ import { Client, Salutation } from './client.model';
   }
 })
 export class ClientsComponent implements OnInit {
-  clientSuccess: boolean = false;
   clients: Client[] = [];
   orgs: Organisation[] = [];
   searchDone: boolean = false;
   searchTerms!: string;
-  organisationSucces: boolean = false;
 
   constructor(private clientsService: ClientsService, private organisationsService: OrganisationService) { }
 
-  ngOnInit(): void {
-    if(this.clientsService.clientIsCreated === true){
-      this.clientSuccess = true;
-      this.clientsService.clientIsCreated = false;
-      setTimeout(() => {
-        this.clientSuccess = false;
-      }, 2000)
-    }
-
-    if(this.organisationsService.organisationIsCreated === true){
-      this.organisationSucces = true;
-      this.organisationsService.organisationIsCreated = false;
-      setTimeout(() => {
-        this.organisationSucces = false;
-      }, 2000)
-    }
-
-  }
+  ngOnInit(): void { }
 
   searchClientsOrgs(search: string){
     this.searchTerms = search;

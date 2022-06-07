@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map, take } from 'rxjs';
 import { ClientsService } from '../clients.service';
 import { Client, Salutation } from '../clients/client.model';
+import { ClientService } from '../clients/client/client.service';
 
 @Component({
   selector: 'app-clients-form',
@@ -65,7 +66,7 @@ export class ClientsFormComponent implements OnInit {
     return this.clientsDataForm.controls['country'];
   }
 
-    constructor(private formBuilder: FormBuilder, private clientsService: ClientsService, private router: Router) {
+    constructor(private formBuilder: FormBuilder, private clientsService: ClientsService, private clientService: ClientService, private router: Router) {
     this.getAgeRange();
     this.clientsDataForm = this.formBuilder.group({
       salutation: ['', [Validators.required]],
@@ -133,7 +134,7 @@ export class ClientsFormComponent implements OnInit {
 
       this.clientsService.addClient(client).subscribe({
         next: (data: HttpResponse<any>) => {
-          this.clientsService.clientIsCreated = true;
+          this.clientService.clientIsCreated = true;
           this.router.navigate(["/clients/" + +data.body + "/overview"]);
         },
         error: (error: HttpErrorResponse) => {
