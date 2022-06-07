@@ -13,5 +13,5 @@ public interface IndividualClientsService {
     IndividualClientDTO getIndividualClient(Integer id);
     List<IndividualClient> getIndividualByLastName(String lastName);
     Optional<List<IndividualClientDTO>> getClientsBySearchString(String searchString);
-    void save(IndividualClientDTO individualClientDTO) throws IndividualClientNotFoundException;
+    Integer save(IndividualClientDTO individualClientDTO) throws IndividualClientNotFoundException;
 }

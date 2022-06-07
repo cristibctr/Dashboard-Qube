@@ -134,7 +134,7 @@ export class ClientsFormComponent implements OnInit {
       this.clientsService.addClient(client).subscribe({
         next: (data: HttpResponse<any>) => {
           this.clientsService.clientIsCreated = true;
-          this.router.navigate(["/clients"]);
+          this.router.navigate(["/clients/" + +data.body + "/overview"]);
         },
         error: (error: HttpErrorResponse) => {
           if(error.status == 409)

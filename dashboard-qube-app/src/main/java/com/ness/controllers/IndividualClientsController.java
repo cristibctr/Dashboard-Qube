@@ -74,9 +74,9 @@ public class IndividualClientsController {
             }
 
         }
-        individualClientsService.save(individualClientDTO);
+        Integer clientId = individualClientsService.save(individualClientDTO);
 
-        return ResponseEntity.status(200).body("Individual Client created");
+        return ResponseEntity.status(200).body(clientId.toString());
     }
 
     @CrossOrigin(origins = "*")

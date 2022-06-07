@@ -74,7 +74,7 @@ export class OrganisationFormComponent implements OnInit {
       this.organisationService.addOrganisation(organisation).subscribe({
         next: (data: HttpResponse<any>) => {
           this.organisationService.organisationIsCreated = true;
-          this.router.navigate(["/clients"]);
+          this.router.navigate(["/clients/" + +data.body + "/overview"]);
         },
         error: (error: HttpErrorResponse) => {
           if(error.status == 409)
