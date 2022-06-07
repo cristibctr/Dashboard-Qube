@@ -57,13 +57,14 @@ public class OrganisationServiceImpl implements OrganisationService{
     }
 
     @Override
-    public void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException, OrganisationEmailUniqueException {
+    public Integer save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException, OrganisationEmailUniqueException {
         try {
-            this.organisationsRepository.save(entityDTOMapper.mapDTOTo(organisationDTO));
+            return this.organisationsRepository.save(entityDTOMapper.mapDTOTo(organisationDTO)).getId();
         }
         catch (DataIntegrityViolationException e){
             if(e.getMostSpecificCause().getMessage().contains("email_unique"))
                 throw new OrganisationEmailUniqueException("Organisation email already exists");
         }
+        return -1;
     }
 }

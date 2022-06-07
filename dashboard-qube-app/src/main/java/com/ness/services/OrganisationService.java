@@ -15,5 +15,5 @@ public interface OrganisationService {
     OrganisationDTO getOrganisation(Integer Id);
     Organisation getOrganisationByTaxId(String taxId) throws OrganisationNotFoundException;
     Optional<List<OrganisationDTO>> getOrgBySearchString(String searchString);
-    void save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException;
+    Integer save(OrganisationDTO organisationDTO) throws OrganisationNotFoundException;
 }

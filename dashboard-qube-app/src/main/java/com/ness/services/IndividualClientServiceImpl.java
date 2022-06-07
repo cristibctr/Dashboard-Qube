@@ -57,7 +57,7 @@ public class IndividualClientServiceImpl implements IndividualClientsService{
 
 
     @Override
-    public void save(IndividualClientDTO individualClientDTO) throws IndividualClientNotFoundException {
-        this.individualClientsRepository.save(entityDTOMapper.mapDTOTo(individualClientDTO));
+    public Integer save(IndividualClientDTO individualClientDTO) throws IndividualClientNotFoundException {
+        return this.individualClientsRepository.save(entityDTOMapper.mapDTOTo(individualClientDTO)).getId();
     }
 }

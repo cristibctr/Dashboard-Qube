@@ -56,12 +56,12 @@ public class OrganisationsController {
         }
 
         try{
-            organisationService.save(organisationDTO);
+            Integer userId = organisationService.save(organisationDTO);
+            return ResponseEntity.status(200).body(userId.toString());
         }
         catch(OrganisationEmailUniqueException e){
             return ResponseEntity.status(409).body("Organisation email already exists");
         }
-        return ResponseEntity.status(200).body("Organisation created");
     }
 
     @CrossOrigin(origins = "*")
